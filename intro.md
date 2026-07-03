@@ -237,7 +237,7 @@
 ## 十三、获取帮助与版权
 
 - **开发者文档**：根目录 `README.md`、`AGENTS.md`、`back_frame/README.md`、`front_ui/README.md`。
-- **版权**：Copyright © 2024 西安流波云信息技术有限公司（以产品内声明为准）。
+- **版权**：Copyright © 2024 西安禾成讴沃信息科技有限公司（以产品内声明为准）。
 
 ---
 
