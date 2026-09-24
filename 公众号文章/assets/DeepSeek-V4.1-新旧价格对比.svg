@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <defs>
+    <linearGradient id="barNew" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7C95FF"/>
+      <stop offset="1" stop-color="#4D6BFE"/>
+    </linearGradient>
+    <linearGradient id="barOld" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CFD4DD"/>
+      <stop offset="1" stop-color="#B3B9C6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 白底 -->
+  <rect width="1200" height="700" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="600" y="58" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="30" font-weight="700" fill="#1F2430">V4.1 Flash 价格对比<tspan font-size="20" font-weight="400" fill="#6B7280">（元 / 百万 Tokens，空闲时段）</tspan></text>
+  <rect x="568" y="72" width="64" height="4" rx="2" fill="#4D6BFE"/>
+
+  <!-- 基线 -->
+  <line x1="110" y1="530" x2="1090" y2="530" stroke="#E6EAF2" stroke-width="2"/>
+
+  <!-- 组1：缓存命中输入 -->
+  <rect x="157" y="100" width="146" height="36" rx="18" fill="#EDF1FF"/>
+  <text x="230" y="124" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">缓存命中输入</text>
+  <rect x="180" y="152" width="100" height="34" rx="17" fill="#FDEEEF"/>
+  <text x="230" y="175" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="19" font-weight="700" fill="#E5484D">▼60%</text>
+  <path d="M151 530 L151 298 Q151 290 159 290 L207 290 Q215 290 215 298 L215 530 Z" fill="url(#barOld)"/>
+  <path d="M245 530 L245 442 Q245 434 253 434 L301 434 Q309 434 309 442 L309 530 Z" fill="url(#barNew)"/>
+  <text x="183" y="276" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#8A8F9C">0.05</text>
+  <text x="277" y="420" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#3D5AFE">0.02</text>
+  <text x="183" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#8A8F9C">8 月调价后</text>
+  <text x="183" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#A6ACB8">（V4-Flash）</text>
+  <text x="277" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" font-weight="700" fill="#4D6BFE">最新</text>
+  <text x="277" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#4D6BFE">（V4.1 Flash）</text>
+
+  <!-- 组2：缓存未命中输入 -->
+  <rect x="519" y="100" width="163" height="36" rx="18" fill="#EDF1FF"/>
+  <text x="600" y="124" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">缓存未命中输入</text>
+  <rect x="550" y="152" width="100" height="34" rx="17" fill="#FDEEEF"/>
+  <text x="600" y="175" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="19" font-weight="700" fill="#E5484D">▼33.3%</text>
+  <path d="M521 530 L521 298 Q521 290 529 290 L577 290 Q585 290 585 298 L585 530 Z" fill="url(#barOld)"/>
+  <path d="M615 530 L615 378 Q615 370 623 370 L671 370 Q679 370 679 378 L679 530 Z" fill="url(#barNew)"/>
+  <text x="553" y="276" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#8A8F9C">1.5</text>
+  <text x="647" y="356" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#3D5AFE">1</text>
+  <text x="553" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#8A8F9C">8 月调价后</text>
+  <text x="553" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#A6ACB8">（V4-Flash）</text>
+  <text x="647" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" font-weight="700" fill="#4D6BFE">最新</text>
+  <text x="647" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#4D6BFE">（V4.1 Flash）</text>
+
+  <!-- 组3：输出 -->
+  <rect x="927" y="100" width="86" height="36" rx="18" fill="#EDF1FF"/>
+  <text x="970" y="124" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">输出</text>
+  <rect x="920" y="152" width="100" height="34" rx="17" fill="#FDEEEF"/>
+  <text x="970" y="175" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="19" font-weight="700" fill="#E5484D">▼11.1%</text>
+  <path d="M891 530 L891 298 Q891 290 899 290 L947 290 Q955 290 955 298 L955 530 Z" fill="url(#barOld)"/>
+  <path d="M985 530 L985 325 Q985 317 993 317 L1041 317 Q1049 317 1049 325 L1049 530 Z" fill="url(#barNew)"/>
+  <text x="923" y="276" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#8A8F9C">4.5</text>
+  <text x="1017" y="303" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="26" font-weight="700" fill="#3D5AFE">4</text>
+  <text x="923" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#8A8F9C">8 月调价后</text>
+  <text x="923" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#A6ACB8">（V4-Flash）</text>
+  <text x="1017" y="552" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" font-weight="700" fill="#4D6BFE">最新</text>
+  <text x="1017" y="570" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#4D6BFE">（V4.1 Flash）</text>
+
+  <!-- 图例 -->
+  <rect x="463" y="598" width="14" height="14" rx="3" fill="#B3B9C6"/>
+  <text x="483" y="611" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="14" fill="#6B7280">旧（8 月调价后）</text>
+  <rect x="643" y="598" width="14" height="14" rx="3" fill="#4D6BFE"/>
+  <text x="663" y="611" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="14" fill="#4D6BFE">新（最新）</text>
+
+  <!-- 脚注 -->
+  <text x="600" y="660" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="15" fill="#9AA0AC">高峰时段（工作日 9:00–12:00、14:00–18:00）为表中价格的 2 倍；V4-Pro 计费方式保持不变。</text>
+</svg>

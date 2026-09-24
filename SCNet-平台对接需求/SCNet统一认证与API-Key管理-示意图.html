@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCNet 统一认证与 API Key 管理 — 需求示意图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #f7f8fa;
+  --card: #ffffff;
+  --border: #e3e6ea;
+  --text: #24292f;
+  --text-2: #57606a;
+  --accent: #1a6feb;
+  --accent-2: #0d5bd1;
+  --muted-bg: #f0f2f5;
+  --danger: #d1242f;
+  --ok: #1a7f37;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 32px 16px 64px;
+  font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.65;
+}
+.page { max-width: 980px; margin: 0 auto; }
+header.doc {
+  border-bottom: 2px solid var(--border); padding-bottom: 16px; margin-bottom: 28px;
+}
+header.doc h1 { font-size: 26px; margin: 0 0 8px; }
+header.doc .meta { color: var(--text-2); font-size: 13px; }
+header.doc .meta b { color: var(--text); font-weight: 600; }
+section.fig {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px 22px; margin-bottom: 24px;
+}
+section.fig h2 {
+  font-size: 17px; margin: 0 0 4px; display: flex; align-items: center; gap: 8px;
+}
+section.fig h2 .no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 6px; background: var(--accent);
+  color: #fff; font-size: 13px; font-weight: 700; flex: none;
+}
+section.fig .desc { color: var(--text-2); font-size: 13.5px; margin: 0 0 14px; }
+.mermaid { background: transparent; display: flex; justify-content: center; }
+.mermaid svg { max-width: 100%; height: auto; }
+.mermaid-fallback {
+  display: none; background: var(--muted-bg); border-radius: 8px; padding: 12px 16px;
+  font-family: Consolas, monospace; font-size: 12px; white-space: pre; overflow-x: auto;
+  color: var(--text-2);
+}
+.note {
+  font-size: 12.5px; color: var(--text-2); background: var(--muted-bg);
+  border-left: 3px solid var(--accent); border-radius: 4px; padding: 8px 12px; margin-top: 12px;
+}
+
+/* ============ 线框图 ============ */
+.wireframe { display: flex; justify-content: center; }
+.browser {
+  width: 440px; max-width: 100%; border: 1px solid var(--border); border-radius: 10px;
+  overflow: hidden; background: var(--card); box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.browser-bar {
+  display: flex; align-items: center; gap: 6px; padding: 8px 12px;
+  background: var(--muted-bg); border-bottom: 1px solid var(--border);
+}
+.browser-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+.browser-bar .dot.r { background: #ff5f57; } .browser-bar .dot.y { background: #febc2e; } .browser-bar .dot.g { background: #28c840; }
+.browser-bar .url {
+  flex: 1; margin-left: 8px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 6px; font-size: 11px; color: var(--text-2); padding: 2px 10px; white-space: nowrap; overflow: hidden;
+}
+.page-body { padding: 18px 22px 22px; }
+.brand {
+  display: flex; align-items: center; gap: 8px; justify-content: center;
+  font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 4px;
+}
+.brand .logo {
+  width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px;
+}
+h4.wf-title { text-align: center; margin: 2px 0 14px; font-size: 15px; }
+.app-card {
+  display: flex; align-items: center; gap: 12px; border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+}
+.app-logo {
+  width: 44px; height: 44px; border-radius: 10px; flex: none;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px;
+}
+.app-name { font-weight: 700; font-size: 14.5px; }
+.app-sub { color: var(--text-2); font-size: 12px; }
+.badge {
+  display: inline-block; margin-left: 6px; font-size: 11px; color: var(--ok);
+  border: 1px solid var(--ok); border-radius: 4px; padding: 0 5px; vertical-align: 1px;
+}
+.acct {
+  display: flex; align-items: center; gap: 10px; background: var(--muted-bg);
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+}
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%; flex: none; background: #9aa4b2; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px;
+}
+.acct .name { font-weight: 600; font-size: 13.5px; }
+.acct .sub { color: var(--text-2); font-size: 12px; }
+.acct .switch { margin-left: auto; color: var(--accent); font-size: 12px; }
+.perm-title { font-size: 12.5px; color: var(--text-2); margin: 0 0 6px; }
+.perm { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 16px; overflow: hidden; }
+.perm .row { display: flex; gap: 8px; padding: 9px 14px; font-size: 13px; align-items: flex-start; }
+.perm .row + .row { border-top: 1px dashed var(--border); }
+.perm .row .tick { color: var(--ok); font-weight: 700; flex: none; }
+.btns { display: flex; gap: 10px; }
+.btn {
+  flex: 1; text-align: center; padding: 9px 0; border-radius: 8px; font-size: 14px; font-weight: 600;
+}
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.ghost { border: 1px solid var(--border); color: var(--text-2); }
+.safe-tip { text-align: center; font-size: 11.5px; color: var(--text-2); margin-top: 14px; }
+.login-box { border: 1px solid var(--border); border-radius: 10px; padding: 14px; margin-bottom: 14px; }
+.login-box .field { margin-bottom: 10px; }
+.login-box .field label { display: block; font-size: 12px; color: var(--text-2); margin-bottom: 4px; }
+.login-box .field .input {
+  border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: 13px;
+  color: var(--text-2); background: var(--muted-bg);
+}
+.single-btn { text-align: center; }
+.footer-tip { margin-top: 6px; text-align: center; color: var(--text-2); font-size: 12px; }
+.footer-tip a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <h1>SCNet 平台第三方对接需求 — 示意图集</h1>
+  <div class="meta">
+    版本 <b>v1.0</b> · 编制日期 <b>2026-08-22</b> · 提交方 <b>西安禾成讴沃信息科技有限公司（知令团队）</b> ·
+    配套文档：SCNet统一认证与API-Key管理需求文档.md
+  </div>
+</header>
+
+<!-- 图1 -->
+<section class="fig">
+  <h2><span class="no">1</span>总体架构：认证授权 + API Key 管理 + 大模型推理</h2>
+  <p class="desc">SCNet 新增「开放平台应用注册」「认证与授权服务」「API Key 管理服务」，第三方应用经授权后为用户无感准备 Key 并直接调用大模型推理端点。</p>
+  <pre class="mermaid">
+flowchart LR
+    subgraph 用户侧
+        U[SCNet 用户]
+    end
+    subgraph 第三方
+        C[第三方应用<br/>知令桌面端/网页]
+    end
+    subgraph SCNet平台
+        REG[开放平台<br/>应用注册与管理]
+        AUTHZ[认证与授权服务<br/>登录页 / 授权确认页]
+        TOKEN[凭证服务<br/>签发/刷新/撤销]
+        USER[账户信息服务<br/>userinfo]
+        KEY[大模型 API Key<br/>管理服务]
+        LLM[大模型推理服务<br/>api.scnet.cn/api/llm/v1]
+    end
+
+    C -->|注册应用 获取client_id| REG
+    C -->|1.发起授权 跳转认证页| AUTHZ
+    U -->|2.登录（密码不出SCNet）| AUTHZ
+    U -->|3.确认授权| AUTHZ
+    AUTHZ -->|签发授权码/token| TOKEN
+    C -->|4.换取/轮询获取 token| TOKEN
+    C -->|5.携带token拉取账户信息| USER
+    C -->|6.创建/读取 API Key| KEY
+    C -->|7.以API Key调用大模型| LLM
+  </pre>
+</section>
+
+<!-- 图2 -->
+<section class="fig">
+  <h2><span class="no">2</span>需求一 · 模式 A：OAuth 2.0 授权码 + PKCE（推荐）</h2>
+  <p class="desc">标准授权码流程。用户密码仅提交到 SCNet；第三方通过回调获得授权码，再换取 token 与账户信息。桌面端可用回环地址接收回调。</p>
+  <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant C as 第三方应用
+    participant B as 浏览器
+    participant S as SCNet认证授权服务
+
+    C->>C: 生成 state(防CSRF) + PKCE(code_verifier/code_challenge)
+    C->>B: 打开认证页 authorize?client_id&redirect_uri&scope&state&code_challenge
+    B->>S: GET /oauth/authorize
+    alt 用户未登录
+        S-->>B: 登录页(密码仅提交至SCNet)
+        B->>S: 提交账号密码
+    end
+    S-->>B: 授权确认页(应用信息+权限清单)
+    alt 用户同意
+        B->>S: 确认授权
+        S-->>B: 302 redirect_uri?code=xxx&state=xxx
+        B->>C: 回调携带授权码 code
+        C->>S: POST /oauth/token(code+code_verifier)
+        S-->>C: access_token + refresh_token + userinfo
+    else 用户拒绝
+        S-->>B: 302 redirect_uri?error=access_denied&state=xxx
+        B->>C: 回调携带拒绝错误
+    end
+  </pre>
+</section>
+
+<!-- 图3 -->
+<section class="fig">
+  <h2><span class="no">3</span>需求一 · 模式 B：授权请求 ID + 轮询（桌面端友好，知令同款）</h2>
+  <p class="desc">桌面端不便接收浏览器回调时采用。第三方生成高熵 request_id，用户授权后轮询状态接口领取凭证。该机制即知令桌面端现有登录方式的通用化版本。</p>
+  <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant C as 第三方应用(桌面端)
+    participant B as 浏览器
+    participant S as SCNet认证授权服务
+
+    C->>C: 生成随机 request_id(≥32位)
+    C->>B: 打开 device?client_id&request_id&scope
+    B->>S: GET /oauth/device
+    alt 用户未登录
+        S-->>B: 登录页
+        B->>S: 提交账号密码
+    end
+    S-->>B: 授权确认页
+    B->>S: 用户点击「同意授权」
+    S->>S: 生成 token 并绑定 request_id<br/>(5分钟拉取窗口)
+    loop 轮询(间隔2~3s)
+        C->>S: POST /oauth/device/status(request_id)
+        S-->>C: pending(未授权)
+    end
+    C->>S: POST /oauth/device/status(request_id)
+    S-->>C: authorized + access_token + refresh_token + userinfo
+  </pre>
+  <div class="note">轮询状态机：<b>pending</b>（未确认）→ <b>authorized</b>（首次成功拉取，下发凭证）→ <b>active</b>（后续查询）｜<b>denied</b>（用户拒绝）｜<b>expired</b>（5 分钟超时或已撤销）。安全：HTTPS + 按 IP+request_id 滑动窗口限流 + 每用户活跃会话数上限。</div>
+</section>
+
+<!-- 图4 -->
+<section class="fig">
+  <h2><span class="no">4</span>两个需求联动：授权后无感跑通大模型（端到端时序）</h2>
+  <p class="desc">授权成功 → 查询已有 Key → 无 Key 则创建（返回完整 Key 一次）/ 有 Key 则读取明文 → 以 Key 调用推理端点。全程用户无手动操作。</p>
+  <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    participant U as 用户
+    participant C as 第三方应用(知令)
+    participant S as SCNet
+
+    C->>S: 发起授权请求(scope 含 user:info + llm:apikey)
+    S->>U: 展示登录页(未登录) / 授权确认页(已登录)
+    U->>S: 输入账号密码(仅提交到SCNet)
+    U->>S: 点击「同意授权」
+    S->>C: 返回 access_token + 用户信息
+    C->>S: 查询该用户已有的 API Key(读取接口)
+    alt 无可用 Key
+        C->>S: 创建 API Key(创建接口，返回完整Key)
+    else 已有 Key
+        C->>S: 读取 Key 明文(读取接口)
+    end
+    C->>S: 以 API Key 调用大模型推理端点
+    S-->>C: 模型响应(流式/非流式)
+    C-->>U: 第三方应用内直接使用大模型能力
+  </pre>
+</section>
+
+<!-- 图5 -->
+<section class="fig">
+  <h2><span class="no">5</span>授权确认页线框图（核心页面）</h2>
+  <p class="desc">已登录用户直达此页；未登录用户先经 SCNet 登录页再自动回到此页。页面须展示：第三方应用信息、当前登录账号、本次请求的权限清单、同意/拒绝按钮与安全提示。</p>
+  <div class="wireframe">
+    <div class="browser">
+      <div class="browser-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <div class="url">https://www.scnet.cn/oauth/authorize?client_id=zhiling&scope=...</div>
+      </div>
+      <div class="page-body">
+        <div class="brand"><span class="logo">S</span>SCNet · 国家超算互联网</div>
+        <h4 class="wf-title">第三方应用授权</h4>
+
+        <div class="app-card">
+          <div class="app-logo">知</div>
+          <div>
+            <div class="app-name">知令 ZHILING<span class="badge">✓ 已认证</span></div>
+            <div class="app-sub">开发主体：西安禾成讴沃信息科技有限公司</div>
+          </div>
+        </div>
+
+        <div class="acct">
+          <div class="avatar">张</div>
+          <div>
+            <div class="name">张三（zhangsan）</div>
+            <div class="sub">将使用您的 SCNet 账号进行授权</div>
+          </div>
+          <div class="switch">切换账号</div>
+        </div>
+
+        <div class="perm-title">「知令」申请获得以下权限：</div>
+        <div class="perm">
+          <div class="row"><span class="tick">✓</span><span>读取您的账户基本信息（昵称、账号、邮箱等）</span></div>
+          <div class="row"><span class="tick">✓</span><span>为您自动创建大模型 API Key（用于调用 SCNet 大模型服务）</span></div>
+          <div class="row"><span class="tick">✓</span><span>读取您的大模型 API Key（用于自动配置，无需手动复制）</span></div>
+        </div>
+
+        <div class="btns">
+          <div class="btn ghost">拒 绝</div>
+          <div class="btn primary">同意授权</div>
+        </div>
+        <div class="safe-tip">🔒 您的账号密码仅用于 SCNet 登录，不会提供给第三方应用。可随时在 SCNet 个人中心撤销授权。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 图6 -->
+<section class="fig">
+  <h2><span class="no">6</span>登录页线框图（复用 SCNet 现有登录）</h2>
+  <p class="desc">用户未登录时先展示登录页；登录成功后自动回跳授权确认页，不中断授权流程。建议注明本次登录目的。</p>
+  <div class="wireframe">
+    <div class="browser">
+      <div class="browser-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <div class="url">https://www.scnet.cn/oauth/login?client_id=zhiling</div>
+      </div>
+      <div class="page-body">
+        <div class="brand"><span class="logo">S</span>SCNet · 国家超算互联网</div>
+        <h4 class="wf-title">登录 SCNet 账号</h4>
+        <div class="login-box">
+          <div class="field"><label>账号（手机号 / 邮箱 / 用户名）</label><div class="input">请输入账号</div></div>
+          <div class="field"><label>密码</label><div class="input">请输入密码</div></div>
+          <div class="btns"><div class="btn primary">登 录</div></div>
+        </div>
+        <div class="footer-tip">登录成功后将返回「第三方应用授权」页面继续授权 · <a href="#">忘记密码？</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-tip">
+  本页为需求文档配套示意图（v1.0，2026-08-22）· 流程图由 Mermaid 渲染，需联网加载脚本
+</footer>
+
+</div>
+<script>
+(function () {
+  if (typeof mermaid === 'undefined') {
+    var els = document.querySelectorAll('pre.mermaid');
+    for (var i = 0; i < els.length; i++) {
+      els[i].className = 'mermaid-fallback';
+      els[i].style.display = 'block';
+      els[i].textContent = '（流程图代码，未联网加载 Mermaid 渲染脚本）\n\n' + els[i].textContent;
+    }
+    return;
+  }
+  mermaid.initialize({ startOnLoad: true, theme: 'base', securityLevel: 'loose',
+    themeVariables: {
+      fontSize: '14px',
+      background: '#ffffff',
+      textColor: '#24292f',
+      mainBkg: '#eaf2fe',
+      nodeBorder: '#1a6feb',
+      primaryColor: '#eaf2fe',
+      primaryTextColor: '#24292f',
+      primaryBorderColor: '#1a6feb',
+      secondaryColor: '#f0f2f5',
+      tertiaryColor: '#f8f9fa',
+      lineColor: '#57606a',
+      clusterBkg: '#f8f9fa',
+      clusterBorder: '#c9d4e3',
+      titleColor: '#1a6feb',
+      edgeLabelBackground: '#ffffff',
+      actorBkg: '#eaf2fe',
+      actorBorder: '#1a6feb',
+      actorTextColor: '#24292f',
+      actorLineColor: '#8b98ab',
+      signalColor: '#24292f',
+      signalTextColor: '#24292f',
+      labelBoxBkgColor: '#fff7e6',
+      labelBoxBorderColor: '#d9a53f',
+      labelTextColor: '#24292f',
+      loopTextColor: '#24292f',
+      noteBkgColor: '#fff8c5',
+      noteBorderColor: '#d4a72c',
+      noteTextColor: '#24292f',
+      activationBkgColor: '#f4f7fb',
+      activationBorderColor: '#1a6feb',
+      sequenceNumberColor: '#ffffff'
+    },
+    flowchart: { curve: 'basis' } });
+})();
+</script>
+</body>
+</html>

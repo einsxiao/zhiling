@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="510" viewBox="0 0 1200 510">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A1E4B"/>
+      <stop offset="0.55" stop-color="#1457B5"/>
+      <stop offset="1" stop-color="#3780FF"/>
+    </linearGradient>
+    <radialGradient id="sphereGrad" cx="0.35" cy="0.3" r="0.85">
+      <stop offset="0" stop-color="#EAF5FF"/>
+      <stop offset="0.35" stop-color="#8FC2FF"/>
+      <stop offset="0.7" stop-color="#3780FF"/>
+      <stop offset="1" stop-color="#1550C8"/>
+    </radialGradient>
+    <radialGradient id="sphereGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#5AA0FF" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#5AA0FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5AA0FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.55" stop-color="#8CBEFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="titleShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="5" flood-color="#061536" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="510" fill="url(#bgGrad)"/>
+  <!-- 柔光斑 -->
+  <circle cx="150" cy="180" r="90" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="1090" cy="420" r="110" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="620" cy="60" r="70" fill="#FFFFFF" opacity="0.04"/>
+
+  <!-- 星点 -->
+  <g fill="#FFFFFF">
+    <circle cx="60" cy="80" r="1.6" opacity="0.5"/><circle cx="120" cy="40" r="1.2" opacity="0.4"/>
+    <circle cx="180" cy="110" r="1.8" opacity="0.55"/><circle cx="90" cy="200" r="1.3" opacity="0.35"/>
+    <circle cx="40" cy="320" r="1.7" opacity="0.5"/><circle cx="110" cy="420" r="1.4" opacity="0.4"/>
+    <circle cx="190" cy="460" r="1.8" opacity="0.5"/><circle cx="250" cy="60" r="1.2" opacity="0.35"/>
+    <circle cx="300" cy="140" r="1.5" opacity="0.45"/><circle cx="330" cy="80" r="1.1" opacity="0.3"/>
+    <circle cx="470" cy="60" r="1.6" opacity="0.5"/><circle cx="540" cy="120" r="1.3" opacity="0.4"/>
+    <circle cx="600" cy="60" r="1.4" opacity="0.45"/><circle cx="660" cy="100" r="1.2" opacity="0.35"/>
+    <circle cx="720" cy="60" r="1.7" opacity="0.5"/><circle cx="800" cy="120" r="1.3" opacity="0.4"/>
+    <circle cx="880" cy="70" r="1.5" opacity="0.45"/><circle cx="950" cy="130" r="1.2" opacity="0.35"/>
+    <circle cx="1030" cy="80" r="1.6" opacity="0.5"/><circle cx="1100" cy="140" r="1.3" opacity="0.4"/>
+    <circle cx="1160" cy="60" r="1.5" opacity="0.45"/><circle cx="300" cy="420" r="1.4" opacity="0.4"/>
+    <circle cx="380" cy="470" r="1.6" opacity="0.5"/><circle cx="470" cy="440" r="1.2" opacity="0.35"/>
+    <circle cx="550" cy="470" r="1.5" opacity="0.45"/><circle cx="630" cy="430" r="1.3" opacity="0.4"/>
+    <circle cx="710" cy="470" r="1.6" opacity="0.5"/><circle cx="770" cy="440" r="1.2" opacity="0.35"/>
+    <circle cx="830" cy="480" r="1.4" opacity="0.4"/><circle cx="910" cy="450" r="1.6" opacity="0.5"/>
+    <circle cx="960" cy="480" r="1.2" opacity="0.35"/><circle cx="1020" cy="460" r="1.4" opacity="0.4"/>
+    <circle cx="60" cy="460" r="1.3" opacity="0.4"/><circle cx="170" cy="490" r="1.5" opacity="0.45"/>
+    <circle cx="230" cy="500" r="1.2" opacity="0.35"/><circle cx="40" cy="150" r="1.2" opacity="0.3"/>
+    <circle cx="30" cy="250" r="1.4" opacity="0.4"/><circle cx="55" cy="380" r="1.2" opacity="0.35"/>
+  </g>
+
+  <!-- 能量核心球体 -->
+  <circle cx="385" cy="255" r="215" fill="url(#sphereGlow)"/>
+  <ellipse cx="385" cy="255" rx="235" ry="88" transform="rotate(10 385 255)" fill="none" stroke="#FFFFFF" stroke-opacity="0.28" stroke-width="2"/>
+  <circle cx="172" cy="187" r="4" fill="#CFE6FF" opacity="0.9"/>
+  <circle cx="385" cy="255" r="115" fill="url(#sphereGrad)"/>
+  <path d="M 330 205 A 115 115 0 0 1 400 145" fill="none" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="2.5"/>
+  <path d="M 455 310 A 115 115 0 0 1 400 368" fill="none" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="2"/>
+  <circle cx="400" cy="145" r="3" fill="#FFFFFF" opacity="0.75"/>
+  <circle cx="400" cy="368" r="3" fill="#FFFFFF" opacity="0.55"/>
+  <ellipse cx="348" cy="192" rx="16" ry="9" transform="rotate(-25 348 192)" fill="#FFFFFF" opacity="0.65"/>
+  <ellipse cx="362" cy="205" rx="38" ry="24" transform="rotate(-25 362 205)" fill="#FFFFFF" opacity="0.5"/>
+  <ellipse cx="385" cy="255" rx="185" ry="64" transform="rotate(-16 385 255)" fill="none" stroke="url(#ringGrad)" stroke-width="3"/>
+  <circle cx="224" cy="324" r="5" fill="#FFFFFF" opacity="0.95"/>
+
+  <!-- 主标题 -->
+  <text x="560" y="200" font-family="'Segoe UI','Microsoft YaHei',sans-serif" font-size="76" font-weight="700" letter-spacing="1" fill="#FFFFFF" filter="url(#titleShadow)">GPT-6 Astra</text>
+  <text x="563" y="262" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="33" fill="#CFE6FF">欢迎进入 AGI 时代</text>
+
+  <!-- 知令可用徽章 -->
+  <rect x="563" y="300" width="248" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.16" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="687" y="330" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="23" fill="#FFFFFF" text-anchor="middle">知令已可直接使用</text>
+
+  <!-- 右下角品牌：知令 logo + 字标 -->
+  <g transform="translate(1035,439) scale(0.562)">
+    <circle fill="#3780ff" cx="40.91185507384589" cy="40.91185507384589" r="40.91185507384589"/>
+    <g fill="#ffffff" transform="translate(16.99185690490058,21.331853242791205)">
+      <path d="M44.16-39.38L51.42-21.95 43.4-21.95 38.45-33.94 16-33.94 11-21.95 3.58-21.95 10.23-39.38 44.16-39.38ZM51.15-20.07L42.73-1.54 23.54-1.54 24.14-0.22 16.66-0.22 11.77-10.84 19.3-10.84 21.12-6.93 36.96-6.93 40.98-14.74 3.58-14.74 3.58-20.07 51.15-20.07ZM28.71-30.3L32.34-22 24.8-22 21.18-30.3 28.71-30.3Z" transform="translate(-3.5799999237060547, 39.380001068115234)"/>
+    </g>
+  </g>
+  <g transform="translate(1092,447) scale(0.5)" fill="#FFFFFF">
+    <g transform="translate(0,7)">
+      <g data-gra="path-name"><g transform="scale(1)"><g>
+        <path d="M2.15-39.06L2.15-39.06 9.57-39.06 9.57-39.06 8.98-37.5 23.63-37.5Q23.63-37.5 23.63-37.3L23.63-37.3 23.63-33.4 16.02-33.4 16.02-28.32 23.63-28.32 23.63-24.22 19.34-24.22 19.34-24.22 23.63-16.21 23.63-16.21 16.41-16.21Q16.41-16.21 15.43-18.36L15.43-18.36Q15.23-18.55 12.7-23.24L12.7-23.24Q12.5-23.63 12.3-23.63L12.3-23.63Q12.3-23.44 8.4-16.21L8.4-16.21 1.17-16.21 1.17-16.21 5.47-24.22 1.17-24.22 1.17-28.32 8.79-28.32Q8.79-28.32 8.79-28.32L8.79-28.32 8.79-33.4 0.59-33.4Q2.15-38.87 2.15-39.06ZM25.98-37.89L25.98-37.89 33.2-37.89 33.2-20.31 37.5-20.31 37.5-32.03Q37.5-32.81 36.91-33.4L36.91-33.4Q36.33-33.79 35.74-33.79L35.74-33.79 34.57-33.79 34.57-37.89 40.82-37.89Q43.36-37.89 44.53-35.55L44.53-35.55Q44.92-34.77 44.92-33.79L44.92-33.79 44.92-16.21 25.98-16.21Q25.98-16.21 25.98-16.21L25.98-16.21 25.98-37.7Q25.98-37.89 25.98-37.89ZM3.13 6.05L3.13-15.23 11.33-15.23 11.33-6.45 34.18-6.45 34.18-8.98Q34.18-10.55 33.01-10.94L33.01-10.94Q32.62-11.13 32.23-11.13L32.23-11.13 12.89-11.13 12.89-15.23 38.48-15.23Q40.43-15.23 41.6-13.48L41.6-13.48Q42.38-12.5 42.38-11.13L42.38-11.13 42.38 6.05 3.13 6.05ZM34.18-2.54L11.33-2.54 11.33 2.15 34.18 2.15 34.18-2.54ZM52.34-34.18L52.34-38.09 86.52-38.09Q89.45-38.09 90.43-35.74L90.43-35.74Q90.82-35.16 90.82-34.18L90.82-34.18 90.82-17.38 52.34-17.38 52.34-21.29 82.62-21.29 82.62-32.23Q82.62-33.59 81.25-33.98L81.25-33.98Q81.05-34.18 80.86-34.18L80.86-34.18 52.34-34.18ZM53.32-29.69L53.32-29.69 81.05-29.69 81.05-25.78 53.32-25.78 53.32-29.69Q53.32-29.69 53.32-29.69ZM67.77-8.2L67.77-16.21 75.98-16.21Q75.98-16.21 75.98-16.21L75.98-16.21 75.98-8.2Q76.37-8.01 90.43 3.52L90.43 3.52Q93.16 5.66 93.75 6.05L93.75 6.05 82.62 6.05 71.88-2.54 61.13 6.05 50 6.05 50 6.05Q50.78 5.47 55.08 2.15L55.08 2.15Q55.66 1.56 61.33-3.13L61.33-3.13Q67.77-8.2 67.77-8.2L67.77-8.2ZM53.71-8.59L50.78-16.02 58.98-16.02Q58.98-15.82 60.16-13.28L60.16-13.28Q60.16-13.09 62.7-6.45L62.7-6.45 54.49-6.45Q54.49-6.45 53.71-8.59L53.71-8.59ZM84.18-16.02L92.38-16.02 88.67-6.45 80.47-6.45 84.18-16.02ZM107.23-26.37L107.23-26.37 114.84-26.37 114.84-17.58 121.48-17.58 121.48-13.87 114.84-13.87 114.84-5.08 107.23-5.08Q107.23-5.08 107.23-5.08L107.23-5.08 107.23-13.87 100.59-13.87 100.59-17.58 107.23-17.58 107.23-26.37Q107.23-26.37 107.23-26.37Z" transform="translate(-0.5900000333786011, 39.060001373291016)"/>
+      </g></g></g></g></g></svg>

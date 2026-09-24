@@ -15,3 +15,7 @@ desktop.ini
 .vscode/
 *.swp
 *.swo
+
+# 知令应用数据与派生缓存（勿提交）
+.zhiling/
+.md-cache/

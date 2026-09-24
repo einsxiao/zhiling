@@ -1,0 +1,2204 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="知令 ZHILING × 超算互联网 SCNet 体验改善方案——合作建议文档的多媒体渲染版">
+<title>知令 ZHILING × 超算互联网 SCNet 体验改善方案（合作建议）</title>
+<style>
+/* ============ 基础与主题变量 ============ */
+:root{
+  --bg:#f4f6fb;
+  --bg-soft:#eef1f8;
+  --card:#ffffff;
+  --card-2:#f8fafd;
+  --text:#17203a;
+  --muted:#5b6579;
+  --line:#e2e7f2;
+  --brand1:#2456e6;
+  --brand2:#f04e23;
+  --brand1-soft:rgba(36,86,230,.12);
+  --brand2-soft:rgba(240,78,35,.12);
+  --grad:linear-gradient(120deg,#2456e6 0%,#6d3ef0 55%,#b02ee8 100%);
+  --ok-bg:#e9f7ef;  --ok-fg:#157347; --ok-line:#b8e3c9;
+  --plan-bg:#e9efff; --plan-fg:#2456e6; --plan-line:#c8d6ff;
+  --warn-bg:#fff3e0; --warn-fg:#b45309; --warn-line:#f8d7a3;
+  --shadow:0 2px 10px rgba(23,32,58,.06);
+  --shadow-lg:0 10px 32px rgba(23,32,58,.12);
+  --sidebar-w:272px;
+  --topbar-h:60px;
+  --radius:14px;
+}
+html[data-theme="dark"]{
+  --bg:#0d1322;
+  --bg-soft:#111a30;
+  --card:#161f38;
+  --card-2:#1a2440;
+  --text:#e9edf8;
+  --muted:#9aa5c0;
+  --line:#28355a;
+  --brand1:#6f96ff;
+  --brand2:#ff7a4d;
+  --brand1-soft:rgba(111,150,255,.16);
+  --brand2-soft:rgba(255,122,77,.16);
+  --grad:linear-gradient(120deg,#3b6bff 0%,#8a4dff 55%,#c23bf0 100%);
+  --ok-bg:#0f2a1d;  --ok-fg:#4ade80; --ok-line:#1d4a33;
+  --plan-bg:#14204a; --plan-fg:#8fb0ff; --plan-line:#273e7c;
+  --warn-bg:#2c1f10; --warn-fg:#fbbf24; --warn-line:#5a4018;
+  --shadow:0 2px 12px rgba(0,0,0,.35);
+  --shadow-lg:0 12px 36px rgba(0,0,0,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+  background:var(--bg);color:var(--text);
+  font-size:15px;line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--brand1);text-decoration:none}
+a:hover{text-decoration:underline}
+code,.mono{font-family:"Cascadia Code",Consolas,"Courier New",monospace;font-size:.9em}
+::selection{background:rgba(36,86,230,.25)}
+
+/* ============ 顶栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--topbar-h);z-index:200;
+  display:flex;align-items:center;gap:12px;padding:0 18px;
+  background:var(--card);
+  background:color-mix(in srgb,var(--card) 86%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:.5px;white-space:nowrap}
+.brand .x{color:var(--brand2);font-weight:900}
+.brand-sub{font-size:11px;color:var(--muted);font-weight:400;margin-left:2px}
+.brandmark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;flex:none;
+  background:var(--grad);color:#fff;font-weight:900;font-size:15px;box-shadow:var(--shadow)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tbtn{
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  border-radius:9px;padding:6px 12px;font-size:13px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:all .18s;
+}
+.tbtn:hover{border-color:var(--brand1);color:var(--brand1)}
+.tbtn svg{width:15px;height:15px}
+.nav-toggle{display:none}
+
+/* ============ 侧栏 ============ */
+.sidebar{
+  position:fixed;top:var(--topbar-h);bottom:0;left:0;width:var(--sidebar-w);z-index:150;
+  overflow-y:auto;padding:16px 12px 40px;border-right:1px solid var(--line);
+  background:var(--card);
+  scrollbar-width:thin;
+}
+.nav-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+.nav-list a{
+  display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;
+  color:var(--muted);font-size:13.5px;border-left:3px solid transparent;transition:all .15s;
+}
+.nav-list a:hover{color:var(--text);background:var(--bg-soft);text-decoration:none}
+.nav-list a.active{color:var(--brand1);background:var(--brand1-soft);border-left-color:var(--brand1);font-weight:700}
+.nav-num{font-size:10px;color:var(--muted);width:20px;text-align:right;flex:none;font-weight:700}
+.side-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:14px 10px 6px;font-weight:700}
+
+/* ============ 主内容 ============ */
+.main{margin-left:var(--sidebar-w);padding:calc(var(--topbar-h) + 26px) 30px 60px;max-width:1180px}
+section{scroll-margin-top:calc(var(--topbar-h) + 14px)}
+.section{margin-bottom:44px}
+.sec-head{margin-bottom:16px}
+.sec-kicker{font-size:12px;font-weight:800;letter-spacing:2px;color:var(--brand1);text-transform:uppercase;margin-bottom:4px}
+.sec-title{font-size:26px;font-weight:800;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-title .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:34px;height:34px;padding:0 8px;border-radius:10px;
+  background:var(--grad);color:#fff;font-size:16px;font-weight:900;
+}
+.sec-desc{color:var(--muted);margin-top:6px;max-width:960px}
+
+/* ============ 卡片与网格 ============ */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px;box-shadow:var(--shadow);
+}
+.card + .card{margin-top:14px}
+.card-h{font-size:17px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.grid{display:grid;gap:14px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.mt14{margin-top:14px}
+.mb14{margin-bottom:14px}
+.tip{font-size:13px;color:var(--muted);background:var(--bg-soft);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;margin-top:12px}
+
+/* ============ 徽章（标注体系） ============ */
+.b{
+  display:inline-flex;align-items:center;gap:5px;border-radius:999px;
+  font-size:12px;font-weight:700;padding:2.5px 10px;border:1px solid transparent;
+  white-space:nowrap;cursor:default;vertical-align:middle;
+}
+.b-ok{background:var(--ok-bg);color:var(--ok-fg);border-color:var(--ok-line)}
+.b-plan{background:var(--plan-bg);color:var(--plan-fg);border-color:var(--plan-line)}
+.b-warn{background:var(--warn-bg);color:var(--warn-fg);border-color:var(--warn-line)}
+.b-plain{background:var(--bg-soft);color:var(--muted);border-color:var(--line)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.legend .b{font-size:12.5px;padding:4px 12px}
+
+/* ============ 表格 ============ */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.tbl th{background:var(--bg-soft);font-weight:800;white-space:nowrap}
+.tbl tr:nth-child(even) td{background:var(--card-2)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.tbl-wrap table{border:none}
+.tbl-wrap .tbl th,.tbl-wrap .tbl td{border-left:none;border-right:none}
+.tbl-wrap .tbl th:first-child,.tbl-wrap .tbl td:first-child{border-left:none}
+.tbl-wrap .tbl th:last-child,.tbl-wrap .tbl td:last-child{border-right:none}
+
+/* ============ Hero ============ */
+.hero{
+  position:relative;border-radius:20px;overflow:hidden;color:#fff;
+  background:linear-gradient(130deg,#0b1d4d 0%,#1b2f8f 34%,#5b21b6 68%,#7c1d6e 100%);
+  padding:44px 46px 40px;box-shadow:var(--shadow-lg);margin-bottom:20px;
+}
+.hero::after{
+  content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 65%);pointer-events:none;
+}
+.hero::before{
+  content:"";position:absolute;left:-80px;bottom:-160px;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.10),transparent 62%);pointer-events:none;
+}
+.hero-in{position:relative;z-index:1}
+.hero-brand{
+  display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.10);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;letter-spacing:1px;
+}
+.hero h1{font-size:34px;line-height:1.35;margin:16px 0 6px;font-weight:900;letter-spacing:.5px}
+.hero h1 .x{color:#ffb28a}
+.hero .sub{font-size:16.5px;color:rgba(255,255,255,.85);max-width:860px}
+.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.hero-meta span{
+  font-size:12px;border:1px solid rgba(255,255,255,.3);border-radius:8px;
+  padding:4px 12px;background:rgba(255,255,255,.08);
+}
+.hero-core{
+  margin-top:20px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;padding:16px 20px;font-size:14.5px;backdrop-filter:blur(4px);
+}
+.hero-core b{color:#ffd9a8}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:10px 20px;
+  font-size:14px;font-weight:800;cursor:pointer;border:none;transition:all .18s;text-decoration:none;
+}
+.btn-primary{background:#fff;color:#1b2f8f}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25);text-decoration:none}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);text-decoration:none}
+
+/* ============ 工具栏（筛选） ============ */
+.toolbar{
+  position:sticky;top:calc(var(--topbar-h) + 10px);z-index:90;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  background:var(--card);
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;
+  padding:10px 14px;box-shadow:var(--shadow);margin-bottom:18px;
+}
+.toolbar .tb-label{font-size:12px;font-weight:800;color:var(--muted);margin-right:4px}
+.fbtn{
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  border-radius:999px;padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;
+}
+.fbtn:hover{border-color:var(--brand1);color:var(--brand1)}
+.fbtn.on{background:var(--brand1);border-color:var(--brand1);color:#fff}
+.filtered-out{display:none !important}
+.filter-note{font-size:12px;color:var(--muted);margin-left:auto}
+.chip{
+  display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;
+  border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--card-2);color:var(--muted);
+}
+.chip.c-ok{color:var(--ok-fg);border-color:var(--ok-line);background:var(--ok-bg)}
+.chip.c-plan{color:var(--plan-fg);border-color:var(--plan-line);background:var(--plan-bg)}
+.chip.c-warn{color:var(--warn-fg);border-color:var(--warn-line);background:var(--warn-bg)}
+
+/* ============ 手风琴 ============ */
+.acc{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.acc-head{
+  display:flex;align-items:center;gap:10px;padding:16px 20px;cursor:pointer;user-select:none;
+  transition:background .15s;
+}
+.acc-head:hover{background:var(--bg-soft)}
+.acc-ico{
+  flex:none;width:38px;height:38px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:19px;background:var(--bg-soft);border:1px solid var(--line);
+}
+.acc-title{font-size:16.5px;font-weight:800;flex:1}
+.acc-arrow{
+  flex:none;width:26px;height:26px;border-radius:8px;border:1px solid var(--line);
+  display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);
+  transition:transform .25s;
+}
+.acc.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:4px 20px 20px;border-top:1px solid var(--line);animation:accIn .25s ease}
+.acc.open .acc-body{display:block}
+@keyframes accIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ============ Tabs ============ */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tab-btn{
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  border-radius:10px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;
+}
+.tab-btn:hover{color:var(--brand1);border-color:var(--brand1)}
+.tab-btn.on{background:var(--grad);color:#fff;border-color:transparent;box-shadow:var(--shadow)}
+.tab-panel{display:none}
+.tab-panel.on{display:block;animation:accIn .25s ease}
+
+/* ============ 用户旅程 Stepper ============ */
+.steps{display:flex;gap:0;overflow-x:auto;padding:8px 4px 4px;scrollbar-width:thin}
+.step{flex:1 0 92px;max-width:130px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;position:relative}
+.step-dot{
+  width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:900;border:2px solid var(--line);background:var(--card);color:var(--muted);
+  transition:all .2s;position:relative;z-index:1;
+}
+.step.on .step-dot,.step:hover .step-dot{
+  border-color:var(--brand1);color:#fff;background:var(--grad);box-shadow:0 4px 14px rgba(36,86,230,.35);
+}
+.step-line{position:absolute;top:21px;left:calc(50% + 26px);right:calc(-50% + 26px);height:2px;background:var(--line)}
+.step:last-child .step-line{display:none}
+.step.on .step-line{background:linear-gradient(90deg,var(--brand1),var(--line))}
+.step-txt{font-size:11.5px;font-weight:700;text-align:center;color:var(--muted);line-height:1.3}
+.step.on .step-txt{color:var(--brand1)}
+.stage-tag{
+  position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  font-size:9.5px;font-weight:800;color:var(--muted);white-space:nowrap;
+  background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:0 8px;
+}
+.step-detail{margin-top:16px;padding:18px 20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card-2);animation:accIn .25s ease}
+.step-detail .sd-title{font-weight:800;font-size:15.5px;margin-bottom:8px}
+
+/* ============ 路线图时间轴 ============ */
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:6px}
+.tl-item{
+  display:grid;grid-template-columns:150px 26px 1fr;gap:0;position:relative;
+}
+.tl-time{text-align:right;font-weight:800;font-size:13px;color:var(--muted);padding:10px 14px 0 0}
+.tl-rail{display:flex;flex-direction:column;align-items:center}
+.tl-dot{
+  width:18px;height:18px;border-radius:50%;border:3px solid var(--brand1);background:var(--card);
+  flex:none;cursor:pointer;transition:all .2s;position:relative;z-index:1;
+}
+.tl-item.on .tl-dot,.tl-dot:hover{background:var(--brand1);box-shadow:0 0 0 5px var(--brand1-soft)}
+.tl-rail::after{content:"";width:2px;flex:1;background:var(--line);margin:4px 0}
+.tl-item:last-child .tl-rail::after{display:none}
+.tl-body{padding:8px 0 22px 18px}
+.tl-card{
+  border:1px solid var(--line);border-radius:13px;background:var(--card);box-shadow:var(--shadow);
+  padding:14px 18px;cursor:pointer;transition:all .18s;
+}
+.tl-card:hover{border-color:var(--brand1);transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.tl-item.on .tl-card{border-color:var(--brand1);box-shadow:0 0 0 2px var(--brand1-soft),var(--shadow)}
+.tl-title{font-size:15.5px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tl-milestone{
+  font-size:11px;font-weight:800;border-radius:999px;padding:2px 10px;
+  background:var(--warn-bg);color:var(--warn-fg);border:1px solid var(--warn-line);
+}
+.tl-detail{margin-top:10px;font-size:13.5px;display:none}
+.tl-item.on .tl-detail{display:block;animation:accIn .25s ease}
+.tl-detail ul{margin:6px 0 0 18px}
+.tl-detail li{margin-bottom:4px}
+
+/* ============ 指标仪表盘 ============ */
+.metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.metric{
+  display:flex;align-items:center;gap:16px;border:1px solid var(--line);border-radius:13px;
+  background:var(--card);padding:16px 18px;box-shadow:var(--shadow);
+}
+.metric-info{flex:1}
+.metric-name{font-weight:800;font-size:14.5px}
+.metric-target{font-size:12.5px;color:var(--muted);margin-top:2px}
+.ring-box{flex:none;position:relative;width:76px;height:76px}
+.ring-box svg{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--bg-soft);stroke-width:8}
+.ring-val{fill:none;stroke:var(--brand1);stroke-width:8;stroke-linecap:round;stroke-dasharray:0 213.6;transition:stroke-dasharray 1s ease}
+.ring-txt{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.ring-txt b{font-size:15px;font-weight:900}
+.ring-txt span{font-size:9.5px;color:var(--muted)}
+.metric-plain{
+  border:1px solid var(--line);border-radius:13px;background:var(--card);padding:16px 18px;box-shadow:var(--shadow);
+}
+.metric-plain .big{font-size:26px;font-weight:900;color:var(--brand1)}
+.metric-plain .name{font-weight:800;font-size:14px;margin-top:4px}
+.metric-plain .desc{font-size:12.5px;color:var(--muted);margin-top:2px}
+
+/* ============ 风险卡 / 清单 ============ */
+.risk-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.risk{
+  border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:13px;
+  background:var(--card);padding:14px 18px;box-shadow:var(--shadow);transition:all .15s;
+}
+.risk:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.risk.lv-high{border-left-color:#e5484d}
+.risk.lv-mid{border-left-color:#f0a020}
+.risk.lv-low{border-left-color:#2f9e63}
+.risk-head{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14.5px;flex-wrap:wrap}
+.lv{font-size:10.5px;font-weight:900;border-radius:6px;padding:1.5px 8px;color:#fff}
+.lv-high{background:#e5484d}
+.lv-mid{background:#f0a020}
+.lv-low{background:#2f9e63}
+.risk p{font-size:13px;color:var(--muted);margin-top:6px}
+.risk .fix{font-size:12.5px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--text)}
+
+/* ============ 待确认清单 ============ */
+.confirm-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.confirm-item{
+  display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;
+  background:var(--card);padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;transition:all .15s;
+}
+.confirm-item:hover{border-color:var(--brand1)}
+.confirm-item input{flex:none;width:17px;height:17px;margin-top:4px;accent-color:var(--brand1);cursor:pointer}
+.confirm-item .ci-num{flex:none;font-weight:900;color:var(--brand1);font-size:12px;min-width:26px}
+.confirm-item .ci-txt{font-size:13.5px}
+.confirm-item.checked{background:var(--ok-bg);border-color:var(--ok-line)}
+.confirm-item.checked .ci-num{color:var(--ok-fg)}
+.confirm-item.checked .ci-txt{color:var(--ok-fg)}
+
+/* ============ 对比卡 ============ */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:13px;overflow:hidden;box-shadow:var(--shadow)}
+.cmp-side{padding:16px 20px}
+.cmp-side.today{background:var(--warn-bg)}
+.cmp-side.after{background:var(--ok-bg)}
+.cmp-side h4{font-size:13.5px;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.cmp-side.today h4{color:var(--warn-fg)}
+.cmp-side.after h4{color:var(--ok-fg)}
+.cmp-side ul{margin-left:18px;font-size:13.5px}
+.cmp-side li{margin-bottom:5px}
+
+/* ============ 能力矩阵（可视化表格） ============ */
+.matrix-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow)}
+.matrix{border-collapse:collapse;width:100%;min-width:760px}
+.matrix th,.matrix td{border-bottom:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:middle;font-size:13.5px}
+.matrix thead th{background:var(--bg-soft);font-weight:800;white-space:nowrap;position:sticky;top:0}
+.matrix tbody tr{transition:background .15s}
+.matrix tbody tr:hover{background:var(--brand1-soft)}
+.matrix td.t-name{font-weight:800;white-space:nowrap}
+.matrix .cell-ok{color:var(--ok-fg);font-weight:700}
+.matrix .cell-plan{color:var(--plan-fg);font-weight:700}
+.matrix .cell-warn{color:var(--warn-fg);font-weight:700}
+.matrix-dots{display:inline-flex;gap:3px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.dot-ok{background:var(--ok-fg)}
+.dot-plan{background:var(--plan-fg)}
+.dot-warn{background:var(--warn-fg)}
+.dot-none{background:var(--line)}
+
+/* ============ 架构图 ============ */
+.arch-wrap{border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:var(--shadow);padding:14px;overflow-x:auto}
+.arch-wrap svg{width:100%;height:auto;min-width:900px;display:block}
+.arch-node{fill:var(--card);stroke:var(--line);stroke-width:1.4;cursor:pointer;transition:all .18s}
+.arch-node:hover{stroke:var(--brand1);stroke-width:2}
+.arch-node.node-ok:hover{stroke:var(--ok-fg)}
+.arch-node.node-warn:hover{stroke:var(--warn-fg)}
+.arch-title{font-size:14.5px;font-weight:800;fill:var(--text);pointer-events:none}
+.arch-sub{font-size:11px;fill:var(--muted);pointer-events:none}
+.arch-tag{font-size:13px;font-weight:800;pointer-events:none}
+.arch-group{fill:var(--card-2);stroke:var(--line);stroke-width:1.2;stroke-dasharray:6 4}
+.arch-glabel{font-size:12.5px;font-weight:800;fill:var(--muted)}
+.arch-link{fill:none;stroke:var(--brand1);stroke-width:2}
+.arch-link.dash{stroke-dasharray:7 5;stroke:var(--muted)}
+.arch-ltext{font-size:10.5px;fill:var(--muted);pointer-events:none}
+.arch-bus{fill:none;stroke:var(--muted);stroke-width:1.6;stroke-dasharray:4 4}
+.arch-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+
+/* ============ Tooltip（自定义，不用 title） ============ */
+.ztip{
+  position:fixed;z-index:9999;max-width:300px;pointer-events:none;
+  background:var(--text);color:var(--bg);font-size:12.5px;line-height:1.5;
+  padding:8px 12px;border-radius:9px;box-shadow:var(--shadow-lg);
+  opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;
+}
+.ztip.show{opacity:1;transform:none}
+.ztip b{color:#ffd9a8}
+html[data-theme="dark"] .ztip{background:#e9edf8;color:#101830}
+html[data-theme="dark"] .ztip b{color:#b45309}
+
+/* ============ 页脚 ============ */
+.footer{
+  margin-top:40px;border-top:1px solid var(--line);padding:24px 4px 8px;
+  font-size:12.5px;color:var(--muted);
+}
+.footer .f-brand{font-weight:800;color:var(--text);margin-bottom:8px}
+.footer .f-brand .x{color:var(--brand2)}
+.backtop{
+  position:fixed;right:22px;bottom:24px;width:44px;height:44px;border-radius:12px;z-index:100;
+  background:var(--grad);color:#fff;border:none;cursor:pointer;font-size:18px;font-weight:900;
+  box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:all .25s;
+}
+.backtop.show{opacity:1;pointer-events:auto}
+.backtop:hover{transform:translateY(-3px)}
+
+/* ============ 引用块 ============ */
+.quote{
+  border-left:4px solid var(--brand1);background:var(--brand1-soft);
+  border-radius:0 10px 10px 0;padding:12px 18px;font-size:14px;margin:12px 0;
+}
+.quote.warn{border-left-color:var(--warn-fg);background:var(--warn-bg)}
+
+/* ============ 响应式 ============ */
+@media (max-width:1100px){
+  .sidebar{transform:translateX(-105%);transition:transform .25s;box-shadow:var(--shadow-lg)}
+  .sidebar.open{transform:none}
+  .nav-toggle{display:inline-flex}
+  .main{margin-left:0;padding:calc(var(--topbar-h) + 20px) 18px 50px}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:27px}
+}
+@media (max-width:760px){
+  .grid-2,.grid-3,.grid-4,.metric-grid,.risk-grid,.confirm-grid{grid-template-columns:1fr}
+  .cmp{grid-template-columns:1fr}
+  .hero{padding:30px 22px}
+  .hero h1{font-size:24px}
+  .tl-item{grid-template-columns:96px 26px 1fr}
+  .brand .brand-sub{display:none}
+  .metric-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){
+  .metric-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 顶栏 ================= -->
+<header class="topbar">
+  <button class="tbtn nav-toggle" id="navToggle" aria-label="打开目录" data-tip="展开/收起目录导航">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <div class="brand">
+    <span class="brandmark">令×S</span>
+    <span>知令 ZHILING <span class="x">×</span> 超算互联网 SCNet<span class="brand-sub">联合体验蓝图（合作建议）</span></span>
+  </div>
+  <div class="topbar-right">
+    <button class="tbtn" id="themeToggle" aria-label="切换深浅主题">
+      <svg id="icoMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <span id="themeLabel">深色</span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= 侧栏导航 ================= -->
+<nav class="sidebar" id="sidebar" aria-label="文档目录">
+  <div class="side-label">文档导航</div>
+  <ul class="nav-list">
+    <li><a href="#exec"><span class="nav-num">01</span>执行摘要</a></li>
+    <li><a href="#value"><span class="nav-num">02</span>合作价值</a></li>
+    <li><a href="#gap"><span class="nav-num">03</span>现状与差距</a></li>
+    <li><a href="#themes"><span class="nav-num">04</span>四大体验主题</a></li>
+    <li><a href="#journey"><span class="nav-num">05</span>用户画像与旅程</a></li>
+    <li><a href="#arch"><span class="nav-num">06</span>产品与数据架构</a></li>
+    <li><a href="#flows"><span class="nav-num">07</span>关键流程设计</a></li>
+    <li><a href="#coop"><span class="nav-num">08</span>合作模式</a></li>
+    <li><a href="#roadmap"><span class="nav-num">09</span>分阶段路线图</a></li>
+    <li><a href="#metrics"><span class="nav-num">10</span>可量化指标</a></li>
+    <li><a href="#risk"><span class="nav-num">11</span>风险与边界</a></li>
+    <li><a href="#confirm"><span class="nav-num">12</span>待确认事项</a></li>
+    <li><a href="#accept"><span class="nav-num">13</span>验收标准</a></li>
+    <li><a href="#conclusion"><span class="nav-num">14</span>结论</a></li>
+    <li><a href="#appendix"><span class="nav-num">15</span>附录与术语</a></li>
+  </ul>
+  <div class="side-label">标注图例</div>
+  <div class="legend" style="flex-direction:column;align-items:flex-start;padding:0 10px;gap:6px">
+    <span class="b b-ok" data-tip="双方当前已上线、可验证的能力">✅ 已具备</span>
+    <span class="b b-plan" data-tip="本方案建议、尚未落地的设计，双方确认后进入排期">🧭 规划建议</span>
+    <span class="b b-warn" data-tip="必须由 SCNet 侧决策、开发或发布后方可成立的事项">⚠️ 依赖SCNet确认</span>
+  </div>
+  <div class="side-label">文档信息</div>
+  <div style="padding:0 10px;font-size:12px;color:var(--muted);line-height:2">
+    v1.0 · 2026-08-22<br>
+    编制：西安禾成讴沃信息科技有限公司（知令团队）<br>
+    呈报：SCNet 管理层 / 合作决策者<br>
+    密级：内部（双方对接人员）
+  </div>
+</nav>
+
+<!-- ================= 主内容 ================= -->
+<main class="main">
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-brand">联合品牌 · 知令 ZHILING × 超算互联网 SCNet</div>
+    <h1>从「多平台来回切换」到「一个工作台跑通全流程」<br>超算互联网<span class="x">体验改善</span>联合蓝图</h1>
+    <p class="sub">打通身份与凭证的最小可行闭环，由点及面拉通「大模型使用 · 任务管理 · 超算使用 · 专业学术体验」四大主题，让 SCNet 算力与模型资源直达用户桌面工作流。</p>
+    <div class="hero-meta">
+      <span>文档版本 v1.0 · 2026-08-22</span>
+      <span>呈报对象：SCNet 管理层</span>
+      <span>编制方：知令团队</span>
+      <span>性质：合作建议（最终以双方确认为准）</span>
+    </div>
+    <div class="hero-core">
+      <b>核心判断：</b>双方能力高度互补，但体验链路上存在关键断点——SCNet 的大模型能力、作业体系与用户身份体系目前只能通过网页控制台「人肉」衔接第三方工具，用户必须在控制台手动创建、复制 API Key 再回填，无法在桌面工作流中「登录一次、直接可用」。
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#exec">阅读执行摘要 ↓</a>
+      <a class="btn btn-ghost" href="#roadmap">查看分阶段路线图</a>
+      <a class="btn btn-ghost" href="#themes">四大体验主题</a>
+    </div>
+  </div>
+</div>
+
+<!-- 工具栏：标注筛选 -->
+<div class="toolbar" id="toolbar">
+  <span class="tb-label">标注筛选</span>
+  <button class="fbtn on" data-filter="all">全部</button>
+  <button class="fbtn" data-filter="ok">✅ 已具备</button>
+  <button class="fbtn" data-filter="plan">🧭 规划建议</button>
+  <button class="fbtn" data-filter="warn">⚠️ 依赖SCNet确认</button>
+  <span class="filter-note" id="filterNote">点击筛选：高亮含对应标注的卡片</span>
+</div>
+
+<!-- ============ 01 执行摘要 ============ -->
+<section class="section" id="exec">
+  <div class="sec-head">
+    <div class="sec-kicker">Executive Summary</div>
+    <h2 class="sec-title"><span class="num">01</span>执行摘要</h2>
+    <p class="sec-desc">面向 SCNet 管理层的一页式概述：为什么做、做什么、分几步、要什么决策。</p>
+  </div>
+  <div class="grid grid-2">
+    <div class="card" data-tags="ok,plan">
+      <div class="card-h">👥 双方是谁</div>
+      <p style="font-size:14px"><b>知令 ZHILING</b>：桌面端 AI 全流程工作平台，覆盖「AI 智能体对话、文档与代码编辑、计算任务管理、远程集群对接、数据分析与可视化」全链路 <span class="b b-ok">✅ 已具备</span></p>
+      <p style="font-size:14px;margin-top:8px"><b>国家超算互联网平台（SCNet）</b>：汇聚全国超算资源，已对外提供计算服务开放 API、大模型推理服务（OpenAI/Anthropic 兼容端点）与 Token Plan / Coding Plan 套餐 <span class="b b-ok">✅ 已具备</span></p>
+    </div>
+    <div class="card" data-tags="warn">
+      <div class="card-h">🔌 断点在哪</div>
+      <p style="font-size:14px">SCNet 的身份体系、API Key、大模型能力目前只能通过<b>网页控制台人工衔接</b>第三方工具：手动创建 Key → 复制 → 回填，无法在桌面工作流中「登录一次、直接可用」。</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px">结构性缺口 = 第三方授权 + API Key 开放接口 <span class="b b-warn">⚠️ 依赖SCNet确认</span></p>
+    </div>
+  </div>
+  <div class="card mt14">
+    <div class="card-h">🎯 三大主张</div>
+    <div class="grid grid-3">
+      <div>
+        <div style="font-weight:800;color:var(--brand1)">① 打通身份与凭证（最小可行闭环）</div>
+        <p style="font-size:13.5px;margin-top:6px">SCNet 开放「第三方统一认证授权（OAuth 式）」与「大模型 API Key 管理接口」两项能力，知令作为首批第三方应用接入。<b>密码全程不出 SCNet、Key 自动准备</b>。</p>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--brand1)">② 由点及面拉通四大主题</div>
+        <p style="font-size:13.5px;margin-top:6px">依次打通<b>大模型使用、任务管理、超算使用、专业学术体验</b>：「写输入文件 → AI 检查 → 提交 SCNet 算力 → 结果回传可视化」成为一条直线。</p>
+      </div>
+      <div>
+        <div style="font-weight:800;color:var(--brand1)">③ 联合品牌共同运营</div>
+        <p style="font-size:13.5px;margin-top:6px">以「知令 ZHILING × 超算互联网 SCNet」联合品牌对外发布，形成「国家级平台 × 桌面工作台」的体验标杆，并向更多第三方应用复制。</p>
+      </div>
+    </div>
+  </div>
+  <div class="card mt14" data-tags="plan">
+    <div class="card-h">🗺 分阶段落地（建议排期）</div>
+    <p style="font-size:13.5px">P0 立项联调 → P1 身份互通与大模型无感接入（1–3 个月）→ P2 任务管理打通（3–6 个月）→ P3 超算使用与算力体验（6–9 个月）→ P4 专业学术体验与生态运营（9–12 个月）。各阶段均有明确退出标准与验收用例。 <span class="b b-plan">🧭 建议值</span></p>
+  </div>
+  <div class="quote warn">
+    <b>决策请求：</b>请 SCNet 管理层确认本文第 12 章待确认事项中技术类事项（尤其是 OAuth 端点、API Key 明文读取策略、应用注册审核流程），授权研发团队立项排期，并指定双方接口人进入 P0 联调。
+  </div>
+</section>
+
+<!-- ============ 02 合作价值 ============ -->
+<section class="section" id="value">
+  <div class="sec-head">
+    <div class="sec-kicker">Value Proposition</div>
+    <h2 class="sec-title"><span class="num">02</span>合作价值</h2>
+    <p class="sec-desc">从 SCNet、知令、用户、生态四个视角看收益。</p>
+  </div>
+  <div class="grid grid-2">
+    <div class="card" data-tags="ok,warn">
+      <div class="card-h">🏛 对 SCNet：把平台能力延伸进用户工作台</div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li><b>大模型 API 用量与留存提升</b>：消除「控制台复制 Key」环节，促进 Token Plan / Coding Plan 套餐活跃使用</li>
+        <li><b>算力与应用的桌面级入口</b>：VASP、LAMMPS、GROMACS、AlphaFold3 等应用直达「写文件 → 提交 → 看结果」工作流</li>
+        <li><b>降低第三方接入门槛</b>：开放 OAuth 与 Key 接口后，任何工具均可按同样标准接入，知令成为第一个「样板间」 <span class="b b-plan">🧭</span></li>
+        <li><b>数据与凭证安全合规</b>：用户密码仅出现在 SCNet 官方页面，Key 生命周期由 SCNet 管控 <span class="b b-ok">✅</span><span class="b b-warn">⚠️ 落地依赖SCNet确认</span></li>
+        <li><b>国家级平台的体验标杆</b>：联合品牌作为生态合作示范案例对外宣传 <span class="b b-plan">🧭</span></li>
+      </ul>
+    </div>
+    <div class="card" data-tags="ok,plan">
+      <div class="card-h">💻 对知令：补齐国家级平台的用户体系与模型服务</div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li><b>用户体系升级</b>：新增「SCNet 账号登录」入口，覆盖高校、科研院所与工程机构的 SCNet 存量用户 <span class="b b-plan">🧭</span></li>
+        <li><b>模型服务扩充</b>：知令现有多模型与 BYOK 自带 API <span class="b b-ok">✅</span>；接入后用户订阅的 SCNet 套餐模型一键出现在模型列表 <span class="b b-plan">🧭</span></li>
+        <li><b>借力平台公信力</b>：官方合作增强知令在科研与工程用户群体中的信任度</li>
+      </ul>
+    </div>
+    <div class="card" data-tags="ok,plan">
+      <div class="card-h">👤 对用户：一次授权、无感可用、全流程统一</div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li><b>省去手动步骤</b>：不再「创建 Key → 复制 → 回填」；授权一次，Key 自动创建/读取、自动配置 <span class="b b-plan">🧭</span></li>
+        <li><b>安全放心</b>：密码只在 SCNet 官方页面出现；授权随时可在 SCNet 侧撤销 <span class="b b-plan">🧭</span></li>
+        <li><b>体验统一</b>：对话、任务提交、结果查看、文献阅读在同一工作台完成，减少 3~5 个工具切换 <span class="b b-ok">✅ 已具备</span></li>
+      </ul>
+    </div>
+    <div class="card" data-tags="plan,warn">
+      <div class="card-h">🌐 对生态：可复制的第三方接入范式</div>
+      <p style="font-size:13.5px">沉淀「应用注册 → OAuth 授权 → Key 管理 → 推理调用」标准链路，形成 SCNet 开放平台的通用接入指南与 SDK，供后续第三方应用低成本复用。 <span class="b b-plan">🧭 规划建议</span></p>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:8px">是否公开推广由 SCNet 决定 <span class="b b-warn">⚠️</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 现状与差距 ============ -->
+<section class="section" id="gap">
+  <div class="sec-head">
+    <div class="sec-kicker">Gap Analysis</div>
+    <h2 class="sec-title"><span class="num">03</span>现状与差距分析</h2>
+    <p class="sec-desc">事实来源：SCNet 侧能力来自需求文档 3.1 节及官方开放平台文档；知令侧能力来自 README、intro 及需求文档附录 A。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">📡 SCNet 现有能力盘点 <span class="b b-ok">✅ 已具备</span></div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="min-width:150px">能力</th><th>现状说明</th><th style="min-width:120px">官方来源</th></tr></thead>
+        <tbody>
+          <tr><td>计算服务开放 API</td><td>已具备 AK/SK 签名鉴权、凭证续约、凭证验证、用户信息查询等接口，主要面向作业提交与集群管理</td><td>开放平台·认证授权</td></tr>
+          <tr><td>作业管理开放 API</td><td>已具备查询集群信息、提交作业、查询作业列表/详情、查看文件、删除作业等接口</td><td>开放平台文档导航</td></tr>
+          <tr><td>大模型推理服务</td><td>OpenAI 兼容端点 <code>https://api.scnet.cn/api/llm/v1</code>、Anthropic 兼容端点，配套 Token Plan（<code>sk-tp-</code>）/ Coding Plan（<code>sk-sp-</code>）套餐</td><td>大模型入门指南</td></tr>
+          <tr><td>API Key 管理（网页）</td><td><b>仅支持控制台人工创建/查看/复制/编辑/删除，无开放接口</b> <span class="b b-warn">⚠️ 缺口</span></td><td>API Key 管理说明</td></tr>
+          <tr><td>平台生态</td><td>算力市场、应用商城、AI 社区、智能体服务、核心节点、模型服务等</td><td>SCNet 官网 / AI 社区</td></tr>
+          <tr><td>用户资源 API</td><td>查询用户信息、添加成员、配置用户存储、查询成员作业等</td><td>开放平台文档导航</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">🖥 知令现有能力盘点 <span class="b b-ok">✅ 已具备</span></div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="min-width:140px">能力</th><th>现状说明</th></tr></thead>
+        <tbody>
+          <tr><td>AI 智能体</td><td>多会话、多模型切换、Agent/Ask/Plan/Research/Debug 等多种工作模式、技能包、流式输出与工具调用</td></tr>
+          <tr><td>BYOK 自带 API</td><td>支持自定义 Base URL / Model Id / API Key 扩展模型列表（当前接入 SCNet 大模型需手动走此通道）</td></tr>
+          <tr><td>文档工作台</td><td>Markdown（含 Mermaid/LaTeX）、DOCX 编辑、PDF 阅读与高质量转 Markdown（MinerU 云端转换）</td></tr>
+          <tr><td>计算任务管理</td><td><code>.task</code> 任务文件统一描述作业，支持 SLURM 与本地 Shell；提交后自动轮询状态、查看日志、Plotly 可视化；AI 可自然语言驱动提交</td></tr>
+          <tr><td>远程项目</td><td>SSH 文件树/编辑/搜索、多标签远程终端、连接池管理</td></tr>
+          <tr><td>数据与知识</td><td>PostgreSQL / MongoDB 连接查询、知识库浏览管理</td></tr>
+          <tr><td>自动化与协作</td><td>定时任务、邮件事件触发、邮箱集成</td></tr>
+          <tr><td>桌面端授权机制</td><td>自有「授权请求 ID + 轮询」登录机制已上线（限流、会话上限、审计等安全实践），可作为 SCNet 授权能力设计的参照实现</td></tr>
+          <tr><td>多平台</td><td>Windows / macOS / 麒麟 V10、V11 / Android</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14" data-tags="warn">
+    <div class="card-h">⚡ SCNet 侧技术差距 → 用户体验断点</div>
+    <div class="grid grid-3">
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800">D1 · 无 OAuth 式第三方授权登录能力</div>
+        <p style="font-size:13px;margin-top:6px">用户无法在第三方应用安全使用 SCNet 身份；要么暴露密码（不可接受），要么放弃。</p>
+        <div class="mt14"><span class="b b-warn">⚠️ 依赖SCNet确认</span></div>
+      </div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800">D2 · 无 API Key 管理开放接口</div>
+        <p style="font-size:13px;margin-top:6px">用户必须手动往返控制台创建/复制 Key 回填；Key 丢失、套餐变更、Key 被删后都要再跑一趟。</p>
+        <div class="mt14"><span class="b b-warn">⚠️ 依赖SCNet确认</span></div>
+      </div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800">D3 · 无面向第三方应用的注册管理入口</div>
+        <p style="font-size:13px;margin-top:6px">第三方应用无从获得 <code>client_id</code>、配置回调与权限，接入无从谈起。</p>
+        <div class="mt14"><span class="b b-warn">⚠️ 依赖SCNet确认</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">📉 体验层差距（对照四大主题）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="min-width:110px">主题</th><th style="min-width:280px">今天（无对接）</th><th>差距本质</th></tr></thead>
+        <tbody>
+          <tr><td><b>T1 大模型使用</b></td><td>知令中只能用 BYOK 手动粘贴 SCNet Key，模型列表与套餐状态不可见</td><td>「凭证准备」打断工作流</td></tr>
+          <tr><td><b>T2 任务管理</b></td><td>知令 <code>.task</code> 通过 SSH+SLURM 直连用户自管集群；SCNet 开放平台的作业 API 未与知令打通</td><td>两套任务体系并存</td></tr>
+          <tr><td><b>T3 超算使用</b></td><td>SCNet 算力市场与应用商城只在网页端可触达，与用户本地的输入文件准备、结果分析脱节</td><td>资源入口与工作流割裂</td></tr>
+          <tr><td><b>T4 专业学术体验</b></td><td>知令的 PDF/文献/DOCX 能力与 SCNet 的应用商城、AI 社区内容互相不可见</td><td>内容与工具互相孤立</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">🧩 差距对应的能力缺口（谁来做）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>缺口</th><th>归属</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>OAuth 式授权（授权端点、令牌、用户信息、撤销、轮询模式）</td><td>SCNet 新增开发</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（需求文档第 5 章）</td></tr>
+          <tr><td>大模型 API Key 管理接口（创建/读取，可选更新/删除）</td><td>SCNet 新增开发</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（需求文档第 6 章）</td></tr>
+          <tr><td>开放平台应用注册与管理（<code>client_id</code> 签发、回调白名单、scope 治理）</td><td>SCNet 新增开发</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（需求文档 5.2 节）</td></tr>
+          <tr><td>知令侧 SCNet 适配层（登录入口、授权引导、Key 自动准备、模型列表同步）</td><td>知令开发</td><td><span class="b b-plan">🧭 规划建议</span>（随 P1 排期）</td></tr>
+          <tr><td>知令侧作业 API 适配（SCNet 作业 API ↔ <code>.task</code> 映射）</td><td>知令开发</td><td><span class="b b-plan">🧭 规划建议</span>（随 P2 排期）</td></tr>
+          <tr><td>应用商城/算力市场/社区内容在知令内的触达</td><td>双方共建</td><td><span class="b b-plan">🧭 规划建议</span>（随 P3/P4 排期）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 四大体验主题 ============ -->
+<section class="section" id="themes">
+  <div class="sec-head">
+    <div class="sec-kicker">Four Experience Themes</div>
+    <h2 class="sec-title"><span class="num">04</span>四大体验主题</h2>
+    <p class="sec-desc">每项主题按「今天 → 改善后 → 支撑能力」展开；支撑能力逐一标注 ✅已具备 / 🧭规划建议 / ⚠️依赖SCNet确认。点击卡片展开详情。</p>
+  </div>
+
+  <!-- T1 -->
+  <div class="acc" id="acc-t1" data-tags="ok,plan,warn">
+    <div class="acc-head" data-acc="t1">
+      <span class="acc-ico">🤖</span>
+      <span class="acc-title">T1 · 大模型使用体验</span>
+      <span class="b b-plan">🧭 规划建议</span><span class="b b-warn">⚠️ 依赖SCNet确认</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body" id="acc-body-t1">
+      <div class="cmp mb14">
+        <div class="cmp-side today">
+          <h4>😣 今天的痛点</h4>
+          <ul>
+            <li>用 Token Plan 模型需到控制台手动创建 Key、复制、粘贴到知令 BYOK 配置</li>
+            <li>套餐余量、模型可用范围在知令内不可见</li>
+          </ul>
+        </div>
+        <div class="cmp-side after">
+          <h4>🎯 改善后的目标体验</h4>
+          <ul>
+            <li>知令设置出现「SCNet 账号登录」入口，官方页面登录授权，<b>密码不出 SCNet</b> 🧭</li>
+            <li>自动检查已有 Key：无则自动创建（<code>sk-tp-</code>/<code>sk-sp-</code>），有则读取并配置，<b>全程零手动</b> 🧭</li>
+            <li>会话模型列表直接出现 SCNet 套餐内模型，可切换、可流式对话；套餐不可用给出引导 🧭</li>
+            <li>撤销授权或删除 Key 后知令即时感知并引导重新授权，不留「静默失效」的坑 🧭</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>支撑能力</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>SCNet 大模型推理端点（OpenAI/Anthropic 兼容）</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>知令 BYOK 通道（自定义 Base URL / Model / Key）</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>SCNet OAuth 式授权（模式 A 授权码+PKCE / 模式 B 轮询）</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（需求文档第 5 章）</td></tr>
+            <tr><td>SCNet API Key 管理接口（创建/读取）</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（需求文档第 6 章）</td></tr>
+            <tr><td>知令 SCNet 适配层（凭证存储、Key 自动准备、模型列表）</td><td><span class="b b-plan">🧭 规划建议</span>（P1 交付）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- T2 -->
+  <div class="acc" id="acc-t2" data-tags="ok,plan,warn">
+    <div class="acc-head" data-acc="t2">
+      <span class="acc-ico">📋</span>
+      <span class="acc-title">T2 · 任务管理体验</span>
+      <span class="b b-plan">🧭 规划建议</span><span class="b b-warn">⚠️ 依赖SCNet确认</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body" id="acc-body-t2">
+      <div class="cmp mb14">
+        <div class="cmp-side today">
+          <h4>😣 今天的痛点</h4>
+          <ul>
+            <li>知令 <code>.task</code> 已支持 SLURM 与本地 Shell，但仅面向用户自管 SSH 集群 ✅</li>
+            <li>SCNet 平台提交的作业与知令任务视图互相独立，用户要开两套界面盯两类任务</li>
+          </ul>
+        </div>
+        <div class="cmp-side after">
+          <h4>🎯 改善后的目标体验</h4>
+          <ul>
+            <li>任务视图新增「SCNet」任务目标：选择集群、队列与资源提交作业（复用作业 API）🧭</li>
+            <li><code>.task</code> 与 SCNet 作业模型映射：排队/运行/结束状态自动同步，日志与结果可在知令内查看与可视化 🧭</li>
+            <li>AI 智能体统一驱动：「提交到 SCNet 集群」与「提交到我自己的服务器」同一种对话方式 🧭</li>
+            <li>支持批量提交与失败重试指引，降低新手在队列、模块、资源参数上的踩坑率 🧭</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>支撑能力</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>知令 <code>.task</code> 任务视图、状态轮询、日志/Plotly 可视化</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>SCNet 作业管理开放 API（提交/查询/详情/文件/删除）</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>SCNet AK/SK 凭证在知令中的管理</td><td><span class="b b-plan">🧭 规划建议</span>（P2 交付；凭证获取流程依赖 SCNet 确认 <span class="b b-warn">⚠️</span>）</td></tr>
+            <tr><td>作业 API 与 <code>.task</code> 的参数映射与状态机对齐</td><td><span class="b b-plan">🧭 规划建议</span>（P2 交付）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- T3 -->
+  <div class="acc" id="acc-t3" data-tags="ok,plan,warn">
+    <div class="acc-head" data-acc="t3">
+      <span class="acc-ico">⚙️</span>
+      <span class="acc-title">T3 · 超算使用体验</span>
+      <span class="b b-plan">🧭 规划建议</span><span class="b b-warn">⚠️ 依赖SCNet确认</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body" id="acc-body-t3">
+      <div class="cmp mb14">
+        <div class="cmp-side today">
+          <h4>😣 今天的痛点</h4>
+          <ul>
+            <li>算力市场与应用商城（VASP、LAMMPS、GROMACS、AlphaFold3 等）是网页入口 ✅</li>
+            <li>购买算力/应用后，还要回到自己电脑上准备输入文件、传文件、盯作业、拷结果，工具链断裂</li>
+          </ul>
+        </div>
+        <div class="cmp-side after">
+          <h4>🎯 改善后的目标体验</h4>
+          <ul>
+            <li>「商城选资源 → 知令做工作」：知令中直达 SCNet 资源与已购应用工作流（写输入文件、AI 参数检查、提交、结果解析）🧭</li>
+            <li>应用模板化：VASP/LAMMPS/GROMACS 等高频应用提供 <code>.task</code> 模板与 AI 检查清单，开箱即用 🧭</li>
+            <li>结果可视化闭环：输出（日志、结构文件、能量/轨迹数据）在知令内用 Plotly 直接呈现 ✅＋🧭</li>
+            <li>远程文件与算力统一：SSH 远程项目 ✅ 与 SCNet 作业体系 🧭 在同一文件树/任务视图中管理</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>支撑能力</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>SCNet 算力市场、应用商城、模型服务</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>知令 SSH 远程项目与终端</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>知令内 SCNet 资源/应用入口与模板中心</td><td><span class="b b-plan">🧭 规划建议</span>（P3 交付）</td></tr>
+            <tr><td>应用商城在知令内的展示与跳转（入驻/推广政策）</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（应用商城合作政策见 SCNet 商家中心）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- T4 -->
+  <div class="acc" id="acc-t4" data-tags="ok,plan,warn">
+    <div class="acc-head" data-acc="t4">
+      <span class="acc-ico">📚</span>
+      <span class="acc-title">T4 · 专业学术体验</span>
+      <span class="b b-plan">🧭 规划建议</span><span class="b b-warn">⚠️ 依赖SCNet确认</span>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body" id="acc-body-t4">
+      <div class="cmp mb14">
+        <div class="cmp-side today">
+          <h4>😣 今天的痛点</h4>
+          <ul>
+            <li>科研用户在文献阅读、论文写作、数据整理上依赖多个工具</li>
+            <li>SCNet AI 社区与模型库内容、应用商城中的科学软件，与日常学术工作流彼此孤立</li>
+          </ul>
+        </div>
+        <div class="cmp-side after">
+          <h4>🎯 改善后的目标体验</h4>
+          <ul>
+            <li><b>文献到计算的贯通</b>：PDF 文献 → 高质量转 Markdown（MinerU ✅）→ AI 提取方法与参数 → 生成软件输入文件草稿 → 提交 SCNet 算力复现/扩展 🧭</li>
+            <li><b>论文工作流</b>：LaTeX/Markdown/DOCX 写作、AI 润色与图表内嵌 ✅ 与 SCNet 大模型能力结合，形成「学术写作专用配置」🧭</li>
+            <li><b>社区内容触达</b>：AI 社区、模型库、数据集在知令内以卡片/入口呈现，一键跳转官方页面 🧭</li>
+            <li><b>知识与协作</b>：课题组知识库 ✅、任务与成员协作信息（SCNet 用户资源 API ✅）在知令内沉淀 🧭</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>支撑能力</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>知令 PDF 转高质量 Markdown、DOCX 编辑、知识库</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>SCNet AI 社区、模型库、数据集</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>SCNet 用户资源 API（成员/存储）</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+            <tr><td>「文献→输入文件→算力复现」端到端模板</td><td><span class="b b-plan">🧭 规划建议</span>（P4 交付）</td></tr>
+            <tr><td>社区内容在知令内的接口化呈现</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span>（社区/商城的开放接口或合作授权）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.5 总览：能力矩阵可视化 -->
+  <div class="card mt14">
+    <div class="card-h">🧭 四大主题总览 · 能力矩阵</div>
+    <div class="tabs" id="matrixTabs">
+      <button class="tab-btn on" data-mtab="overview">总览</button>
+      <button class="tab-btn" data-mtab="support">支撑能力状态分布</button>
+    </div>
+    <div class="tab-panel on" id="mpanel-overview">
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>主题</th><th>核心改善</th><th>首批可用节点</th><th>关键依赖</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="t-name">T1 大模型使用</td>
+              <td>一次授权、无感跑通</td>
+              <td>授权后即可用</td>
+              <td><span class="cell-warn">⚠️ OAuth + Key 接口（P1）</span></td>
+            </tr>
+            <tr>
+              <td class="t-name">T2 任务管理</td>
+              <td>两套任务变一套</td>
+              <td>作业 API 打通后</td>
+              <td><span class="cell-warn">⚠️ 凭证策略确认（P2）</span></td>
+            </tr>
+            <tr>
+              <td class="t-name">T3 超算使用</td>
+              <td>资源入口进工作流</td>
+              <td>模板中心上线后</td>
+              <td><span class="cell-warn">⚠️ 商城合作政策（P3）</span></td>
+            </tr>
+            <tr>
+              <td class="t-name">T4 专业学术体验</td>
+              <td>文献→计算→论文闭环</td>
+              <td>端到端模板发布后</td>
+              <td><span class="cell-warn">⚠️ 社区开放接口（P4）</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="mpanel-support">
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th>支撑能力（按主题）</th><th>✅ 已具备</th><th>🧭 规划建议</th><th>⚠️ 依赖SCNet确认</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="t-name">T1 大模型使用</td>
+              <td class="cell-ok"><span class="matrix-dots"><span class="dot dot-ok"></span><span class="dot dot-ok"></span></span> 推理端点 + BYOK</td>
+              <td class="cell-plan"><span class="matrix-dots"><span class="dot dot-plan"></span></span> 知令适配层（P1）</td>
+              <td class="cell-warn"><span class="matrix-dots"><span class="dot dot-warn"></span><span class="dot dot-warn"></span></span> OAuth + Key 接口</td>
+            </tr>
+            <tr>
+              <td class="t-name">T2 任务管理</td>
+              <td class="cell-ok"><span class="matrix-dots"><span class="dot dot-ok"></span><span class="dot dot-ok"></span></span> .task 视图 + 作业 API</td>
+              <td class="cell-plan"><span class="matrix-dots"><span class="dot dot-plan"></span><span class="dot dot-plan"></span></span> AK/SK 管理 + 状态映射</td>
+              <td class="cell-warn"><span class="matrix-dots"><span class="dot dot-warn"></span></span> 凭证获取流程</td>
+            </tr>
+            <tr>
+              <td class="t-name">T3 超算使用</td>
+              <td class="cell-ok"><span class="matrix-dots"><span class="dot dot-ok"></span><span class="dot dot-ok"></span></span> 商城/市场 + SSH</td>
+              <td class="cell-plan"><span class="matrix-dots"><span class="dot dot-plan"></span></span> 入口与模板中心（P3）</td>
+              <td class="cell-warn"><span class="matrix-dots"><span class="dot dot-warn"></span></span> 商城合作政策</td>
+            </tr>
+            <tr>
+              <td class="t-name">T4 专业学术体验</td>
+              <td class="cell-ok"><span class="matrix-dots"><span class="dot dot-ok"></span><span class="dot dot-ok"></span><span class="dot dot-ok"></span></span> PDF/DOCX + 社区 + 用户 API</td>
+              <td class="cell-plan"><span class="matrix-dots"><span class="dot dot-plan"></span></span> 端到端模板（P4）</td>
+              <td class="cell-warn"><span class="matrix-dots"><span class="dot dot-warn"></span></span> 社区开放接口</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tip">图例：<span class="dot dot-ok"></span> 已具备　<span class="dot dot-plan"></span> 规划建议　<span class="dot dot-warn"></span> 依赖SCNet确认</div>
+  </div>
+</section>
+
+<!-- ============ 05 用户画像与用户旅程 ============ -->
+<section class="section" id="journey">
+  <div class="sec-head">
+    <div class="sec-kicker">Personas &amp; Journey</div>
+    <h2 class="sec-title"><span class="num">05</span>用户画像与用户旅程</h2>
+    <p class="sec-desc">4 类典型用户画像 + 通用旅程 + 以画像 A「王博」为例的端到端旅程。点击画像标签切换查看。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">👤 四类用户画像</div>
+    <div class="tabs" id="personaTabs">
+      <button class="tab-btn on" data-ptab="pa">A · 王博｜材料/化学研究者</button>
+      <button class="tab-btn" data-ptab="pb">B · 李工｜工业仿真工程师</button>
+      <button class="tab-btn" data-ptab="pc">C · 陈同学｜AI 应用开发者</button>
+      <button class="tab-btn" data-ptab="pd">D · 刘老师｜课题组 PI/管理员</button>
+    </div>
+    <div class="tab-panel on" id="ppanel-pa">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:110px">典型任务</th><td>VASP 第一性原理、LAMMPS/GROMACS 分子动力学；写输入文件 → 排队提交 → 分析能量/轨迹</td></tr>
+            <tr><th>当前痛点</th><td>编辑、终端、集群监控、绘图四五个工具来回切换；输入文件参数易错；排队时间不可见导致反复刷新</td></tr>
+            <tr><th>改善后体验</th><td>知令内完成输入文件与 AI 检查 → 一键提交 SCNet 算力 → 状态与结果自动回传；文献方法可 AI 提取生成输入文件草稿</td></tr>
+            <tr><th>对应主题</th><td>T1（写文件时用 SCNet 大模型）、T2（任务管理）、T3（超算使用）、T4（文献→计算闭环）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="ppanel-pb">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:110px">典型任务</th><td>结构/流体/电磁仿真批量作业（汽车/航空/气象海洋行业）；模板化配置；多工况批量提交；结果后处理</td></tr>
+            <tr><th>当前痛点</th><td>仿真软件模板配置繁琐；批量提交低效；结果文件大、回传与分析耗时；对数据安全与合规高度敏感</td></tr>
+            <tr><th>改善后体验</th><td>行业仿真模板 + <code>.task</code> 批量提交 SCNet 算力；结果在知令内解析可视化；凭证与文件受控，密码不出 SCNet</td></tr>
+            <tr><th>对应主题</th><td>T2（批量任务）、T3（算力资源）、T1（AI 辅助报告撰写）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="ppanel-pc">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:110px">典型任务</th><td>用 SCNet Token Plan / Coding Plan 做智能体、小模型应用开发与 API 调试</td></tr>
+            <tr><th>当前痛点</th><td>Key 创建、复制、回填繁琐；Key 多、易混易丢；套餐余量与模型范围不清楚；调试时反复切控制台</td></tr>
+            <tr><th>改善后体验</th><td>知令授权后模型与 Key 自动就位；模型菜单显示可用范围；用量与失效状态在应用内可见、可恢复</td></tr>
+            <tr><th>对应主题</th><td>T1（大模型使用）为主，兼 T2（训练/推理任务）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="ppanel-pd">
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:110px">典型任务</th><td>管理课题组成员、算力账号、用量与成本；向成员分发资源；关注合规与审计</td></tr>
+            <tr><th>当前痛点</th><td>成员各自管理 Key、用量分散不可见；资源分摊与报销口径不清晰；对新成员上手培训成本高</td></tr>
+            <tr><th>改善后体验</th><td>SCNet 用户资源 API（成员/存储）与知令知识库结合：成员统一通过 SCNet 授权接入；用量按账号可查（API 支持范围以 SCNet 为准 ⚠️）；课题组模板与技能包一键下发 🧭</td></tr>
+            <tr><th>对应主题</th><td>T1~T4 的管理侧视图</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">🗺 通用用户旅程（五段式）</div>
+    <div class="grid grid-4" style="gap:10px;margin-top:6px">
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800;color:var(--brand1)">① 认识与获取</div>
+        <p style="font-size:12.5px;margin-top:4px">渠道接触（官网/社区/伙伴推荐）→ 下载安装知令（官网/应用商城）</p>
+      </div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800;color:var(--brand1)">② 接入与首次价值</div>
+        <p style="font-size:12.5px;margin-top:4px">SCNet 账号登录授权 → Key 自动准备 → 首次无感对话</p>
+      </div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800;color:var(--brand1)">③ 深度使用</div>
+        <p style="font-size:12.5px;margin-top:4px">提交首个任务 → 结果可视化查看 → 文献到计算闭环</p>
+      </div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)">
+        <div style="font-weight:800;color:var(--brand1)">④ 协作与扩展</div>
+        <p style="font-size:12.5px;margin-top:4px">课题组模板共享 → 使用 SCNet 更多服务</p>
+      </div>
+    </div>
+    <div class="tip">⑤ 持续与推荐：续费套餐与复购算力 → 推荐同学/同事（触点：用户 + SCNet）</div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">🎬 端到端旅程（以画像 A「王博」为例）<span class="chip c-plan">可交互：点击步骤查看详情</span></div>
+    <div class="steps" id="journeySteps">
+      <div class="step on" data-step="0"><span class="stage-tag">认识</span><span class="step-dot">1</span><span class="step-line"></span><span class="step-txt">发现</span></div>
+      <div class="step" data-step="1"><span class="stage-tag">接入</span><span class="step-dot">2</span><span class="step-line"></span><span class="step-txt">获取安装</span></div>
+      <div class="step" data-step="2"><span class="stage-tag">接入</span><span class="step-dot">3</span><span class="step-line"></span><span class="step-txt">授权接入</span></div>
+      <div class="step" data-step="3"><span class="stage-tag">价值</span><span class="step-dot">4</span><span class="step-line"></span><span class="step-txt">首次价值</span></div>
+      <div class="step" data-step="4"><span class="stage-tag">深度</span><span class="step-dot">5</span><span class="step-line"></span><span class="step-txt">深度使用</span></div>
+      <div class="step" data-step="5"><span class="stage-tag">深度</span><span class="step-dot">6</span><span class="step-line"></span><span class="step-txt">结果处理</span></div>
+      <div class="step" data-step="6"><span class="stage-tag">扩展</span><span class="step-dot">7</span><span class="step-line"></span><span class="step-txt">文献闭环</span></div>
+      <div class="step" data-step="7"><span class="stage-tag">协作</span><span class="step-dot">8</span><span class="step-line"></span><span class="step-txt">协作共享</span></div>
+      <div class="step" data-step="8"><span class="stage-tag">持续</span><span class="step-dot">9</span><span class="step-line"></span><span class="step-txt">续费复购</span></div>
+      <div class="step" data-step="9"><span class="stage-tag">推荐</span><span class="step-dot">10</span><span class="step-line"></span><span class="step-txt">口碑推荐</span></div>
+    </div>
+    <div class="step-detail" id="journeyDetail">
+      <div class="sd-title" id="jdTitle">步骤 1 · 发现 <span class="chip c-plan">P4 后</span></div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:100px">触点在谁</th><td id="jdTouch">SCNet/知令渠道</td></tr>
+            <tr><th>王博的动作</th><td id="jdAction">从 SCNet 应用商城或知令官网了解到「知令支持 SCNet 登录」</td></tr>
+            <tr><th>系统/平台动作</th><td id="jdSys">联合品牌物料露出 🧭</td></tr>
+            <tr><th>阶段产出</th><td id="jdOut">意向</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tip">其余画像的旅程结构相同，差异在「深度使用」环节（见下方对照表）。</div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">📊 各画像旅程差异对照</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>阶段</th><th>A 王博</th><th>B 李工</th><th>C 陈同学</th><th>D 刘老师</th></tr></thead>
+        <tbody>
+          <tr><td><b>首次价值</b></td><td>AI 检查输入文件</td><td>AI 辅助仿真报告</td><td>无感调用 SCNet 模型</td><td>查看成员接入情况</td></tr>
+          <tr><td><b>深度使用</b></td><td>VASP/LAMMPS 任务</td><td>批量仿真任务</td><td>API 调试/推理任务</td><td>资源分发与用量视图</td></tr>
+          <tr><td><b>扩展</b></td><td>文献→计算闭环</td><td>行业模板</td><td>多模型切换</td><td>课题组模板下发</td></tr>
+          <tr><td><b>关键诉求</b></td><td>少切换、少出错</td><td>批量、安全</td><td>无感、透明</td><td>可控、可审计</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 产品与数据架构 ============ -->
+<section class="section" id="arch">
+  <div class="sec-head">
+    <div class="sec-kicker">Product &amp; Data Architecture</div>
+    <h2 class="sec-title"><span class="num">06</span>产品与数据架构</h2>
+    <p class="sec-desc">三层总体架构（用户层 / 知令侧 / SCNet 平台）。实线=本期打通链路；虚线=后续阶段或待确认链路。悬停节点查看说明。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">🏗 总体架构（交互式 SVG 流程图）</div>
+    <div class="arch-wrap">
+      <svg viewBox="0 0 1240 852" role="img" aria-label="知令与SCNet总体架构流程图">
+        <!-- 分组容器 -->
+        <rect class="arch-group" x="40" y="24" width="1160" height="116" rx="14"/>
+        <text class="arch-glabel" x="62" y="52" font-size="12">用户层</text>
+        <rect class="arch-group" x="40" y="160" width="340" height="500" rx="14"/>
+        <text class="arch-glabel" x="62" y="188" font-size="12">知令侧（本地 + 服务）</text>
+        <rect class="arch-group" x="860" y="160" width="340" height="672" rx="14"/>
+        <text class="arch-glabel" x="882" y="188" font-size="12">SCNet 平台</text>
+        <text class="arch-glabel" x="882" y="814" font-size="11">现状：用户经网页控制台人工衔接第三方工具</text>
+
+        <!-- 连线（先画，被节点覆盖部分自动隐藏） -->
+        <path class="arch-bus" d="M620,140 L620,166"/>
+        <path class="arch-bus" d="M210,166 L1030,166"/>
+        <path class="arch-bus" d="M210,166 L210,196"/>
+        <path class="arch-bus" d="M210,166 L210,272"/>
+        <path class="arch-bus" d="M210,166 L210,348"/>
+        <path class="arch-bus" d="M210,166 L210,424"/>
+        <path class="arch-bus" d="M210,166 L210,500"/>
+        <path class="arch-bus" d="M210,166 L210,576"/>
+        <!-- 用户直达 SCNet 现状虚线 -->
+        <path class="arch-link dash" d="M770,82 C 900,44 1030,44 1030,160" data-tip="今天：用户只能通过 SCNet 网页控制台手动创建/复制 Key，人肉衔接第三方工具"/>
+        <text class="arch-ltext" x="860" y="36">今天：网页人肉衔接</text>
+
+        <!-- 知令侧 → SCNet 链路 -->
+        <path class="arch-link" d="M360,574 C 600,574 600,302 880,302" data-tip="OAuth 授权（模式 A 授权码+PKCE / 模式 B 轮询），密码不出 SCNet ⚠️ 依赖SCNet确认"/>
+        <text class="arch-ltext" x="474" y="500">OAuth 授权·密码不出SCNet</text>
+        <path class="arch-link" d="M360,588 C 630,588 630,378 880,378" data-tip="知令以 access_token + scope 调用 Key 管理接口（创建/读取）⚠️ 依赖SCNet确认"/>
+        <text class="arch-ltext" x="532" y="530">access_token + scope</text>
+        <path class="arch-link" d="M360,602 C 660,602 660,454 880,454" data-tip="知令以 API Key 调用大模型推理端点 https://api.scnet.cn/api/llm/v1 ✅ 已具备"/>
+        <text class="arch-ltext" x="586" y="556">API Key</text>
+        <path class="arch-link" d="M360,352 C 520,352 520,530 880,530" data-tip="作业提交/状态同步（凭证策略待 SCNet 确认 ⚠️）"/>
+        <text class="arch-ltext" x="482" y="442">作业提交/状态·凭证待确认⚠️</text>
+        <path class="arch-link dash" d="M360,366 C 560,366 560,606 880,606" data-tip="AK/SK 签名鉴权（计算服务开放 API）✅ 已具备"/>
+        <text class="arch-ltext" x="532" y="474">AK/SK 签名</text>
+        <path class="arch-link dash" d="M360,614 C 700,614 700,682 880,682" data-tip="资源/应用入口（商城合作政策待确认 ⚠️）"/>
+        <text class="arch-ltext" x="600" y="656">资源/应用入口·政策待确认⚠️</text>
+        <path class="arch-link dash" d="M360,276 C 540,276 540,758 880,758" data-tip="社区内容入口（开放接口或合作授权待确认 ⚠️）"/>
+        <text class="arch-ltext" x="470" y="240">社区内容入口·接口待确认⚠️</text>
+        <path class="arch-link dash" d="M1030,236 L1030,272"/>
+        <path class="arch-link dash" d="M1030,332 L1030,378"/>
+
+        <!-- 用户层节点 -->
+        <g data-tip="知令桌面端支持 Windows / macOS / 麒麟 V10、V11 / Android（✅ 已具备）">
+          <rect class="arch-node" x="470" y="52" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="620" y="78" text-anchor="middle">知令桌面端</text>
+          <text class="arch-sub" x="620" y="98" text-anchor="middle">Windows / macOS / 麒麟 / Android</text>
+        </g>
+
+        <!-- 知令侧节点 -->
+        <g data-tip="多会话、多模型切换、Agent/Ask/Plan/Research/Debug 等工作模式 ✅ 已具备">
+          <rect class="arch-node node-ok" x="60" y="196" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="222" text-anchor="middle">AI 智能体 ✅</text>
+          <text class="arch-sub" x="210" y="242" text-anchor="middle">会话 · 模式 · 工具调用</text>
+        </g>
+        <g data-tip="Markdown（含 Mermaid/LaTeX）、DOCX、PDF 高质量转 Markdown ✅ 已具备">
+          <rect class="arch-node node-ok" x="60" y="272" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="298" text-anchor="middle">文档工作台 ✅</text>
+          <text class="arch-sub" x="210" y="318" text-anchor="middle">Markdown / DOCX / PDF</text>
+        </g>
+        <g data-tip=".task 任务文件、SLURM/Shell、状态轮询、Plotly 可视化 ✅ 已具备">
+          <rect class="arch-node node-ok" x="60" y="348" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="374" text-anchor="middle">任务管理 ✅</text>
+          <text class="arch-sub" x="210" y="394" text-anchor="middle">.task · SLURM · Shell</text>
+        </g>
+        <g data-tip="SSH 文件树/编辑/搜索、多标签远程终端、连接池管理 ✅ 已具备">
+          <rect class="arch-node node-ok" x="60" y="424" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="450" text-anchor="middle">远程项目 ✅</text>
+          <text class="arch-sub" x="210" y="470" text-anchor="middle">SSH 文件树 · 终端</text>
+        </g>
+        <g data-tip="自定义 Base URL / Model / Key 扩展模型列表 ✅ 已具备（当前接入 SCNet 需手动走此通道）">
+          <rect class="arch-node node-ok" x="60" y="500" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="526" text-anchor="middle">BYOK 通道 ✅</text>
+          <text class="arch-sub" x="210" y="546" text-anchor="middle">自定义模型接入</text>
+        </g>
+        <g data-tip="知令新增的 SCNet 对接模块：授权引导、凭证安全存储、Key 自动准备、模型列表同步、作业映射 🧭 规划建议（P1/P2 交付）">
+          <rect class="arch-node node-warn" x="60" y="576" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="210" y="602" text-anchor="middle">SCNet 适配层 🧭</text>
+          <text class="arch-sub" x="210" y="622" text-anchor="middle">授权引导 · Key 自动准备 · 作业映射</text>
+        </g>
+
+        <!-- SCNet 侧节点 -->
+        <g data-tip="第三方应用登记、client_id/client_secret 签发、回调白名单、scope 治理 ⚠️ 依赖SCNet确认（需求文档 5.2）">
+          <rect class="arch-node node-warn" x="880" y="196" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="222" text-anchor="middle">开放平台应用注册 🧭</text>
+          <text class="arch-sub" x="1030" y="242" text-anchor="middle">应用登记 · 凭证签发</text>
+        </g>
+        <g data-tip="登录页/授权确认页、授权码+PKCE、轮询模式、令牌签发与撤销 ⚠️ 依赖SCNet确认（需求文档 5.3）">
+          <rect class="arch-node node-warn" x="880" y="272" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="298" text-anchor="middle">认证授权服务 🧭</text>
+          <text class="arch-sub" x="1030" y="318" text-anchor="middle">OAuth 授权 · 轮询模式</text>
+        </g>
+        <g data-tip="Key 创建/读取（明文仅约定出口出现）、审计、限流 ⚠️ 依赖SCNet确认（需求文档第 6 章）">
+          <rect class="arch-node node-warn" x="880" y="348" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="374" text-anchor="middle">API Key 管理服务 🧭</text>
+          <text class="arch-sub" x="1030" y="394" text-anchor="middle">创建 / 读取（建议）</text>
+        </g>
+        <g data-tip="OpenAI 兼容端点 https://api.scnet.cn/api/llm/v1、Anthropic 兼容端点 ✅ 已具备">
+          <rect class="arch-node node-ok" x="880" y="424" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="450" text-anchor="middle">大模型推理服务 ✅</text>
+          <text class="arch-sub" x="1030" y="470" text-anchor="middle">api.scnet.cn/api/llm/v1</text>
+        </g>
+        <g data-tip="提交作业、查询列表/详情、查看文件、删除作业等 ✅ 已具备">
+          <rect class="arch-node node-ok" x="880" y="500" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="526" text-anchor="middle">作业管理 API ✅</text>
+          <text class="arch-sub" x="1030" y="546" text-anchor="middle">提交 · 查询 · 文件</text>
+        </g>
+        <g data-tip="AK/SK 签名鉴权、凭证续约、凭证验证 ✅ 已具备">
+          <rect class="arch-node node-ok" x="880" y="576" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="602" text-anchor="middle">AK/SK 凭证体系 ✅</text>
+          <text class="arch-sub" x="1030" y="622" text-anchor="middle">签名鉴权</text>
+        </g>
+        <g data-tip="算力市场、应用商城（VASP、LAMMPS、GROMACS、AlphaFold3 等）✅ 已具备">
+          <rect class="arch-node node-ok" x="880" y="652" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="678" text-anchor="middle">算力市场 · 应用商城 ✅</text>
+          <text class="arch-sub" x="1030" y="698" text-anchor="middle">VASP · LAMMPS · AlphaFold3…</text>
+        </g>
+        <g data-tip="AI 社区、模型库、数据集资源 ✅ 已具备">
+          <rect class="arch-node node-ok" x="880" y="728" width="300" height="60" rx="12"/>
+          <text class="arch-title" x="1030" y="754" text-anchor="middle">AI 社区 · 模型库 ✅</text>
+          <text class="arch-sub" x="1030" y="774" text-anchor="middle">内容 · 数据集</text>
+        </g>
+      </svg>
+    </div>
+    <div class="arch-legend">
+      <span><svg width="36" height="6" style="vertical-align:middle"><line x1="0" y1="3" x2="34" y2="3" stroke="#2456e6" stroke-width="2.5"/></svg> 本期打通链路</span>
+      <span><svg width="36" height="6" style="vertical-align:middle"><line x1="0" y1="3" x2="34" y2="3" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/></svg> 后续阶段 / 待确认链路</span>
+      <span><span class="dot dot-ok"></span> 已具备</span>
+      <span><span class="dot dot-plan"></span> 规划建议</span>
+      <span><span class="dot dot-warn"></span> 依赖SCNet确认</span>
+    </div>
+  </div>
+
+  <div class="card mt14">
+    <div class="card-h">🧩 模块职责</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>模块</th><th>归属</th><th>职责</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>开放平台应用注册</td><td>SCNet</td><td>第三方应用登记、<code>client_id</code>/<code>client_secret</code> 签发、回调白名单、scope 治理</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span></td></tr>
+          <tr><td>认证授权服务</td><td>SCNet</td><td>登录页/授权确认页、授权码+PKCE、轮询模式、令牌签发与撤销</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span></td></tr>
+          <tr><td>API Key 管理服务</td><td>SCNet</td><td>Key 创建/读取（明文仅约定出口）、审计、限流</td><td><span class="b b-warn">⚠️ 依赖SCNet确认</span></td></tr>
+          <tr><td>SCNet 适配层</td><td>知令</td><td>授权发起与轮询、凭证安全存储、Key 自动准备、模型列表同步、作业映射</td><td><span class="b b-plan">🧭 规划建议</span></td></tr>
+          <tr><td>智能体/文档/任务/SSH/BYOK</td><td>知令</td><td>现有产品能力，配合适配层提供体验</td><td><span class="b b-ok">✅ 已具备</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14" data-tags="ok,warn">
+    <div class="card-h">🔐 凭证与数据流</div>
+    <div class="grid grid-2">
+      <div style="font-size:13.5px"><b>① 身份凭证</b><p style="color:var(--muted)"><code>access_token</code>（建议 2h）/ <code>refresh_token</code>（滚动续期）由 SCNet 签发，知令本地加密存储（与知令现有登录凭证同级安全要求 ✅ 的实践基础，落地方案待确认 <span class="b b-warn">⚠️</span>）</p></div>
+      <div style="font-size:13.5px"><b>② API Key</b><p style="color:var(--muted)">仅在「创建响应一次」或「读取接口」两个受控出口出现；知令收到后本地加密保存，仅用于向 SCNet 推理端点发起调用，不对外发送（K1 约束）</p></div>
+      <div style="font-size:13.5px"><b>③ 用户数据边界</b><p style="color:var(--muted)">密码永不进入知令；<code>userinfo</code> 字段范围（邮箱是否明文、是否含机构）由 SCNet 决定 <span class="b b-warn">⚠️</span></p></div>
+      <div style="font-size:13.5px"><b>④ 作业数据</b><p style="color:var(--muted)">任务元数据与日志经 SCNet 作业 API 回传知令展示；大文件结果沿用用户自管存储或 SCNet 用户存储 API ✅（配置方式待确认 <span class="b b-warn">⚠️</span>）</p></div>
+    </div>
+    <div class="quote warn" style="margin-bottom:0">
+      <b>安全设计要点（沿用需求文档安全要求，落地依赖 SCNet 确认 ⚠️）：</b>全程 HTTPS；授权码单次有效、<code>state</code> 强制校验；PKCE S256；轮询模式按 IP+request_id 滑动窗口限流；每用户活跃授权会话数设上限（S1–S3）；Key 明文与 token 不出现在任何日志；响应头 <code>no-store</code>（S8）；用户可在 SCNet 个人中心随时撤销授权，撤销后凭证立即失效（S7）。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 关键流程设计 ============ -->
+<section class="section" id="flows">
+  <div class="sec-head">
+    <div class="sec-kicker">Key Flows</div>
+    <h2 class="sec-title"><span class="num">07</span>关键流程设计</h2>
+    <p class="sec-desc">四个核心流程，对应 P1–P4 各阶段的核心闭环。</p>
+  </div>
+
+  <div class="card" data-tags="plan,warn">
+    <div class="card-h">🔑 流程一 · 一次授权、无感跑通大模型（P1 核心流程）</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:56px">步</th><th>角色</th><th>动作</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>用户</td><td>点击「SCNet 账号登录」</td></tr>
+          <tr><td>2</td><td>知令</td><td>发起授权（scope: <code>user:info</code> + <code>llm:apikey</code>）</td></tr>
+          <tr><td>3</td><td>SCNet</td><td>登录页（未登录）/ 授权确认页（已登录）</td></tr>
+          <tr><td>4</td><td>用户</td><td>账号密码（<b>仅提交至 SCNet</b>）；同意授权</td></tr>
+          <tr><td>5</td><td>SCNet</td><td>签发 <code>access_token + refresh_token + userinfo</code></td></tr>
+          <tr><td>6</td><td>知令</td><td>查询已有 API Key（读取接口）</td></tr>
+          <tr><td>7a</td><td>知令</td><td>无可用 Key → 创建 API Key（返回完整明文，仅此一次）</td></tr>
+          <tr><td>7b</td><td>知令</td><td>已有 Key → 读取 Key 明文（需 scope 授权）</td></tr>
+          <tr><td>8</td><td>知令</td><td>Key 本地加密存储，配置到推理客户端</td></tr>
+          <tr><td>9</td><td>知令</td><td>以 API Key 调用 <code>https://api.scnet.cn/api/llm/v1</code></td></tr>
+          <tr><td>10</td><td>SCNet</td><td>模型响应（流式/非流式）</td></tr>
+          <tr><td>11</td><td>用户</td><td>工作台内直接使用大模型能力</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tip">对应需求文档 4.3 节「无感跑通大模型」闭环与端到端验收场景 U1–U8。<span class="b b-warn">⚠️ 全部接口依赖 SCNet 开发确认</span></div>
+  </div>
+
+  <div class="card mt14" data-tags="ok,plan">
+    <div class="card-h">📋 流程二 · 任务提交与状态追踪（P2）</div>
+    <ol style="margin-left:20px;font-size:14px">
+      <li>用户在知令任务视图创建 <code>.task</code> <span class="b b-ok">✅</span>，目标选「SCNet」；</li>
+      <li>知令将 <code>.task</code> 参数映射为 SCNet 作业 API 提交请求（API <span class="b b-ok">✅</span>，映射 <span class="b b-plan">🧭</span>）；</li>
+      <li>提交后知令轮询作业状态（排队 → 运行 → 结束），失败时结合错误码给出可读指引 <span class="b b-plan">🧭</span>；</li>
+      <li>日志与结果文件回传知令任务视图，支持 Plotly 可视化 <span class="b b-ok">✅</span>；</li>
+      <li>AI 智能体可用自然语言发起/查询/终止任务（知令工具链 <span class="b b-ok">✅</span>，SCNet 目标接入 <span class="b b-plan">🧭</span>）。</li>
+    </ol>
+  </div>
+
+  <div class="card mt14" data-tags="ok,plan,warn">
+    <div class="card-h">⚙️ 流程三 · 算力与应用的衔接（P3）</div>
+    <ol style="margin-left:20px;font-size:14px">
+      <li>用户在知令「SCNet 资源」入口查看算力与应用信息（跳转官方页面，展示形式待确认 <span class="b b-warn">⚠️</span>）；</li>
+      <li>高频应用（VASP/LAMMPS/GROMACS 等）提供知令模板：输入文件骨架 + AI 参数检查清单 + 对应 <code>.task</code> <span class="b b-plan">🧭</span>；</li>
+      <li>任务产出（结构/能量/轨迹）用知令可视化与 AI 解读（<span class="b b-ok">✅</span>＋<span class="b b-plan">🧭</span>）；</li>
+      <li><b>算力购买、套餐订阅等交易环节始终在 SCNet 官方页面完成，知令不代收代付</b>（边界见第 11 章）。</li>
+    </ol>
+  </div>
+
+  <div class="card mt14" data-tags="ok,plan">
+    <div class="card-h">📚 流程四 · 文献到计算的学术闭环（P4）</div>
+    <ol style="margin-left:20px;font-size:14px">
+      <li>用户在知令打开文献 PDF → 高质量转 Markdown <span class="b b-ok">✅</span>（MinerU）；</li>
+      <li>AI 提取方法、参数与软件版本 → 生成输入文件草稿 <span class="b b-plan">🧭</span>；</li>
+      <li>用户确认后经流程二提交 SCNet 算力 <span class="b b-plan">🧭</span>；</li>
+      <li>结果对照文献数据，AI 辅助分析差异 → 写入论文/报告（文档能力 <span class="b b-ok">✅</span>）。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 08 合作模式 ============ -->
+<section class="section" id="coop">
+  <div class="sec-head">
+    <div class="sec-kicker">Cooperation Model</div>
+    <h2 class="sec-title"><span class="num">08</span>合作模式</h2>
+    <p class="sec-desc">技术合作 + 品牌合作 + 生态运营 + 商务合作建议（商务条款需谈判确认）。</p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card" data-tags="warn">
+      <div class="card-h">🛠 技术合作模式</div>
+      <div class="tbl-wrap" style="box-shadow:none">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:90px">接入身份</th><td>知令以「第三方应用」身份在 SCNet 开放平台注册（<span class="b b-warn">⚠️</span> 注册流程与审核周期待确认）</td></tr>
+            <tr><th>开发分工</th><td>SCNet：OAuth 授权、Key 管理接口、应用注册、沙箱；知令：适配层与全部客户端体验</td></tr>
+            <tr><th>联调机制</th><td>SCNet 提供沙箱联调环境与接口人；知令提交接入测试报告（<span class="b b-warn">⚠️</span> 沙箱与接口人待确认）</td></tr>
+            <tr><th>迭代节奏</th><td>以需求文档第 7 章 U1–U11 为验收基线，按里程碑联合评审</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" data-tags="plan,warn">
+      <div class="card-h">🤝 品牌合作（联合品牌建议 🧭）</div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li>对外统一使用「<b>知令 ZHILING × 超算互联网 SCNet</b>」联合品牌；</li>
+        <li>双方官网、公众号、社区发布合作公告与使用教程（物料互审）；</li>
+        <li>联合举办高校/行业推广活动，沉淀标杆用户案例；</li>
+        <li>知令应用在 SCNet 应用商城上架（<span class="b b-warn">⚠️</span> 入驻政策以 SCNet 商家中心为准）。</li>
+      </ul>
+    </div>
+    <div class="card" data-tags="plan,warn">
+      <div class="card-h">🌱 生态运营合作 🧭</div>
+      <div class="tbl-wrap" style="box-shadow:none">
+        <table class="tbl">
+          <tbody>
+            <tr><th style="width:90px">内容互通</th><td>SCNet AI 社区/模型库内容在知令内的触达入口（<span class="b b-warn">⚠️</span> 开放接口或合作授权待确认）</td></tr>
+            <tr><th>模板共建</th><td>高频科学应用（VASP/LAMMPS/GROMACS 等）知令模板由双方共同维护</td></tr>
+            <tr><th>样板间复制</th><td>沉淀「第三方接入知令模式」为 SCNet 开放平台通用接入指南，吸引更多工具接入（<span class="b b-warn">⚠️</span> 是否推广由 SCNet 决定）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" data-tags="plan,warn">
+      <div class="card-h">💰 商务合作建议 🧭 <span class="b b-warn">⚠️ 需商务谈判确认</span></div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li><b>用户权益</b>：新用户联合礼包（如算力/Token 试用权益），成本与发放方式双方商定；</li>
+        <li><b>分成模式</b>：经知令带动的 SCNet 套餐订阅/算力消费，建议按协商比例分成或结算推广权益；</li>
+        <li><b>采购模式</b>：面向机构的「SCNet 资源 + 知令客户端」组合方案，联合投标与交付；</li>
+        <li><b>定价原则</b>：不改变 SCNet 官方定价体系，不引入未经核实的价格承诺；具体商务条款另行签订。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 分阶段路线图 ============ -->
+<section class="section" id="roadmap">
+  <div class="sec-head">
+    <div class="sec-kicker">Roadmap</div>
+    <h2 class="sec-title"><span class="num">09</span>分阶段路线图</h2>
+    <p class="sec-desc">P0–P4 五阶段（时间为建议值）。点击时间轴节点展开/收起阶段明细。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">🗓 路线图时间轴（P0–P4 · 交互式）</div>
+    <div class="timeline" id="timeline">
+      <div class="tl-item on" data-tl="p0">
+        <div class="tl-time">0–1 月</div>
+        <div class="tl-rail"><span class="tl-dot"></span></div>
+        <div class="tl-body">
+          <div class="tl-card">
+            <div class="tl-title">P0 · 立项与联调准备</div>
+            <div class="tl-detail">
+              <p><b>目标：</b>达成合作意向、环境就绪</p>
+              <ul>
+                <li>商务确认；接口人指定；沙箱环境申请；应用注册材料提交</li>
+                <li>分工：SCNet 政策/沙箱/接口人 <span class="b b-warn">⚠️</span>；知令接入方案与测试用例</li>
+                <li><b>退出标准：</b>待确认事项 1~9 项有书面结论；沙箱可访问</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="p1">
+        <div class="tl-time">1–3 月</div>
+        <div class="tl-rail"><span class="tl-dot"></span></div>
+        <div class="tl-body">
+          <div class="tl-card">
+            <div class="tl-title">P1 · 身份互通与大模型无感接入 <span class="tl-milestone">里程碑 M1：授权+无感调用跑通</span></div>
+            <div class="tl-detail">
+              <p><b>目标：</b>一次授权即可用 SCNet 大模型</p>
+              <ul>
+                <li>OAuth 两端点 + 轮询模式；Key 创建/读取接口；知令适配层（登录入口、凭证存储、Key 自动准备、模型列表）</li>
+                <li>分工：SCNet 开发授权与 Key 接口 <span class="b b-warn">⚠️</span>；知令适配层开发</li>
+                <li><b>退出标准：</b>需求文档 U1–U11 全通过；第 13 章知令侧 T1 验收项通过</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="p2">
+        <div class="tl-time">3–6 月</div>
+        <div class="tl-rail"><span class="tl-dot"></span></div>
+        <div class="tl-body">
+          <div class="tl-card">
+            <div class="tl-title">P2 · 任务管理打通 <span class="tl-milestone">里程碑 M2：任务双轨合一</span></div>
+            <div class="tl-detail">
+              <p><b>目标：</b>知令直接提交/跟踪 SCNet 作业</p>
+              <ul>
+                <li><code>.task</code> ↔ SCNet 作业 API 映射；状态机对齐；错误码可读化；AI 驱动提交</li>
+                <li>分工：SCNet 作业 API 文档答疑、凭证策略确认 <span class="b b-warn">⚠️</span>；知令任务适配开发</li>
+                <li><b>退出标准：</b>提交/查询/终止/日志回传四类操作在知令内走通；批量任务试点</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="p3">
+        <div class="tl-time">6–9 月</div>
+        <div class="tl-rail"><span class="tl-dot"></span></div>
+        <div class="tl-body">
+          <div class="tl-card">
+            <div class="tl-title">P3 · 超算使用与算力体验 <span class="tl-milestone">里程碑 M3：资源入口进工作台</span></div>
+            <div class="tl-detail">
+              <p><b>目标：</b>资源与应用进入工作流</p>
+              <ul>
+                <li>资源入口设计；高频应用 <code>.task</code> 模板（VASP/LAMMPS/GROMACS）；结果可视化适配</li>
+                <li>分工：SCNet 商城合作政策、入口授权 <span class="b b-warn">⚠️</span>；知令模板与可视化</li>
+                <li><b>退出标准：</b>至少 3 类应用模板可用；试点用户从商城→知令→结果全流程跑通</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item" data-tl="p4">
+        <div class="tl-time">9–12 月</div>
+        <div class="tl-rail"><span class="tl-dot"></span></div>
+        <div class="tl-body">
+          <div class="tl-card">
+            <div class="tl-title">P4 · 专业学术体验与生态运营 <span class="tl-milestone">里程碑 M4：学术闭环+联合运营</span></div>
+            <div class="tl-detail">
+              <p><b>目标：</b>学术闭环 + 联合品牌运营</p>
+              <ul>
+                <li>文献→输入文件→算力→论文模板；社区内容入口（待确认 <span class="b b-warn">⚠️</span>）；联合品牌发布与案例传播</li>
+                <li>分工：双方共同运营</li>
+                <li><b>退出标准：</b>至少 1 个端到端学术案例公开；联合发布完成；入驻/内容互通政策落地</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip">各阶段时间为<b>建议值</b>，实际排期取决于 SCNet 侧开发资源与待确认事项的答复速度。</div>
+  </div>
+</section>
+
+<!-- ============ 10 可量化指标 ============ -->
+<section class="section" id="metrics">
+  <div class="sec-head">
+    <div class="sec-kicker">Metrics</div>
+    <h2 class="sec-title"><span class="num">10</span>可量化指标</h2>
+    <p class="sec-desc">目标值均为建议目标（🧭），基线数据需在 P0 双方联合采集后定稿；不作为对 SCNet 单方的承诺，全部指标按「联合发布口径」复盘。切换类别查看指标卡。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">📈 指标体系（交互式仪表盘）</div>
+    <div class="tabs" id="metricTabs">
+      <button class="tab-btn on" data-mtab="access">接入体验</button>
+      <button class="tab-btn" data-mtab="llm">大模型使用</button>
+      <button class="tab-btn" data-mtab="job">任务管理</button>
+      <button class="tab-btn" data-mtab="hpc">超算使用</button>
+      <button class="tab-btn" data-mtab="user">用户价值</button>
+      <button class="tab-btn" data-mtab="cost">支持成本与生态</button>
+    </div>
+
+    <div class="tab-panel on" id="mspanel-access">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="99"/></svg>
+            <div class="ring-txt"><b>99%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">授权成功率</div>
+            <div class="metric-target">用户同意后成功换取凭证 ≥ 99%</div>
+            <div class="metric-target">测量：知令侧埋点 + SCNet 侧日志联合核对</div>
+          </div>
+        </div>
+        <div class="metric-plain">
+          <div class="big">≤ 30s / 90s</div>
+          <div class="name">授权完成耗时</div>
+          <div class="desc">点击登录到可用：已登录用户 ≤ 30s；未登录 ≤ 90s（端到端埋点）</div>
+        </div>
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="95"/></svg>
+            <div class="ring-txt"><b>95%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">Key 自动化率</div>
+            <div class="metric-target">无需手动复制 Key 的用户占比 ≥ 95%（知令侧统计）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="mspanel-llm">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="60"/></svg>
+            <div class="ring-txt"><b>60%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">SCNet 模型周活跃用户</div>
+            <div class="metric-target">上线 3 个月后达到试点用户数的 60%（双方联合统计）</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="99"/></svg>
+            <div class="ring-txt"><b>99%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">调用成功率 / 首 token 时延</div>
+            <div class="metric-target">成功率 ≥ 99%；时延以 SCNet SLA 为准 <span class="b b-warn">⚠️</span>（知令侧观测）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="mspanel-job">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="95"/></svg>
+            <div class="ring-txt"><b>95%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">任务提交成功率</div>
+            <div class="metric-target">含参数校验后 ≥ 95%（知令任务视图统计）</div>
+          </div>
+        </div>
+        <div class="metric-plain">
+          <div class="big">≤ 10s</div>
+          <div class="name">状态同步及时性</div>
+          <div class="desc">提交到状态可见 ≤ 10s（轮询间隔观测）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="mspanel-hpc">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="40"/></svg>
+            <div class="ring-txt"><b>40%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">模板化任务占比</div>
+            <div class="metric-target">经模板发起的任务比例试点期 ≥ 40%（知令侧统计）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="mspanel-user">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="40"/></svg>
+            <div class="ring-txt"><b>40%</b><span>周留存</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">周留存 / 月留存</div>
+            <div class="metric-target">周留存 ≥ 40%；月留存 ≥ 25%（上线 3 个月后，双方联合统计）</div>
+          </div>
+        </div>
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="60"/></svg>
+            <div class="ring-txt"><b>+30</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">净推荐值 NPS</div>
+            <div class="metric-target">≥ +30（应用内问卷）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="mspanel-cost">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="ring-box">
+            <svg viewBox="0 0 80 80"><circle class="ring-bg" cx="40" cy="40" r="34"/><circle class="ring-val" cx="40" cy="40" r="34" data-val="50"/></svg>
+            <div class="ring-txt"><b>−50%</b><span>目标</span></div>
+          </div>
+          <div class="metric-info">
+            <div class="metric-name">凭证相关工单占比下降</div>
+            <div class="metric-target">较基线下降 ≥ 50%（SCNet 支持渠道工单分类）</div>
+          </div>
+        </div>
+        <div class="metric-plain">
+          <div class="big">由 SCNet 制定</div>
+          <div class="name">接入的第三方应用数（知令模式复制）</div>
+          <div class="desc">取决于开放策略 <span class="b b-warn">⚠️</span>（SCNet 开放平台统计）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip"><b>测量与复盘机制 🧭：</b>P1 上线后每月输出《联合运营月报》（核心指标 + 问题清单 + 下月动作）；每阶段结束联合复盘；指标口径、埋点字段与数据共享方式在 P0 双方书面确认（涉及数据合规 <span class="b b-warn">⚠️</span>）。</div>
+  </div>
+</section>
+
+<!-- ============ 11 风险与边界 ============ -->
+<section class="section" id="risk">
+  <div class="sec-head">
+    <div class="sec-kicker">Risk &amp; Boundaries</div>
+    <h2 class="sec-title"><span class="num">11</span>风险与边界</h2>
+    <p class="sec-desc">八项风险与缓解措施，以及双方边界约定。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">⚠️ 风险清单（R1–R8）</div>
+    <div class="risk-grid">
+      <div class="risk lv-high" data-tags="warn"><div class="risk-head">R1 · 安全与凭证风险 <span class="lv lv-high">高</span></div><p>API Key 明文经由第三方存储，存在泄露面。</p><div class="fix"><b>缓解：</b>本地加密存储、最小权限 scope、撤销即时生效、审计日志（需求文档 6.4/S 系列）；Key 明文策略以 SCNet 确认为准 <span class="b b-warn">⚠️</span></div></div>
+      <div class="risk lv-mid" data-tags="warn"><div class="risk-head">R2 · 隐私合规风险 <span class="lv lv-mid">中</span></div><p><code>userinfo</code> 字段（邮箱/手机号/机构）返回范围不明确。</p><div class="fix"><b>缓解：</b>按 SCNet 隐私政策分级返回/掩码，字段清单待确认 <span class="b b-warn">⚠️</span></div></div>
+      <div class="risk lv-high" data-tags="warn"><div class="risk-head">R3 · 排期与依赖风险 <span class="lv lv-high">高</span></div><p>OAuth 与 Key 接口是 P1 硬依赖，若 SCNet 排期推迟则整体顺延。</p><div class="fix"><b>缓解：</b>需求文档已给出完整接口建议；P0 尽早锁定排期与接口人。</div></div>
+      <div class="risk lv-mid" data-tags="plan"><div class="risk-head">R4 · 体验一致性风险 <span class="lv lv-mid">中</span></div><p>SCNet 认证页面与知令 UI 体验割裂、授权文案不一致。</p><div class="fix"><b>缓解：</b>授权页需求已在需求文档 5.4/5.5 定义；双方 UI 评审。</div></div>
+      <div class="risk lv-mid" data-tags="warn"><div class="risk-head">R5 · 接口变更风险 <span class="lv lv-mid">中</span></div><p>SCNet 接口路径/参数后续调整，知令适配层需跟随。</p><div class="fix"><b>缓解：</b>版本化接口约定、变更通知机制（待确认 <span class="b b-warn">⚠️</span>）。</div></div>
+      <div class="risk lv-mid" data-tags="warn"><div class="risk-head">R6 · 商务政策风险 <span class="lv lv-mid">中</span></div><p>计费政策、商城入驻政策、分成模式未定。</p><div class="fix"><b>缓解：</b>商务条款单独谈判，技术联调与商务谈判并行。</div></div>
+      <div class="risk lv-mid" data-tags="plan"><div class="risk-head">R7 · 用户预期风险 <span class="lv lv-mid">中</span></div><p>用户把「无感接入」误解为「算力免费/不限量」。</p><div class="fix"><b>缓解：</b>授权页与知令界面明确套餐范围；不做未核实的价格承诺。</div></div>
+      <div class="risk lv-low" data-tags="warn"><div class="risk-head">R8 · 平台政策变化 <span class="lv lv-low">低</span></div><p>SCNet 开放策略调整（如第三方接入范围收窄）。</p><div class="fix"><b>缓解：</b>以正式协议固化接入承诺与过渡期。</div></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2 mt14">
+    <div class="card" data-tags="warn">
+      <div class="card-h">🚧 知令的边界（本方案明确不做）</div>
+      <ol style="margin-left:20px;font-size:13.5px">
+        <li>不接触、不存储用户 SCNet 密码；不要求用户在任何知令界面输入 SCNet 密码；</li>
+        <li>不代收代付、不代理销售 SCNet 算力与套餐，交易环节全部在 SCNet 官方页面完成；</li>
+        <li>不将 SCNet 用户数据、Key、用量数据用于合作范围之外的商业用途；</li>
+        <li>不在未经 SCNet 确认的情况下，声称获得 SCNet 任何排他性授权或代表 SCNet 官方承诺（价格、SLA、扩容等）。</li>
+      </ol>
+    </div>
+    <div class="card" data-tags="plan">
+      <div class="card-h">🏛 SCNet 的边界（建议双方共识 🧭）</div>
+      <ol style="margin-left:20px;font-size:13.5px">
+        <li>Key 生命周期、套餐权益、用量规则的解释权与最终控制权在 SCNet；</li>
+        <li>知令侧适配层对 SCNet 接口的调用须遵守 SCNet 限流与使用条款；</li>
+        <li>联合品牌物料需双方互审后发布。</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 待双方确认事项 ============ -->
+<section class="section" id="confirm">
+  <div class="sec-head">
+    <div class="sec-kicker">Open Questions</div>
+    <h2 class="sec-title"><span class="num">12</span>待双方确认事项</h2>
+    <p class="sec-desc">技术类 10 项（沿用需求文档第 10 章）+ 商务与运营类 5 项（本方案新增建议）。可点击条目标记「已阅」（仅本地浏览器记录）。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-h">❓ 待确认清单（共 15 项） <span class="chip" id="confirmCounter">已确认 0 / 15</span></div>
+    <div class="confirm-grid">
+      <div style="grid-column:1/-1;font-weight:800;font-size:13.5px;color:var(--warn-fg)">技术类（请 SCNet 研发反馈 ⚠️）</div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">1</span><span class="ci-txt">授权端点 / 接口最终路径与域名分配</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">2</span><span class="ci-txt">应用注册是否需人工审核，审核周期与所需材料</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">3</span><span class="ci-txt">scope 权限清单最终定义（是否按需求文档建议裁剪/扩展）</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">4</span><span class="ci-txt">API Key 明文读取是否允许，是否需要额外的用户二次确认</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">5</span><span class="ci-txt">Key 管理接口是否同时支持 AK/SK 签名调用</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">6</span><span class="ci-txt">每用户 API Key 数量上限、与 Token Plan / Coding Plan 绑定规则、未订阅用户策略</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">7</span><span class="ci-txt">userinfo 字段最终范围（邮箱是否明文、是否含机构信息）</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">8</span><span class="ci-txt">access_token / refresh_token 有效期参数</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">9</span><span class="ci-txt">沙箱联调环境地址与技术支持接口人</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">10</span><span class="ci-txt">第三方接入的计费政策（是否收费、是否影响套餐折扣）</span></div>
+      <div style="grid-column:1/-1;font-weight:800;font-size:13.5px;color:var(--plan-fg);margin-top:8px">商务与运营类（本方案新增建议 🧭）</div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">11</span><span class="ci-txt">应用商城上架知令的入驻政策与审核流程 —— 知令建议：按商家中心流程办理，请 SCNet 指定对接人</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">12</span><span class="ci-txt">联合品牌发布的时间、渠道与物料互审机制 —— 知令建议：可先行提交合作公告草案</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">13</span><span class="ci-txt">AI 社区/模型库内容在知令内呈现的接口或合作方式 —— 建议以跳转官方页面为最小方案</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">14</span><span class="ci-txt">商务合作模式（礼包/分成/组合采购）—— 建议先以「用户权益礼包」试点，再谈深度商务</span></div>
+      <div class="confirm-item"><input type="checkbox"><span class="ci-num">15</span><span class="ci-txt">指标基线联合采集方式与数据共享合规口径 —— 建议 P0 双方数据合规人员书面确认</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 验收标准 ============ -->
+<section class="section" id="accept">
+  <div class="sec-head">
+    <div class="sec-kicker">Acceptance</div>
+    <h2 class="sec-title"><span class="num">13</span>验收标准</h2>
+    <p class="sec-desc">SCNet 侧交付（A1–A7，引用需求文档第 9 章）、知令侧交付（Z1–Z7）、端到端联合验收（U1–U11）。</p>
+  </div>
+
+  <div class="card" data-tags="warn">
+    <div class="card-h">🏛 SCNet 侧交付验收（A1–A7）<span class="b b-warn">⚠️ 依赖SCNet确认后执行</span></div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:56px">编号</th><th>交付物</th><th>验收标准</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td>开放平台应用注册能力</td><td>第三方可注册应用、配置回调白名单与 scope，获得 <code>client_id</code>/<code>client_secret</code></td></tr>
+          <tr><td>A2</td><td>授权端点与确认页</td><td>需求文档 5.4/5.5 定义流程全部可走通；U1–U5 场景通过</td></tr>
+          <tr><td>A3</td><td>令牌/用户信息/刷新/撤销接口</td><td>U9、U10 场景通过；错误码规范</td></tr>
+          <tr><td>A4</td><td>轮询模式（模式 B）</td><td>无回调环境可完成授权并领取凭证；限流生效</td></tr>
+          <tr><td>A5</td><td>API Key 创建/读取接口</td><td>U6、U7 场景通过；明文仅在约定出口出现</td></tr>
+          <tr><td>A6</td><td>端到端跑通</td><td>U8 场景通过：授权后无感完成大模型调用</td></tr>
+          <tr><td>A7</td><td>文档与沙箱</td><td>开放 API 文档 + 联调沙箱环境可用</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14" data-tags="plan,warn">
+    <div class="card-h">💻 知令侧交付验收（Z1–Z7）<span class="b b-plan">🧭 规划，P1–P4 按阶段执行</span></div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th style="width:56px">编号</th><th>验收项</th><th>标准</th></tr></thead>
+        <tbody>
+          <tr><td>Z1</td><td>SCNet 登录入口与授权引导</td><td>按流程一完成登录、授权、拒绝、撤销四类交互，无崩溃无凭证泄露</td></tr>
+          <tr><td>Z2</td><td>Key 自动准备与配置</td><td>无 Key 自动创建、有 Key 自动读取并配置到推理客户端；失败有可读提示与重试</td></tr>
+          <tr><td>Z3</td><td>模型列表与套餐状态</td><td>SCNet 套餐内模型在知令可选可用；未订阅/失效状态给出引导</td></tr>
+          <tr><td>Z4</td><td>凭证本地安全存储</td><td>Key/token 加密落盘，界面不完整展示 Key 明文（展示策略与 SCNet 对齐 <span class="b b-warn">⚠️</span>）</td></tr>
+          <tr><td>Z5</td><td>任务对接（P2）</td><td><code>.task</code> 提交 SCNet 作业、状态同步、日志回传、终止操作全部可用</td></tr>
+          <tr><td>Z6</td><td>模板中心（P3）</td><td>VASP/LAMMPS/GROMACS 至少 3 类模板，含参数检查清单与示例</td></tr>
+          <tr><td>Z7</td><td>学术闭环（P4）</td><td>文献 PDF → 输入文件草稿 → 提交 → 结果对照的端到端演示用例通过</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mt14" data-tags="warn">
+    <div class="card-h">🤝 端到端联合验收（U1–U11，双方共同执行）</div>
+    <div class="grid grid-3" style="gap:10px">
+      <div class="card" style="box-shadow:none;background:var(--card-2)"><div style="font-weight:800;color:var(--brand1)">U1–U5 · 登录与授权全路径</div><p style="font-size:13px">含未登录/已登录/拒绝</p></div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)"><div style="font-weight:800;color:var(--brand1)">U6–U7 · Key 自动创建/读取</div><p style="font-size:13px">明文仅在约定出口出现</p></div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)"><div style="font-weight:800;color:var(--brand1)">U8 · 无感大模型调用</div><p style="font-size:13px">以 Key 完成流式与非流式调用（<code>api.scnet.cn/api/llm/v1</code>）</p></div>
+      <div class="card" style="box-shadow:none;background:var(--card-2)"><div style="font-weight:800;color:var(--brand1)">U9–U11 · 异常恢复路径</div><p style="font-size:13px">撤销授权、token 过期刷新、Key 被删后的自动恢复</p></div>
+    </div>
+    <div class="tip"><b>验收组织建议 🧭：</b>联合验收小组（SCNet 研发 + 知令研发 + 双方产品各 1 名接口人）；验收环境（SCNet 沙箱 + 知令预发布版客户端）；验收记录（每项用例附截图/日志存档，双方签署验收结论）。</div>
+  </div>
+</section>
+
+<!-- ============ 14 结论 ============ -->
+<section class="section" id="conclusion">
+  <div class="sec-head">
+    <div class="sec-kicker">Conclusion</div>
+    <h2 class="sec-title"><span class="num">14</span>结论</h2>
+  </div>
+  <div class="card">
+    <ol style="margin-left:22px;font-size:14.5px;line-height:2.1">
+      <li><b>体验断点是真实且可消除的</b>：SCNet 拥有完备的计算与模型开放能力 <span class="b b-ok">✅</span>，知令拥有成熟的工作台产品 <span class="b b-ok">✅</span>，当前唯一的结构性缺口是「第三方授权 + API Key 开放接口」<span class="b b-warn">⚠️ 依赖SCNet确认</span>，技术方案已在需求文档中完整给出，含接口规格、安全要求与 11 项端到端验收场景。</li>
+      <li><b>最小闭环价值集中</b>：P1（身份互通与大模型无感接入）即可兑现「一次授权、直接可用」的核心体验改善，投入可控、见效最快，是双方合作的第一个确定性收益点。</li>
+      <li><b>蓝图清晰、可逐步兑现</b>：四大主题（大模型使用、任务管理、超算使用、专业学术体验）与 P0–P4 路线图把「体验改善」拆解为可验收的里程碑，每一阶段都有明确的退出标准与量化指标。</li>
+      <li><b>合作模式成熟可复制</b>：以「知令 ZHILING × 超算互联网 SCNet」联合品牌起步，沉淀的接入范式可复制给更多第三方应用，放大 SCNet 生态效应。</li>
+      <li><b>下一步行动</b>：请 SCNet 侧确认第 12 章待确认事项并指定接口人，双方即进入 P0 立项联调，按第 13 章验收标准推进。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 15 附录 ============ -->
+<section class="section" id="appendix">
+  <div class="sec-head">
+    <div class="sec-kicker">Appendix</div>
+    <h2 class="sec-title"><span class="num">15</span>附录 A · 资料来源与引用 / 附录 B · 术语表</h2>
+  </div>
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="card-h">📄 A.1 项目内文件</div>
+      <ul style="margin-left:18px;font-size:13.5px">
+        <li><a href="./SCNet统一认证与API-Key管理需求文档.md">SCNet统一认证与API-Key管理需求文档.md</a> — 技术依据：差距分析、接口规格、安全要求、验收场景（U1–U11）、待确认事项</li>
+        <li><a href="./SCNet统一认证与API-Key管理-示意图.html">SCNet统一认证与API-Key管理-示意图.html</a> — 需求文档配套渲染版（流程图、时序图、页面线框）</li>
+        <li><a href="../README.md">README.md</a> — 知令产品定位、核心功能、适用场景、近期版本</li>
+        <li><a href="../intro.md">intro.md</a> — 知令用户使用说明（界面、任务、设置、数据与隐私）</li>
+      </ul>
+      <div class="card-h mt14">🌐 A.2 SCNet 官方公开网页</div>
+      <ul style="margin-left:18px;font-size:13px">
+        <li><a href="https://www.scnet.cn/" target="_blank" rel="noopener">国家超算互联网平台官网</a></li>
+        <li><a href="https://www1.scnet.cn/ac/openapi/doc/2.0/moduleapi/tutorial/quickstart.html" target="_blank" rel="noopener">开放平台·大模型入门指南（Token Plan / Coding Plan / 接入示例）</a></li>
+        <li><a href="https://www1.scnet.cn/ac/openapi/doc/2.0/moduleapi/tutorial/apikeymgt.html" target="_blank" rel="noopener">开放平台·API Key 管理说明（网页端现状）</a></li>
+        <li><a href="https://www1.scnet.cn/ac/openapi/doc/2.0/api/safecertification/get-user-tokens-aksk.html" target="_blank" rel="noopener">开放平台·认证授权（获取访问凭证 AK/SK）</a></li>
+        <li><a href="https://www.scnet.cn/ui/mall/service/llm" target="_blank" rel="noopener">SCNet 模型服务</a> · <a href="https://www.scnet.cn/ui/aihub" target="_blank" rel="noopener">AI 社区</a> · <a href="https://www.scnet.cn/ui/chatbot" target="_blank" rel="noopener">智能体服务</a></li>
+        <li><a href="https://www.scnet.cn/home/service/index.html" target="_blank" rel="noopener">帮助中心</a> · <a href="https://www.scnet.cn/ui/mall/settle" target="_blank" rel="noopener">商家中心（入驻政策）</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-h">📖 B · 术语表</div>
+      <div class="tbl-wrap" style="box-shadow:none">
+        <table class="tbl">
+          <tbody>
+            <tr><td style="min-width:110px"><b>SCNet</b></td><td>国家超算互联网平台（www.scnet.cn / api.scnet.cn）</td></tr>
+            <tr><td><b>知令（ZHILING）</b></td><td>西安禾成讴沃信息科技有限公司开发的桌面端 AI 全流程工作平台</td></tr>
+            <tr><td><b>OAuth / PKCE</b></td><td>标准授权协议及无后端客户端安全增强（RFC 6749 / RFC 7636）</td></tr>
+            <tr><td><b>授权码模式 / 轮询模式</b></td><td>模式 A（授权码+PKCE）与模式 B（request_id 轮询，知令桌面端同款机制）</td></tr>
+            <tr><td><b>API Key</b></td><td>SCNet 大模型服务调用凭证，前缀 <code>sk-tp-</code>（Token Plan）/ <code>sk-sp-</code>（Coding Plan）</td></tr>
+            <tr><td><b>Token / Coding Plan</b></td><td>SCNet 大模型服务套餐（细则以官方文档为准）</td></tr>
+            <tr><td><b>AK/SK</b></td><td>SCNet 计算服务开放 API 的签名鉴权凭证体系</td></tr>
+            <tr><td><b><code>.task</code></b></td><td>知令统一任务文件，可描述 SLURM 或 Shell 作业</td></tr>
+            <tr><td><b>BYOK</b></td><td>知令「自带 API」能力：用户自定义 Base URL / Model / Key 扩展模型</td></tr>
+            <tr><td><b>适配层</b></td><td>本方案中知令新增的 SCNet 对接模块（登录、凭证、Key、作业映射）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-h mt14">✅ A.3 事实与建议的区分说明</div>
+      <ul style="margin-left:18px;font-size:13px">
+        <li>「✅ 已具备」均可在 A.1 / A.2 来源中找到依据；SCNet 平台细节以官方文档为准；</li>
+        <li>本文未引用任何未经核实的具体价格、套餐资费或第三方百科数据；涉及商务条款处均标注为建议并留待双方确认；</li>
+        <li>「🧭 规划建议」「⚠️ 依赖SCNet确认」内容为知令团队的方案建议，不构成对 SCNet 的任何事实性陈述或承诺。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 页脚 ============ -->
+<div class="footer">
+  <div class="f-brand">知令 ZHILING <span class="x">×</span> 超算互联网 SCNet · 体验改善方案（联合品牌 · 合作建议）</div>
+  <p>
+    本文档为知令团队编制的<b>合作建议文档</b>之多媒体渲染版，供 SCNet 管理层与合作决策者评估。文中技术规格与《SCNet统一认证与API-Key管理需求文档》一致；路线图、指标、商务建议均为方案建议，最终以双方确认与正式协议为准。<br>
+    标注体系：✅ 已具备（当前可验证能力）· 🧭 规划建议（待双方确认后排期）· ⚠️ 依赖SCNet确认（需 SCNet 侧决策/开发）。<br>
+    版本 v1.0 · 2026-08-22 · 编制：西安禾成讴沃信息科技有限公司（知令团队）· 密级：内部（双方对接人员）· 页面无外部资源依赖，可离线浏览。
+  </p>
+</div>
+
+<button class="backtop" id="backTop" aria-label="回到顶部">↑</button>
+
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ============ 1. 主题切换（深浅色） ============ */
+  var themeBtn = document.getElementById('themeToggle');
+  var themeLabel = document.getElementById('themeLabel');
+  function applyTheme(t){
+    document.documentElement.setAttribute('data-theme', t);
+    if(themeLabel){ themeLabel.textContent = (t === 'dark') ? '浅色' : '深色'; }
+    try{ localStorage.setItem('zl-scnet-theme', t); }catch(e){}
+  }
+  var savedTheme = 'light';
+  try{ savedTheme = localStorage.getItem('zl-scnet-theme') || 'light'; }catch(e){}
+  applyTheme(savedTheme);
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var cur = document.documentElement.getAttribute('data-theme');
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  /* ============ 2. 移动端导航 ============ */
+  var navToggle = document.getElementById('navToggle');
+  var sidebar = document.getElementById('sidebar');
+  if(navToggle && sidebar){
+    navToggle.addEventListener('click', function(){ sidebar.classList.toggle('open'); });
+    var navLinksAll = sidebar.querySelectorAll('a');
+    for(var i=0;i<navLinksAll.length;i++){
+      navLinksAll[i].addEventListener('click', function(){ sidebar.classList.remove('open'); });
+    }
+  }
+
+  /* ============ 3. 滚动监听：目录高亮 + 回到顶部 ============ */
+  var backTop = document.getElementById('backTop');
+  var navMap = {};
+  var anchors = document.querySelectorAll('.nav-list a');
+  for(var j=0;j<anchors.length;j++){
+    navMap[anchors[j].getAttribute('href').slice(1)] = anchors[j];
+  }
+  function onScroll(){
+    if(backTop){ backTop.classList.toggle('show', window.scrollY > 600); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+  if(backTop){
+    backTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  }
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var active = document.querySelector('.nav-list a.active');
+          if(active){ active.classList.remove('active'); }
+          var link = navMap[en.target.id];
+          if(link){ link.classList.add('active'); }
+        }
+      });
+    }, {rootMargin:'-15% 0px -72% 0px'});
+    var sections = document.querySelectorAll('section[id]');
+    for(var k=0;k<sections.length;k++){ spy.observe(sections[k]); }
+  }
+
+  /* ============ 4. 自定义 Tooltip（不使用 title 属性） ============ */
+  var tipEl = null;
+  function ensureTip(){
+    if(!tipEl){
+      tipEl = document.createElement('div');
+      tipEl.className = 'ztip';
+      document.body.appendChild(tipEl);
+    }
+    return tipEl;
+  }
+  function positionTip(el, t){
+    var r = el.getBoundingClientRect();
+    var tw = t.offsetWidth, th = t.offsetHeight;
+    var x = r.left + r.width/2 - tw/2;
+    x = Math.max(8, Math.min(x, window.innerWidth - tw - 8));
+    var y = r.top - th - 10;
+    if(y < 8){ y = r.bottom + 10; }
+    t.style.left = x + 'px';
+    t.style.top = y + 'px';
+  }
+  var tipTimer = null;
+  function showTipFor(el){
+    var txt = el.getAttribute('data-tip');
+    if(!txt){ return; }
+    var t = ensureTip();
+    t.textContent = txt;
+    t.classList.add('show');
+    positionTip(el, t);
+  }
+  function hideTipNow(){
+    if(tipEl){ tipEl.classList.remove('show'); }
+    if(tipTimer){ clearTimeout(tipTimer); tipTimer = null; }
+  }
+  document.addEventListener('mouseover', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('[data-tip]') : null;
+    if(el){ showTipFor(el); }
+    else{ hideTipNow(); }
+  });
+  document.addEventListener('mouseout', function(e){
+    var from = e.target && e.target.closest ? e.target.closest('[data-tip]') : null;
+    var to = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest('[data-tip]') : null;
+    if(!from || from !== to){ hideTipNow(); }
+  });
+  document.addEventListener('focusin', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('[data-tip]') : null;
+    if(el){ showTipFor(el); }
+  });
+  document.addEventListener('focusout', function(){ hideTipNow(); });
+  document.addEventListener('click', function(e){
+    var el = e.target && e.target.closest ? e.target.closest('[data-tip]') : null;
+    if(el && window.innerWidth < 900){ /* 触屏：点击临时显示 */
+      showTipFor(el);
+      tipTimer = setTimeout(hideTipNow, 2600);
+    }
+  });
+  window.addEventListener('scroll', function(){ hideTipNow(); }, {passive:true});
+
+  /* ============ 5. 标注筛选（✅/🧭/⚠️） ============ */
+  var filterBtns = document.querySelectorAll('.fbtn[data-filter]');
+  var filterNote = document.getElementById('filterNote');
+  var filterLabelMap = {all:'全部', ok:'✅ 已具备', plan:'🧭 规划建议', warn:'⚠️ 依赖SCNet确认'};
+  function applyFilter(f){
+    var hidden = 0, visible = 0;
+    var tagged = document.querySelectorAll('[data-tags]');
+    for(var i=0;i<tagged.length;i++){
+      var el = tagged[i];
+      if(f === 'all'){ el.classList.remove('filtered-out'); visible++; continue; }
+      var tags = (el.getAttribute('data-tags') || '').split(',').map(function(s){return s.trim();});
+      if(tags.indexOf(f) >= 0){ el.classList.remove('filtered-out'); visible++; }
+      else{ el.classList.add('filtered-out'); hidden++; }
+    }
+    for(var m=0;m<filterBtns.length;m++){
+      filterBtns[m].classList.toggle('on', filterBtns[m].getAttribute('data-filter') === f);
+    }
+    if(filterNote){
+      filterNote.textContent = (f === 'all')
+        ? '点击筛选：高亮含对应标注的卡片'
+        : '当前显示含「' + filterLabelMap[f] + '」标注的卡片（' + hidden + ' 个已隐藏）';
+    }
+  }
+  for(var p=0;p<filterBtns.length;p++){
+    (function(btn){
+      btn.addEventListener('click', function(){ applyFilter(btn.getAttribute('data-filter')); });
+    })(filterBtns[p]);
+  }
+
+  /* ============ 6. 手风琴（四大主题） ============ */
+  var accHeads = document.querySelectorAll('.acc-head');
+  for(var q=0;q<accHeads.length;q++){
+    (function(head){
+      head.addEventListener('click', function(){
+        var acc = head.closest('.acc');
+        if(acc){ acc.classList.toggle('open'); }
+      });
+    })(accHeads[q]);
+  }
+  var firstAcc = document.getElementById('acc-t1');
+  if(firstAcc){ firstAcc.classList.add('open'); }
+
+  /* ============ 7. 通用 Tabs ============ */
+  var tabGroups = document.querySelectorAll('.tabs');
+  for(var r=0;r<tabGroups.length;r++){
+    (function(tabs){
+      var btns = tabs.querySelectorAll('.tab-btn');
+      for(var b=0;b<btns.length;b++){
+        (function(btn){
+          btn.addEventListener('click', function(){
+            var btns2 = tabs.querySelectorAll('.tab-btn');
+            for(var x=0;x<btns2.length;x++){ btns2[x].classList.remove('on'); }
+            btn.classList.add('on');
+            var target = btn.getAttribute('data-ptab') || btn.getAttribute('data-mtab');
+            var prefix = 'mspanel-';
+            if(btn.getAttribute('data-ptab')){ prefix = 'ppanel-'; }
+            else if(tabs.id === 'matrixTabs'){ prefix = 'mpanel-'; }
+            var host = tabs.closest('.card') || tabs.parentElement;
+            var panels = host.querySelectorAll('.tab-panel');
+            for(var y=0;y<panels.length;y++){ panels[y].classList.remove('on'); }
+            var panel = document.getElementById(prefix + target);
+            if(panel){ panel.classList.add('on'); }
+          });
+        })(btns[b]);
+      }
+    })(tabGroups[r]);
+  }
+
+  /* ============ 8. 路线图时间轴（点击展开明细） ============ */
+  var tlItems = document.querySelectorAll('.tl-item');
+  for(var t=0;t<tlItems.length;t++){
+    (function(item){
+      item.addEventListener('click', function(e){
+        if(e.target.closest('.tl-dot') || e.target.closest('.tl-card')){
+          item.classList.toggle('on');
+        }
+      });
+    })(tlItems[t]);
+  }
+
+  /* ============ 9. 用户旅程 Stepper ============ */
+  var journeyData = [
+    {title:'发现', phase:'P4 后', touch:'SCNet/知令渠道', action:'从 SCNet 应用商城或知令官网了解到「知令支持 SCNet 登录」', sys:'联合品牌物料露出 🧭', out:'意向'},
+    {title:'获取', phase:'P1', touch:'知令', action:'下载安装知令（Windows/macOS/麒麟）✅', sys:'安装引导页含「SCNet 账号登录」入口 🧭', out:'已安装'},
+    {title:'接入', phase:'P1', touch:'SCNet', action:'点击「SCNet 账号登录」，在 SCNet 官方页登录并同意授权', sys:'SCNet 签发凭证；知令自动创建/读取 Key 并配置模型 🧭', out:'一次授权即可用'},
+    {title:'首次价值', phase:'P1', touch:'知令', action:'在会话中选择 SCNet 模型，问「帮我检查 INCAR 参数」', sys:'知令以用户 Key 流式调用 SCNet 大模型 🧭', out:'首次无感对话成功'},
+    {title:'深度使用', phase:'P2', touch:'知令+SCNet', action:'用 .task 编写 VASP 任务并提交到 SCNet 集群', sys:'知令调用 SCNet 作业 API 提交、轮询状态 ✅＋🧭', out:'首个任务跑通'},
+    {title:'结果处理', phase:'P2', touch:'知令', action:'在任务视图查看日志与能量曲线', sys:'日志回传、Plotly 可视化 ✅', out:'结果入分析'},
+    {title:'扩展', phase:'P4', touch:'知令+SCNet', action:'从文献 PDF 提取参数生成 LAMMPS 输入文件，再提交算力', sys:'MinerU 转换 + AI 生成 + 任务提交 ✅＋🧭', out:'文献→计算闭环'},
+    {title:'协作', phase:'P3/P4', touch:'知令', action:'把模板共享给师弟，订阅课题组知识库', sys:'课题组模板/知识库 ✅＋🧭', out:'团队复用'},
+    {title:'持续', phase:'P3', touch:'SCNet', action:'查看用量、续费套餐、复购算力', sys:'SCNet 控制台/知令内入口（入口形式待确认 ⚠️）', out:'留存与续费'},
+    {title:'推荐', phase:'全程', touch:'双方', action:'向同学推荐组合使用方式', sys:'联合品牌案例传播 🧭', out:'口碑扩散'}
+  ];
+  var jdTitle = document.getElementById('jdTitle');
+  var jdTouch = document.getElementById('jdTouch');
+  var jdAction = document.getElementById('jdAction');
+  var jdSys = document.getElementById('jdSys');
+  var jdOut = document.getElementById('jdOut');
+  var steps = document.querySelectorAll('#journeySteps .step');
+  for(var s=0;s<steps.length;s++){
+    (function(step){
+      step.addEventListener('click', function(){
+        var others = document.querySelectorAll('#journeySteps .step');
+        for(var o=0;o<others.length;o++){ others[o].classList.remove('on'); }
+        step.classList.add('on');
+        var idx = parseInt(step.getAttribute('data-step'), 10);
+        var d = journeyData[idx] || journeyData[0];
+        if(jdTitle){ jdTitle.innerHTML = '步骤 ' + (idx+1) + ' · ' + d.title + ' <span class="chip c-plan">' + d.phase + '</span>'; }
+        if(jdTouch){ jdTouch.textContent = d.touch; }
+        if(jdAction){ jdAction.textContent = d.action; }
+        if(jdSys){ jdSys.textContent = d.sys; }
+        if(jdOut){ jdOut.textContent = d.out; }
+      });
+    })(steps[s]);
+  }
+
+  /* ============ 10. 待确认清单勾选（本地记录） ============ */
+  var CONFIRM_KEY = 'zl-scnet-confirm';
+  var confirmState = {};
+  try{ confirmState = JSON.parse(localStorage.getItem(CONFIRM_KEY) || '{}'); }catch(e){ confirmState = {}; }
+  function saveConfirm(){
+    try{ localStorage.setItem(CONFIRM_KEY, JSON.stringify(confirmState)); }catch(e){}
+  }
+  function updateConfirmCount(){
+    var checked = document.querySelectorAll('.confirm-item input:checked').length;
+    var total = document.querySelectorAll('.confirm-item').length;
+    var counter = document.getElementById('confirmCounter');
+    if(counter){ counter.textContent = '已确认 ' + checked + ' / ' + total; }
+  }
+  var confirmItems = document.querySelectorAll('.confirm-item');
+  for(var c=0;c<confirmItems.length;c++){
+    (function(item){
+      var cb = item.querySelector('input');
+      var numEl = item.querySelector('.ci-num');
+      var num = numEl ? numEl.textContent.trim() : String(c+1);
+      if(confirmState[num]){ cb.checked = true; item.classList.add('checked'); }
+      cb.addEventListener('change', function(){
+        confirmState[num] = cb.checked;
+        item.classList.toggle('checked', cb.checked);
+        saveConfirm();
+        updateConfirmCount();
+      });
+      item.addEventListener('click', function(e){
+        if(e.target !== cb){
+          cb.checked = !cb.checked;
+          var evt = document.createEvent('HTMLEvents');
+          evt.initEvent('change', false, true);
+          cb.dispatchEvent(evt);
+        }
+      });
+    })(confirmItems[c]);
+  }
+  updateConfirmCount();
+
+  /* ============ 11. 指标环形图动画 ============ */
+  function animateRings(){
+    var rings = document.querySelectorAll('.ring-val');
+    var C = 2 * Math.PI * 34;
+    for(var g=0;g<rings.length;g++){
+      var val = parseFloat(rings[g].getAttribute('data-val')) || 0;
+      rings[g].style.strokeDasharray = (C * Math.min(val,100) / 100).toFixed(1) + ' ' + C.toFixed(1);
+    }
+  }
+  if('requestAnimationFrame' in window){
+    requestAnimationFrame(function(){ setTimeout(animateRings, 250); });
+  }else{
+    setTimeout(animateRings, 300);
+  }
+
+  /* ============ 12. 键盘快捷键：T 切换主题 / F 聚焦筛选 ============ */
+  document.addEventListener('keydown', function(e){
+    if(e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')){ return; }
+    if(e.key === 't' || e.key === 'T'){
+      var cur = document.documentElement.getAttribute('data-theme');
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
+  <!-- 白底 -->
+  <rect width="1200" height="420" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="600" y="60" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="30" font-weight="700" fill="#1F2430">DeepSeek 近期费用政策变化</text>
+  <rect x="568" y="74" width="64" height="4" rx="2" fill="#4D6BFE"/>
+
+  <!-- 时间轴 -->
+  <line x1="125" y1="215" x2="1075" y2="215" stroke="#D9DFEC" stroke-width="3" stroke-linecap="round"/>
+  <path d="M1063 206 L1078 215 L1063 224 Z" fill="#C3CBDD"/>
+
+  <!-- 节点1：8 月 17 日（上方） -->
+  <circle cx="170" cy="215" r="8" fill="#FFFFFF" stroke="#4D6BFE" stroke-width="3"/>
+  <text x="170" y="126" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="15" fill="#4A4F5C">峰谷定价生效</text>
+  <text x="170" y="150" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="14" fill="#6B7280">（高峰 = 闲时 × 2）</text>
+  <text x="170" y="190" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">8 月 17 日</text>
+
+  <!-- 节点2：8 月 23 日（下方） -->
+  <circle cx="460" cy="215" r="8" fill="#FFFFFF" stroke="#4D6BFE" stroke-width="3"/>
+  <text x="460" y="252" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">8 月 23 日</text>
+  <text x="460" y="288" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="15" fill="#4A4F5C">周末全天按低谷价计费</text>
+
+  <!-- 节点3：9 月 10 日（上方） -->
+  <circle cx="750" cy="215" r="8" fill="#FFFFFF" stroke="#4D6BFE" stroke-width="3"/>
+  <text x="750" y="126" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="15" fill="#4A4F5C">V4.1 Flash 发布 + 价格下调</text>
+  <text x="750" y="150" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="13" fill="#6B7280">（缓存命中 −60%，输入 −33.3%，输出 −11.1%）</text>
+  <text x="750" y="190" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">9 月 10 日</text>
+
+  <!-- 节点4：9 月 11 日（下方） -->
+  <circle cx="1040" cy="215" r="8" fill="#FFFFFF" stroke="#4D6BFE" stroke-width="3"/>
+  <text x="1040" y="252" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="17" font-weight="700" fill="#4D6BFE">9 月 11 日</text>
+  <text x="1040" y="288" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="15" fill="#4A4F5C">V4-Pro 继续提供服务</text>
+  <text x="1040" y="312" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="14" fill="#6B7280">（9 月 14 日之后、计费不变）</text>
+
+  <!-- 脚注 -->
+  <text x="600" y="388" text-anchor="middle" font-family="'Microsoft YaHei','PingFang SC',sans-serif" font-size="14" fill="#9AA0AC">时间为北京时间；以官方最新公示为准。</text>
+</svg>

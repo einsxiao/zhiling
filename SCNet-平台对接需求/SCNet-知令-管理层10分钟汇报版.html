@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="theme-dark editor-theme-dark"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="超算互联网 SCNet × 知令｜管理层 10 分钟汇报版（离线单页）">
+<title>超算互联网 SCNet × 知令｜管理层 10 分钟汇报</title>
+<script>
+/* 主题防闪烁初始化：仅读取本地记忆，避免首帧闪白 */
+try{var _t=localStorage.getItem('scnet-theme');if(_t==='light'||_t==='dark'){document.documentElement.setAttribute('data-theme',_t);}}catch(e){}
+</script>
+<style>
+/* ============ 主题变量 ============ */
+:root{
+  --bg:#f4f6fb;
+  --bg-soft:#eef2f9;
+  --card:#ffffff;
+  --card2:#f0f4fb;
+  --text:#17223b;
+  --text2:#5a6a85;
+  --text3:#8a97ad;
+  --accent:#2563eb;
+  --accent-deep:#1d4ed8;
+  --violet:#7c3aed;
+  --grad:linear-gradient(120deg,#2563eb 0%,#7c3aed 100%);
+  --ok:#059669;
+  --ok-bg:#e6f6ef;
+  --warn:#b45309;
+  --warn-bg:#fdf1e0;
+  --plan-bg:#f1eafd;
+  --plan-tx:#6d28d9;
+  --danger:#dc2626;
+  --flow-bg:#e9edf5;
+  --flow-line:#c3cddf;
+  --border:#dfe5f0;
+  --border-strong:#c6d0e2;
+  --shadow:0 10px 30px rgba(23,34,59,.08);
+  --shadow-lg:0 18px 48px rgba(23,34,59,.14);
+  --glow1:rgba(37,99,235,.16);
+  --glow2:rgba(124,58,237,.14);
+  --hero-grid:rgba(37,99,235,.06);
+  --chart-track:#e8edf6;
+  --topbar-bg:rgba(244,246,251,.86);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c1220;
+    --bg-soft:#101828;
+    --card:#151d30;
+    --card2:#1a243c;
+    --text:#e8edf7;
+    --text2:#9dabc4;
+    --text3:#66748e;
+    --accent:#60a5fa;
+    --accent-deep:#3b82f6;
+    --violet:#a78bfa;
+    --grad:linear-gradient(120deg,#3b82f6 0%,#8b5cf6 100%);
+    --ok:#34d399;
+    --ok-bg:#0f2b22;
+    --warn:#fbbf24;
+    --warn-bg:#2b2310;
+    --plan-bg:#251b3d;
+    --plan-tx:#c4b5fd;
+    --danger:#f87171;
+    --flow-bg:#1e2942;
+    --flow-line:#31405f;
+    --border:#26334f;
+    --border-strong:#35456a;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+    --shadow-lg:0 18px 48px rgba(0,0,0,.6);
+    --glow1:rgba(59,130,246,.22);
+    --glow2:rgba(139,92,246,.20);
+    --hero-grid:rgba(96,165,250,.07);
+    --chart-track:#1e2942;
+    --topbar-bg:rgba(12,18,32,.86);
+  }
+}
+html[data-theme="light"]{
+  --bg:#f4f6fb; --bg-soft:#eef2f9; --card:#ffffff; --card2:#f0f4fb;
+  --text:#17223b; --text2:#5a6a85; --text3:#8a97ad;
+  --accent:#2563eb; --accent-deep:#1d4ed8; --violet:#7c3aed;
+  --grad:linear-gradient(120deg,#2563eb 0%,#7c3aed 100%);
+  --ok:#059669; --ok-bg:#e6f6ef; --warn:#b45309; --warn-bg:#fdf1e0;
+  --plan-bg:#f1eafd; --plan-tx:#6d28d9; --danger:#dc2626;
+  --flow-bg:#e9edf5; --flow-line:#c3cddf; --border:#dfe5f0; --border-strong:#c6d0e2;
+  --shadow:0 10px 30px rgba(23,34,59,.08); --shadow-lg:0 18px 48px rgba(23,34,59,.14);
+  --glow1:rgba(37,99,235,.16); --glow2:rgba(124,58,237,.14); --hero-grid:rgba(37,99,235,.06);
+  --chart-track:#e8edf6; --topbar-bg:rgba(244,246,251,.86);
+}
+html[data-theme="dark"]{
+  --bg:#0c1220; --bg-soft:#101828; --card:#151d30; --card2:#1a243c;
+  --text:#e8edf7; --text2:#9dabc4; --text3:#66748e;
+  --accent:#60a5fa; --accent-deep:#3b82f6; --violet:#a78bfa;
+  --grad:linear-gradient(120deg,#3b82f6 0%,#8b5cf6 100%);
+  --ok:#34d399; --ok-bg:#0f2b22; --warn:#fbbf24; --warn-bg:#2b2310;
+  --plan-bg:#251b3d; --plan-tx:#c4b5fd; --danger:#f87171;
+  --flow-bg:#1e2942; --flow-line:#31405f; --border:#26334f; --border-strong:#35456a;
+  --shadow:0 10px 30px rgba(0,0,0,.45); --shadow-lg:0 18px 48px rgba(0,0,0,.6);
+  --glow1:rgba(59,130,246,.22); --glow2:rgba(139,92,246,.20); --hero-grid:rgba(96,165,250,.07);
+  --chart-track:#1e2942; --topbar-bg:rgba(12,18,32,.86);
+}
+
+/* ============ 基础 ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.65;
+  -webkit-font-smoothing:antialiased;transition:background .3s,color .3s;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(720px 420px at 12% -6%,var(--glow1),transparent 62%),
+    radial-gradient(760px 460px at 96% 4%,var(--glow2),transparent 60%);
+}
+main,footer,header{position:relative;z-index:1}
+a{color:var(--accent);text-decoration:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.skip-link{
+  position:absolute;left:12px;top:-60px;z-index:200;background:var(--accent);color:#fff;
+  padding:8px 16px;border-radius:8px;font-weight:600;transition:top .2s;
+}
+.skip-link:focus{top:12px;color:#fff}
+
+/* ============ 顶栏与导航 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;gap:16px;
+  padding:10px 22px;background:var(--topbar-bg);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;white-space:nowrap;color:var(--text)}
+.brand small{display:block;font-size:11px;font-weight:500;color:var(--text2)}
+.brand svg{flex:none}
+.main-nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.main-nav::-webkit-scrollbar{display:none}
+.main-nav a{
+  display:inline-block;padding:6px 11px;border-radius:999px;font-size:13px;font-weight:600;
+  color:var(--text2);white-space:nowrap;transition:background .2s,color .2s;
+}
+.main-nav a:hover{background:var(--card2);color:var(--text)}
+.main-nav a.active{background:var(--grad);color:#fff}
+.toggle-btn{
+  flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,border-color .2s;
+}
+.toggle-btn:hover{transform:rotate(12deg);border-color:var(--accent)}
+.toggle-btn svg{width:20px;height:20px}
+.toggle-btn .i-moon{display:none}
+html[data-theme="dark"] .toggle-btn .i-moon{display:block}
+html[data-theme="dark"] .toggle-btn .i-sun{display:none}
+@media (prefers-color-scheme: dark){
+  html:not([data-theme="light"]) .toggle-btn .i-moon{display:block}
+  html:not([data-theme="light"]) .toggle-btn .i-sun{display:none}
+}
+
+/* ============ 屏幕骨架 ============ */
+.slide{min-height:100vh;max-width:1180px;margin:0 auto;padding:118px 32px 72px;scroll-margin-top:72px;display:flex;flex-direction:column;justify-content:center}
+.s-head{margin-bottom:34px}
+.s-tag{
+  display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.06em;
+  color:var(--accent);background:var(--card2);border:1px solid var(--border);
+  padding:5px 14px;border-radius:999px;margin-bottom:16px;
+}
+.s-head h2{font-size:clamp(26px,3.4vw,42px);font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.s-head .s-lead{font-size:clamp(15px,1.6vw,17.5px);color:var(--text2);margin-top:12px;max-width:860px}
+.s-body{flex:1;display:flex;flex-direction:column;justify-content:center}
+.s-note{margin-top:26px;font-size:13.5px;color:var(--text3);border-left:3px solid var(--border-strong);padding-left:14px}
+.hl{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hl-ok{color:var(--ok)}
+.hl-warn{color:var(--warn)}
+
+/* ============ 封面 hero ============ */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 28px 60px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background-image:linear-gradient(var(--hero-grid) 1px,transparent 1px),linear-gradient(90deg,var(--hero-grid) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 70% 60% at 50% 42%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 42%,#000 30%,transparent 75%);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+  border:1px solid var(--border-strong);border-radius:999px;padding:7px 18px;
+  background:var(--card);color:var(--text2);box-shadow:var(--shadow);
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.hero h1{
+  font-size:clamp(34px,5.4vw,64px);font-weight:900;letter-spacing:-.02em;line-height:1.18;margin:28px 0 22px;max-width:1020px;
+}
+.hero .tagline{font-size:clamp(15px,1.8vw,19px);color:var(--text2);max-width:880px;margin:0 auto}
+.hero-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px 14px;margin-top:34px;font-size:13px;color:var(--text2);
+}
+.hero-meta span{background:var(--card);border:1px solid var(--border);padding:6px 14px;border-radius:999px;box-shadow:var(--shadow)}
+.hero-meta b{color:var(--text)}
+.stack{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:44px;width:min(640px,92%)}
+.stack-box{
+  width:100%;padding:14px 18px;border-radius:14px;font-weight:700;font-size:15px;text-align:center;
+  background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);
+}
+.stack-box.user{border:1.5px dashed var(--accent);color:var(--accent)}
+.stack-box.zl{background:var(--grad);color:#fff;border:none;width:78%}
+.stack-box.scnet{font-size:16px;color:var(--text)}
+.stack-arrow{
+  color:var(--text3);font-size:15px;line-height:1;
+  animation:stackBob 5.5s ease-in-out infinite;
+}
+.stack-arrow:nth-of-type(2){animation-delay:1.8s}
+@keyframes stackBob{0%,76%,100%{transform:translateY(0);opacity:.72}84%{transform:translateY(2px);opacity:1}}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:var(--text3);font-size:12.5px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.scroll-hint svg{width:18px;height:18px;animation:scrollBob 3.2s ease-in-out infinite}
+@keyframes scrollBob{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(3px);opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .stack-arrow,.scroll-hint svg{animation:none}
+}
+
+/* ============ 卡片 ============ */
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:26px 24px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--border-strong)}
+.card-num{
+  font-size:34px;font-weight:900;line-height:1;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.card h3{font-size:19px;font-weight:800;margin:10px 0 8px}
+.card p{font-size:14.5px;color:var(--text2)}
+.card .flag{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;margin-top:10px}
+.flag-ok{background:var(--ok-bg);color:var(--ok)}
+.flag-plan{background:var(--plan-bg);color:var(--plan-tx)}
+.flag-warn{background:var(--warn-bg);color:var(--warn)}
+
+/* 开场三句话 */
+.stmt{display:flex;gap:20px;align-items:flex-start;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px 26px;box-shadow:var(--shadow)}
+.stmt+.stmt{margin-top:16px}
+.stmt .n{
+  flex:none;width:52px;height:52px;border-radius:14px;background:var(--grad);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;
+}
+.stmt h3{font-size:17.5px;font-weight:800;margin-bottom:4px}
+.stmt p{font-size:14.5px;color:var(--text2)}
+
+/* 判断一的双能力徽章 */
+.duo{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.duo span{font-size:13px;font-weight:700;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text)}
+
+/* 主张卡 */
+.claim{position:relative;overflow:hidden}
+.claim::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);border-radius:18px 18px 0 0;
+}
+.claim .ico{
+  width:46px;height:46px;border-radius:13px;background:var(--card2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:14px;
+}
+.claim .ico svg{width:24px;height:24px}
+.claim h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.claim .flow{
+  margin-top:12px;font-size:13px;font-weight:700;color:var(--violet);
+  background:var(--plan-bg);border-radius:10px;padding:8px 12px;display:inline-block;
+}
+
+/* ============ 前后对比 ============ */
+.seg{
+  display:inline-flex;background:var(--card2);border:1px solid var(--border);border-radius:999px;padding:4px;gap:4px;margin-bottom:22px;
+}
+.seg button{
+  border:none;background:transparent;color:var(--text2);font-size:13px;font-weight:700;
+  padding:7px 16px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s;
+  font-family:inherit;
+}
+.seg button.active{background:var(--card);color:var(--accent);box-shadow:var(--shadow)}
+.seg button:hover{color:var(--text)}
+.flow-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.flow-panel{border-radius:18px;padding:20px 20px 8px;border:1px solid var(--border);background:var(--card)}
+.flow-panel h4{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--text3);margin-bottom:6px}
+.flow-panel.before h4 .badge-dot{background:var(--warn)}
+.flow-panel.after h4 .badge-dot{background:var(--accent)}
+.badge-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.flow-panel svg{width:100%;height:auto;display:block;margin:4px 0 0}
+.flow-panel.after{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
+.flow-list{display:none}
+/* 对比聚焦模式 */
+.mode-before .flow-panel.after,.mode-after .flow-panel.before{display:none}
+.mode-before .flow-row,.mode-after .flow-row{grid-template-columns:1fr;max-width:720px;margin:0 auto}
+/* 对比明细表 */
+.cmp-table{margin-top:22px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.cmp-row{display:grid;grid-template-columns:130px 1fr 1fr;border-top:1px solid var(--border)}
+.cmp-row:first-child{border-top:none}
+.cmp-head{font-size:12.5px;font-weight:800;color:var(--text2);background:var(--card2);letter-spacing:.05em}
+.cmp-head .c-before{color:var(--warn)}
+.cmp-head .c-after{color:var(--accent)}
+.cmp-cell{padding:13px 16px;font-size:13.5px;display:flex;align-items:center;gap:6px}
+.cmp-row .c-scene{font-weight:800;color:var(--text);background:var(--card2)}
+.cmp-row .c-before{color:var(--text2);border-left:1px solid var(--border)}
+.cmp-row .c-after{color:var(--text);border-left:1px solid var(--border);font-weight:600}
+.cmp-row .c-after .flag{font-size:11.5px;margin-top:0;flex:none}
+
+/* ============ 工作台体验 ============ */
+.exp-sub{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:800;color:var(--text2);margin-bottom:14px}
+.exp-sub .flag{margin-left:auto;flex:none}
+.exp-sub.now .badge-dot{background:var(--ok)}
+.exp-sub.more{margin-top:28px;color:var(--violet)}
+.exp-sub.more .badge-dot{background:var(--violet)}
+.exp-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.exp-ico{
+  width:40px;height:40px;border-radius:12px;background:var(--ok-bg);color:var(--ok);
+  display:flex;align-items:center;justify-content:center;flex:none;
+}
+.exp-ico svg{width:21px;height:21px}
+.exp-head h3{font-size:16.5px;font-weight:800;margin:0}
+.card.exp-now p{font-size:13.5px;color:var(--text2);margin:0;line-height:1.65}
+
+
+/* ============ 路线图 ============ */
+.road{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px 22px 20px;box-shadow:var(--shadow)}
+.road svg{width:100%;height:auto;display:block}
+.road-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}
+.road-card{border:1px solid var(--border);border-radius:14px;padding:15px 13px;background:var(--card2);position:relative}
+.road-card.p0{border-color:var(--accent);box-shadow:0 0 0 3px var(--glow1)}
+.road-card .ph{font-size:15px;font-weight:900;color:var(--accent)}
+.road-card .time{font-size:12px;font-weight:700;color:var(--text2);margin:2px 0 7px}
+.road-card p{font-size:13px;color:var(--text2)}
+.road-card .ms{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:800;color:var(--violet);background:var(--plan-bg);padding:2px 9px;border-radius:999px}
+.road-m{display:none}
+
+/* ============ 决策清单 ============ */
+.dec-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+.dec-count{font-size:14px;font-weight:800;color:var(--accent);white-space:nowrap}
+.dec-bar{flex:1;min-width:180px;height:10px;border-radius:999px;background:var(--chart-track);overflow:hidden}
+.dec-bar i{display:block;height:100%;width:0;background:var(--grad);border-radius:999px;transition:width .35s ease}
+.decision{
+  position:relative;display:flex;align-items:center;gap:16px;cursor:pointer;
+  background:var(--card);border:1.5px solid var(--border);border-radius:16px;
+  padding:18px 20px;box-shadow:var(--shadow);transition:border-color .25s,background .25s,transform .2s;
+}
+.decision+.decision{margin-top:13px}
+.decision:hover{transform:translateX(4px);border-color:var(--border-strong)}
+.decision input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.decision .box{
+  flex:none;width:30px;height:30px;border-radius:9px;border:2px solid var(--border-strong);
+  background:var(--card2);display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.decision .box svg{width:16px;height:16px;stroke:#fff;stroke-width:3.4;fill:none;opacity:0;transform:scale(.4);transition:all .2s}
+.decision input:checked+.box{background:var(--ok);border-color:var(--ok)}
+.decision input:checked+.box svg{opacity:1;transform:scale(1)}
+.decision input:focus-visible+.box{outline:3px solid var(--accent);outline-offset:2px}
+.decision:has(input:checked){border-color:var(--ok);background:var(--ok-bg)}
+.decision .d-num{flex:none;font-size:13px;font-weight:900;color:var(--text3)}
+.decision .d-text{flex:1;font-size:15px;font-weight:600;line-height:1.5}
+.decision .d-flag{flex:none;font-size:12px;font-weight:800;padding:3px 11px;border-radius:999px;background:var(--warn-bg);color:var(--warn)}
+.decision .d-flag.plan{background:var(--plan-bg);color:var(--plan-tx)}
+
+/* ============ 下一步 / 收尾 ============ */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.step-card .when{font-size:13px;font-weight:900;letter-spacing:.05em;color:var(--violet);margin-bottom:6px}
+.step-card p{font-size:14.5px;color:var(--text2)}
+.step-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--grad)}
+.close{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 28px 60px}
+.close .quote{
+  font-size:clamp(24px,3.2vw,40px);font-weight:900;line-height:1.4;max-width:900px;letter-spacing:-.01em;
+}
+.close .cobrand{
+  margin-top:38px;font-size:clamp(18px,2.2vw,24px);font-weight:900;letter-spacing:.02em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.close .sign{margin-top:14px;font-size:14px;color:var(--text2)}
+
+/* ============ footer ============ */
+footer{
+  border-top:1px solid var(--border);padding:26px 32px 34px;font-size:12.5px;color:var(--text3);text-align:center;
+}
+footer .legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:10px}
+footer .legend span b{font-weight:800}
+
+/* ============ 响应式 ============ */
+@media (max-width:960px){
+  .g3,.steps{grid-template-columns:1fr 1fr}
+  .g3 .card:last-child{grid-column:span 2}
+  .road-grid{grid-template-columns:1fr;gap:10px}
+  .road-svg{display:none}
+  .road-m{display:block;border-left:3px solid var(--accent);margin:6px 0 0 14px;padding-left:18px}
+  .road-m .rd{position:relative;padding-bottom:14px}
+  .road-m .rd::before{content:"";position:absolute;left:-26.5px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+  .road-m .rd:last-child{padding-bottom:0}
+  .road-m .rd b{font-size:15px;color:var(--accent)}
+  .road-m .rd i{display:block;font-style:normal;font-size:12px;color:var(--text2)}
+  .road-m .rd p{font-size:13.5px;color:var(--text2)}
+  .road-m .rd .ms{display:inline-block;font-size:11.5px;font-weight:800;color:var(--violet);background:var(--plan-bg);padding:2px 9px;border-radius:999px;margin-top:6px}
+  .cmp-row{grid-template-columns:1fr;grid-template-areas:"scene scene" "before after"}
+  .cmp-row .c-scene{grid-area:scene}
+  .cmp-row .c-before{grid-area:before;border-left:none;border-top:1px dashed var(--border)}
+  .cmp-row .c-after{grid-area:after;border-left:1px solid var(--border);border-top:1px dashed var(--border)}
+  .flow-row{grid-template-columns:1fr}
+  .flow-svg{display:none}
+  .flow-list{display:block;list-style:none}
+  .flow-list li{
+    display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text2);padding:7px 0;
+  }
+  .flow-list li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--text3)}
+  .flow-panel.after .flow-list li{color:var(--text);font-weight:600}
+  .flow-panel.after .flow-list li::before{background:var(--accent)}
+  .hero-meta span{padding:5px 12px;font-size:12.5px}
+}
+@media (max-width:620px){
+  .g3,.steps,.g2{grid-template-columns:1fr}
+  .g3 .card:last-child{grid-column:auto}
+  .slide{padding:104px 18px 56px}
+  .brand{font-size:13.5px}
+  .brand small{display:none}
+  .topbar{padding:9px 12px;gap:10px}
+  .main-nav a{padding:6px 9px;font-size:12.5px}
+  .stmt{flex-direction:column;gap:12px;padding:20px}
+  .decision{padding:15px 14px;gap:12px}
+  .decision .d-text{font-size:14px}
+  .dec-bar{min-width:120px}
+  footer{padding:22px 18px 28px}
+}
+
+/* ============ 打印 ============ */
+@media print{
+  :root{
+    --bg:#ffffff;--card:#ffffff;--card2:#f2f4f8;--text:#111;--text2:#444;--text3:#666;
+    --accent:#1d4ed8;--violet:#6d28d9;--ok:#059669;--warn:#b45309;--danger:#b91c1c;
+    --border:#ccd2dd;--border-strong:#aab4c4;--chart-track:#e6eaf2;--flow-bg:#eef1f6;--flow-line:#b9c3d4;
+    --plan-bg:#f1eafd;--plan-tx:#6d28d9;--ok-bg:#e6f6ef;--warn-bg:#fdf1e0;
+    --shadow:none;--shadow-lg:none;--glow1:transparent;--glow2:transparent;--hero-grid:rgba(0,0,0,.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#ffffff;--card:#ffffff;--card2:#f2f4f8;--text:#111;--text2:#444;--text3:#666;
+    --accent:#1d4ed8;--violet:#6d28d9;--ok:#059669;--warn:#b45309;--danger:#b91c1c;
+    --border:#ccd2dd;--border-strong:#aab4c4;--chart-track:#e6eaf2;--flow-bg:#eef1f6;--flow-line:#b9c3d4;
+    --plan-bg:#f1eafd;--plan-tx:#6d28d9;--ok-bg:#e6f6ef;--warn-bg:#fdf1e0;
+    --shadow:none;--shadow-lg:none;--glow1:transparent;--glow2:transparent;--hero-grid:rgba(0,0,0,.04);
+  }
+  @page{margin:11mm}
+  body{background:#fff}
+  body::before{display:none}
+  .topbar,.skip-link,.scroll-hint,.seg{display:none}
+  .slide,.hero,.close{min-height:auto;padding:10px 0 8px;page-break-after:always}
+  .slide:last-of-type{page-break-after:auto}
+  .hero::before{display:none}
+  .card:hover,.decision:hover{transform:none;box-shadow:none}
+  .mode-before .flow-panel.after,.mode-after .flow-panel.before{display:block}
+  .mode-before .flow-row,.mode-after .flow-row{grid-template-columns:1fr 1fr;max-width:none}
+  .road-svg{display:block}
+  .road-m{display:none}
+  .road-grid{grid-template-columns:repeat(5,1fr)}
+  .flow-svg{display:block}
+  .flow-list{display:none}
+  .cmp-row{grid-template-columns:130px 1fr 1fr}
+  .cmp-row .c-scene{grid-area:auto}
+  .cmp-row .c-before{grid-area:auto;border-left:1px solid var(--border);border-top:none}
+  .cmp-row .c-after{grid-area:auto;border-left:1px solid var(--border);border-top:none}
+  footer{page-break-after:auto}
+  .decision .box{border-color:#999}
+  .decision input:checked+.box{background:#059669;border-color:#059669}
+  .decision input:checked+.box svg{opacity:1;transform:scale(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001s!important;transition-duration:.001s!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#hero">跳到正文</a>
+
+<header class="topbar" role="banner">
+  <a class="brand" href="#hero" aria-label="返回封面">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+      <defs>
+        <linearGradient id="lgBrand" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" style="stop-color:var(--accent)"></stop>
+          <stop offset="1" style="stop-color:var(--violet)"></stop>
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="30" height="30" rx="9" fill="url(#lgBrand)"></rect>
+      <g fill="none" stroke="#fff" stroke-width="1.6" opacity=".92">
+        <path d="M8 12h18M8 17h18M8 22h18"></path>
+        <path d="M12 8v18M17 8v18M22 8v18"></path>
+      </g>
+      <circle cx="12" cy="12" r="1.7" fill="#fff"></circle>
+      <circle cx="22" cy="17" r="1.7" fill="#fff"></circle>
+      <circle cx="12" cy="22" r="1.7" fill="#fff"></circle>
+    </svg>
+    <span>超算互联网 SCNet × 知令<small>管理层 10 分钟汇报</small></span>
+  </a>
+  <nav class="main-nav" aria-label="章节导航">
+    <a href="#hero" class="">结论</a>
+    <a href="#s1" class="">开场</a>
+    <a href="#s2" class="">判断</a>
+    <a href="#s3" class="">主张</a>
+    <a href="#s4" class="">对比</a>
+    <a href="#s5" class="">体验</a>
+    <a href="#s6" class="">路线</a>
+    <a href="#s7" class="">决策</a>
+    <a href="#s8" class="">行动</a>
+  </nav>
+  <button type="button" class="toggle-btn" id="themeToggle" aria-label="切换深浅主题">
+    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.4"></circle><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"></path>
+    </svg>
+    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6Z"></path>
+    </svg>
+  </button>
+</header>
+
+<main>
+
+<!-- ============ 封面 ============ -->
+<section class="hero" id="hero" aria-labelledby="hero-h">
+  <span class="hero-badge"><span class="dot" aria-hidden="true"></span>超算互联网 SCNet × 知令｜管理层 10 分钟汇报</span>
+  <h1 id="hero-h">让超算像打开一个应用一样<span class="hl">自然</span></h1>
+  <p class="tagline">超算互联网（SCNet）的算力与模型能力 + 知令智能体验层 = 用户在一个工作台内完成「对话、提交、看结果」，SCNet 从网页入口升级为工作流入口。</p>
+  <div class="stack" role="img" aria-label="能力分层示意：用户工作台在上，知令智能体验层居中，超算互联网 SCNet 算力与模型在下">
+    <div class="stack-box user">用户工作台 · 对话 · 提交 · 看结果</div>
+    <span class="stack-arrow" aria-hidden="true">▲<br>▼</span>
+    <div class="stack-box zl">知令 · 智能体验层</div>
+    <span class="stack-arrow" aria-hidden="true">▲<br>▼</span>
+    <div class="stack-box scnet">超算互联网 SCNet · 算力与模型</div>
+  </div>
+  <div class="hero-meta" aria-label="文档元信息">
+    <span>编制日期 <b>2026-08-22</b></span>
+    <span>编制方 <b>西安禾成讴沃信息科技有限公司（知令团队）</b></span>
+    <span>呈报对象 <b>国家超算互联网平台（SCNet）管理层</b></span>
+    <span>汇报节奏 <b>9 页 · 每页约 1 分钟</b></span>
+    <span>标注约定 <b>✅ 已具备 ｜ 🧭 规划建议 ｜ ⚠️ 待 SCNet 确认</b></span>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">向下滚动
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+  </div>
+</section>
+
+<!-- ============ 第 1 页 开场结论 ============ -->
+<section class="slide" id="s1" aria-labelledby="s1-h">
+  <header class="s-head">
+    <span class="s-tag">第 1 页 · 开场结论 · 约 1 分钟</span>
+    <h2 id="s1-h">能力已互补，深度对接更胜一筹，<br>最小闭环 <span class="hl">1–3 个月见效</span></h2>
+    <p class="s-lead">三句话，说明白为什么现在做、为什么值得做。</p>
+  </header>
+  <div class="s-body">
+    <div class="stmt">
+      <span class="n" aria-hidden="true">1</span>
+      <div>
+        <h3>双方能力互补——缺的不是能力，是「最后一公里」</h3>
+        <p>SCNet 有资源与模型，知令有桌面工作台；缺的不是能力，是「最后一公里」的深度对接。</p>
+      </div>
+    </div>
+    <div class="stmt">
+      <span class="n" aria-hidden="true">2</span>
+      <div>
+        <h3>体验已好，深度对接更胜一筹</h3>
+        <p>配置好之后，对话、提交、看结果已在一个工作台内顺畅跑通；接入 Token、大文件与平台能力，体验还能再上台阶。</p>
+      </div>
+    </div>
+    <div class="stmt">
+      <span class="n" aria-hidden="true">3</span>
+      <div>
+        <h3>最小闭环 1–3 个月即可见效</h3>
+        <p>此后每季度交付一个可验收的里程碑。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 2 页 三个核心判断 ============ -->
+<section class="slide" id="s2" aria-labelledby="s2-h">
+  <header class="s-head">
+    <span class="s-tag">第 2 页 · 三个核心判断 · 约 1 分钟</span>
+    <h2 id="s2-h">做的是「接轨道」，不是「造轮子」</h2>
+    <p class="s-lead">三个判断，依次回答：能不能做、为什么值得做、风险怎么控。</p>
+  </header>
+  <div class="s-body">
+    <div class="grid g3">
+      <div class="card">
+        <div class="card-num" aria-hidden="true">01</div>
+        <h3>判断一：能力已经互补</h3>
+        <p>做的是「接轨道」，不是「造轮子」。</p>
+        <div class="duo">
+          <span>SCNet：全国超算资源汇聚，计算服务、大模型、算力市场、应用商城、AI 社区齐备 ✅</span>
+          <span>知令：桌面端 AI 全流程工作台，对话、文档、任务、数据分析一体 ✅</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-num" aria-hidden="true">02</div>
+        <h3>判断二：体验升级空间明确</h3>
+        <p>配置好后工作台已顺畅，三步升级方向清晰。</p>
+        <p style="margin-top:10px">配置好 SCNet 后，对话、任务、文件已在一个工作台内跑通；再接入 Token、大文件传输与平台能力，体验还能再上台阶。</p>
+      </div>
+      <div class="card">
+        <div class="card-num" aria-hidden="true">03</div>
+        <h3>判断三：最小闭环可快速兑现</h3>
+        <p>风险随阶段分批释放。</p>
+        <p style="margin-top:10px">先打通「Token 一次授权、直接可用」，投入可控、见效最快；后续阶段各有明确退出标准。</p>
+        <span class="flag flag-plan">🧭 规划建议</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 3 页 三大产品主张 ============ -->
+<section class="slide" id="s3" aria-labelledby="s3-h">
+  <header class="s-head">
+    <span class="s-tag">第 3 页 · 三大产品主张 · 约 1.5 分钟</span>
+    <h2 id="s3-h">自然化 · 透明可控 · 一站式</h2>
+    <p class="s-lead">三大主张，就是本次合作要交付给用户的三个体验。</p>
+  </header>
+  <div class="s-body">
+    <div class="grid g3">
+      <div class="card claim">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8M8 13h5.5"></path><rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M12 20v-3.5"></path></svg>
+        </span>
+        <h3>主张一：超算使用自然化</h3>
+        <p style="color:var(--text2)">从复杂操作，到自然任务。</p>
+        <p style="margin-top:8px">配置好后，用对话即可检查输入文件、调用模型；接入 Token 后连配置都省了——授权一次、直接可用。目标：像打开一个应用一样自然。</p>
+      </div>
+      <div class="card claim">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+        </span>
+        <h3>主张二：任务管理透明可控</h3>
+        <p style="color:var(--text2)">任务在哪跑、跑到哪，一眼可见。</p>
+        <p style="margin-top:8px">排队、运行、结果回传，一个视图全程可见；AI 用同一句对话即可提交到超算或本地集群。</p>
+      </div>
+      <div class="card claim">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"></path><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20"></path><path d="M9 8h7M9 12h5"></path></svg>
+        </span>
+        <h3>主张三：一站式学术体验</h3>
+        <p style="color:var(--text2)">从文献到论文，一条直线。</p>
+        <p style="margin-top:8px">在同一工作台内完成。</p>
+        <span class="flow">读文献 → 生成输入文件 → 提交算力 → 分析结果 → 写论文</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 4 页 前后对比 ============ -->
+<section class="slide" id="s4" aria-labelledby="s4-h">
+  <header class="s-head">
+    <span class="s-tag">第 4 页 · 前后对比 · 约 1 分钟</span>
+    <h2 id="s4-h">从「手动配置」到「一次授权」</h2>
+    <p class="s-lead">今天（手动配置后）vs 深度对接后，四类典型场景一张图看清。</p>
+  </header>
+  <div class="s-body">
+    <div class="seg" id="compareSeg" role="group" aria-label="对比视图切换">
+      <button type="button" data-mode="both" class="active" aria-pressed="true">并排对比</button>
+      <button type="button" data-mode="before" aria-pressed="false">只看今天</button>
+      <button type="button" data-mode="after" aria-pressed="false">只看深度对接后</button>
+    </div>
+    <div class="flow-row">
+      <div class="flow-panel before">
+        <h4><span class="badge-dot" aria-hidden="true"></span>今天（手动配置后）· 工作台已直用</h4>
+        <svg class="flow-svg" viewBox="0 0 552 76" role="img" aria-label="今天流程：手动配置凭证，工作台内对话提交，本地盯进度取结果">
+          <g>
+            <rect x="10" y="10" width="150" height="56" rx="12" fill="var(--flow-bg)" stroke="var(--flow-line)" stroke-width="1.5" stroke-dasharray="6 5"></rect>
+            <text x="85" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text2)">手动配置凭证</text>
+            <line x1="162" y1="38" x2="186" y2="38" stroke="var(--border-strong)" stroke-width="2.5"></line>
+            <path d="M186 38l-8-5v10z" fill="var(--border-strong)"></path>
+            <rect x="200" y="10" width="150" height="56" rx="12" fill="var(--flow-bg)" stroke="var(--flow-line)" stroke-width="1.5"></rect>
+            <text x="275" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text2)">工作台对话·提交</text>
+            <line x1="352" y1="38" x2="376" y2="38" stroke="var(--border-strong)" stroke-width="2.5"></line>
+            <path d="M376 38l-8-5v10z" fill="var(--border-strong)"></path>
+            <rect x="390" y="10" width="150" height="56" rx="12" fill="var(--flow-bg)" stroke="var(--flow-line)" stroke-width="1.5"></rect>
+            <text x="465" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="var(--text2)">本地盯结果</text>
+          </g>
+        </svg>
+        <ul class="flow-list">
+          <li>手动配置凭证</li><li>工作台对话·提交</li><li>本地盯进度·取结果</li>
+        </ul>
+      </div>
+      <div class="flow-panel after">
+        <h4><span class="badge-dot" aria-hidden="true"></span>深度对接后 · 一次授权直达</h4>
+        <svg class="flow-svg" viewBox="0 0 552 76" role="img" aria-label="深度对接后流程：一次授权，对话即提交，工作台看结果">
+          <defs>
+            <linearGradient id="lgFlow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" style="stop-color:var(--accent)"></stop>
+              <stop offset="1" style="stop-color:var(--violet)"></stop>
+            </linearGradient>
+          </defs>
+          <g>
+            <rect x="10" y="10" width="150" height="56" rx="12" fill="url(#lgFlow)"></rect>
+            <text x="85" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">一次授权</text>
+            <line x1="162" y1="38" x2="186" y2="38" stroke="var(--accent)" stroke-width="2.5"></line>
+            <path d="M186 38l-8-5v10z" fill="var(--accent)"></path>
+            <rect x="200" y="10" width="150" height="56" rx="12" fill="url(#lgFlow)"></rect>
+            <text x="275" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">对话即提交</text>
+            <line x1="352" y1="38" x2="376" y2="38" stroke="var(--accent)" stroke-width="2.5"></line>
+            <path d="M376 38l-8-5v10z" fill="var(--accent)"></path>
+            <rect x="390" y="10" width="150" height="56" rx="12" fill="url(#lgFlow)"></rect>
+            <text x="465" y="42" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">工作台看结果</text>
+          </g>
+        </svg>
+        <ul class="flow-list">
+          <li>一次授权</li><li>对话即提交</li><li>工作台看结果</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cmp-table" role="table" aria-label="前后对比明细">
+      <div class="cmp-row cmp-head" role="row">
+        <div class="cmp-cell c-scene" role="columnheader">场景</div>
+        <div class="cmp-cell c-before" role="columnheader">今天（手动配置后）</div>
+        <div class="cmp-cell c-after" role="columnheader">深度对接后</div>
+      </div>
+      <div class="cmp-row" role="row">
+        <div class="cmp-cell c-scene" role="rowheader">使用大模型</div>
+        <div class="cmp-cell c-before" role="cell">手动配置凭证后，工作台内直接对话</div>
+        <div class="cmp-cell c-after" role="cell">Token 一次授权，连配置都省了 <span class="flag flag-plan">🧭</span></div>
+      </div>
+      <div class="cmp-row" role="row">
+        <div class="cmp-cell c-scene" role="rowheader">提交任务</div>
+        <div class="cmp-cell c-before" role="cell">工作台内提交，本地盯进度</div>
+        <div class="cmp-cell c-after" role="cell">对话即提交，状态与结果全程在工作台可见 <span class="flag flag-plan">🧭</span></div>
+      </div>
+      <div class="cmp-row" role="row">
+        <div class="cmp-cell c-scene" role="rowheader">学术工作</div>
+        <div class="cmp-cell c-before" role="cell">文献与写作在工作台，算力需自行配置</div>
+        <div class="cmp-cell c-after" role="cell">从文献到论文一条直线 <span class="flag flag-plan">🧭</span></div>
+      </div>
+      <div class="cmp-row" role="row">
+        <div class="cmp-cell c-scene" role="rowheader">团队管理</div>
+        <div class="cmp-cell c-before" role="cell">成员各自配置，用量各自查看</div>
+        <div class="cmp-cell c-after" role="cell">Token 统一接入，用量按账号可查 <span class="flag flag-plan">🧭</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 5 页 工作台体验 ============ -->
+<section class="slide" id="s5" aria-labelledby="s5-h">
+  <header class="s-head">
+    <span class="s-tag">第 5 页 · 工作台体验 · 约 1.5 分钟</span>
+    <h2 id="s5-h">配置即用，深度对接<span class="hl">更胜一筹</span></h2>
+    <p class="s-lead">配置完成后，工作台里的体验已经很顺畅；再接入 Token、大文件传输与平台能力，体验会更胜一筹。</p>
+  </header>
+  <div class="s-body">
+    <p class="exp-sub now"><span class="badge-dot" aria-hidden="true"></span>配置好后 · 现在的工作台体验<span class="flag flag-ok">✅ 已具备</span></p>
+    <div class="grid g3">
+      <div class="card exp-now">
+        <div class="exp-head">
+          <span class="exp-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 20h8M12 17v3"></path></svg>
+          </span>
+          <h3>一个窗口干完全程</h3>
+        </div>
+        <p>文件浏览、终端、编辑、任务提交都在知令一个窗口内完成，不用在网页与本地工具之间来回切换。</p>
+      </div>
+      <div class="card exp-now">
+        <div class="exp-head">
+          <span class="exp-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.6 0-3.1-.4-4.4-1.2L3 20l1.2-5.1A8.5 8.5 0 1 1 21 11.5z"></path><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"></path></svg>
+          </span>
+          <h3>对话即操作</h3>
+        </div>
+        <p>与智能体对话，即可检查输入文件、生成作业脚本、发起任务提交，不必记住繁琐命令。</p>
+      </div>
+      <div class="card exp-now">
+        <div class="exp-head">
+          <span class="exp-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"></path><path d="M7.5 10.5L12 15l4.5-4.5"></path><path d="M4 20h16"></path></svg>
+          </span>
+          <h3>结果落回工作台</h3>
+        </div>
+        <p>任务输出与日志自动回到工作台文件区，随手就能进行下一步分析或归档。</p>
+      </div>
+    </div>
+    <p class="exp-sub more"><span class="badge-dot" aria-hidden="true"></span>深度对接 · 体验再上台阶<span class="flag flag-plan">🧭 建议</span></p>
+    <div class="grid g3">
+      <div class="card claim">
+        <h3>接入 SCNet Token</h3>
+        <p>账户、额度与计费体系深度打通：一次授权即可对话与提交，免去控制台建凭证、复制回填。</p>
+        <span class="flow">一次授权 · 全链路直通</span>
+      </div>
+      <div class="card claim">
+        <h3>大文件上传下载</h3>
+        <p>数据进出平台直接在知令工作台内完成，不再依赖第三方传输工具。</p>
+        <span class="flow">数据进出都在工作台内</span>
+      </div>
+      <div class="card claim">
+        <h3>平台能力接入智能体</h3>
+        <p>提交作业、查询队列、用量对账等平台能力，成为智能体可直接调用的工具。</p>
+        <span class="flow">平台能力变成智能体工具</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ 第 6 页 路线图 ============ -->
+<section class="slide" id="s6" aria-labelledby="s6-h">
+  <header class="s-head">
+    <span class="s-tag">第 6 页 · 分阶段路线图 · 约 1 分钟</span>
+    <h2 id="s6-h">12 个月，五个阶段，四个里程碑</h2>
+    <p class="s-lead">每季度一个可验收的里程碑，风险随阶段分批释放。</p>
+  </header>
+  <div class="s-body">
+    <div class="road">
+      <svg class="road-svg" viewBox="0 0 1000 130" role="img" aria-label="路线图时间轴：P0 立项联调0到1月，P1 Token接入一次授权1到3月，P2 平台能力接入智能体3到6月，P3 大文件传输打通6到9月，P4 学术闭环与联合运营9到12月">
+        <line x1="40" y1="78" x2="960" y2="78" stroke="var(--border-strong)" stroke-width="3" stroke-linecap="round"></line>
+        <!-- 里程碑 -->
+        <g font-family="inherit">
+          <polygon points="200,66 208,78 200,90 192,78" fill="var(--violet)"></polygon>
+          <text x="200" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="var(--violet)">M1</text>
+          <polygon points="400,66 408,78 400,90 392,78" fill="var(--violet)"></polygon>
+          <text x="400" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="var(--violet)">M2</text>
+          <polygon points="600,66 608,78 600,90 592,78" fill="var(--violet)"></polygon>
+          <text x="600" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="var(--violet)">M3</text>
+          <polygon points="800,66 808,78 800,90 792,78" fill="var(--violet)"></polygon>
+          <text x="800" y="58" text-anchor="middle" font-size="13" font-weight="800" fill="var(--violet)">M4</text>
+          <!-- 节点 -->
+          <circle cx="100" cy="78" r="16" fill="var(--accent-deep)"></circle>
+          <text x="100" y="83" text-anchor="middle" font-size="13" font-weight="900" fill="#ffffff">P0</text>
+          <circle cx="300" cy="78" r="16" fill="var(--accent)"></circle>
+          <text x="300" y="83" text-anchor="middle" font-size="13" font-weight="900" fill="#ffffff">P1</text>
+          <circle cx="500" cy="78" r="16" fill="var(--accent)"></circle>
+          <text x="500" y="83" text-anchor="middle" font-size="13" font-weight="900" fill="#ffffff">P2</text>
+          <circle cx="700" cy="78" r="16" fill="var(--accent)"></circle>
+          <text x="700" y="83" text-anchor="middle" font-size="13" font-weight="900" fill="#ffffff">P3</text>
+          <circle cx="900" cy="78" r="16" fill="var(--violet)"></circle>
+          <text x="900" y="83" text-anchor="middle" font-size="13" font-weight="900" fill="#ffffff">P4</text>
+          <!-- 月份 -->
+          <text x="100" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text2)">0 月</text>
+          <text x="300" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text2)">3 月</text>
+          <text x="500" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text2)">6 月</text>
+          <text x="700" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text2)">9 月</text>
+          <text x="900" y="118" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--text2)">12 月</text>
+        </g>
+      </svg>
+      <div class="road-grid">
+        <div class="road-card p0">
+          <div class="ph">P0 · 立项联调</div>
+          <div class="time">0–1 月</div>
+          <p>意向确认、双方对接人、联调环境就绪</p>
+        </div>
+        <div class="road-card">
+          <div class="ph">P1 · Token 接入</div>
+          <div class="time">1–3 月</div>
+          <p>一次授权，模型无感可用</p>
+          <span class="ms">M1</span>
+        </div>
+        <div class="road-card">
+          <div class="ph">P2 · 平台能力接入智能体</div>
+          <div class="time">3–6 月</div>
+          <p>对话提交、跟踪超算任务</p>
+          <span class="ms">M2</span>
+        </div>
+        <div class="road-card">
+          <div class="ph">P3 · 大文件传输打通</div>
+          <div class="time">6–9 月</div>
+          <p>数据进出平台都在工作台内</p>
+          <span class="ms">M3</span>
+        </div>
+        <div class="road-card">
+          <div class="ph">P4 · 学术闭环与联合运营</div>
+          <div class="time">9–12 月</div>
+          <p>文献→计算→论文闭环 + 联合品牌发布</p>
+          <span class="ms">M4</span>
+        </div>
+      </div>
+      <div class="road-m" aria-hidden="true">
+        <div class="rd"><b>P0 · 立项联调</b><i>0–1 月</i><p>意向确认、双方对接人、联调环境就绪</p></div>
+        <div class="rd"><b>P1 · Token 接入</b><i>1–3 月</i><p>一次授权，模型无感可用</p><span class="ms">M1</span></div>
+        <div class="rd"><b>P2 · 平台能力接入智能体</b><i>3–6 月</i><p>对话提交、跟踪超算任务</p><span class="ms">M2</span></div>
+        <div class="rd"><b>P3 · 大文件传输打通</b><i>6–9 月</i><p>数据进出平台都在工作台内</p><span class="ms">M3</span></div>
+        <div class="rd"><b>P4 · 学术闭环与联合运营</b><i>9–12 月</i><p>文献→计算→论文闭环 + 联合品牌发布</p><span class="ms">M4</span></div>
+      </div>
+    </div>
+    <p class="s-note">时间为建议值，实际排期取决于待确认事项的答复速度。</p>
+  </div>
+</section>
+
+<!-- ============ 第 7 页 决策清单 ============ -->
+<section class="slide" id="s7" aria-labelledby="s7-h">
+  <header class="s-head">
+    <span class="s-tag">第 7 页 · 请管理层决策的事项 · 约 1 分钟</span>
+    <h2 id="s7-h">五项决策，请管理层拍板</h2>
+    <p class="s-lead">逐项勾选，现场即可形成会议结论。</p>
+  </header>
+  <div class="s-body">
+    <div class="dec-head">
+      <span class="dec-count" id="decisionCount" aria-live="polite">已确认 0 / 5</span>
+      <div class="dec-bar" role="progressbar" aria-label="决策确认进度" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><i id="decisionBar" style="width: 0%;"></i></div>
+    </div>
+    <div class="decision-list">
+      <label class="decision">
+        <input type="checkbox" aria-label="决策一">
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+        <span class="d-num" aria-hidden="true">1</span>
+        <span class="d-text">确认「Token 接入 + 深度体验升级」合作方向，批准立项排期</span>
+        <span class="d-flag" aria-hidden="true">⚠️</span>
+      </label>
+      <label class="decision">
+        <input type="checkbox" aria-label="决策二">
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+        <span class="d-num" aria-hidden="true">2</span>
+        <span class="d-text">指定双方对接人，提供联调环境，进入 P0</span>
+        <span class="d-flag" aria-hidden="true">⚠️</span>
+      </label>
+      <label class="decision">
+        <input type="checkbox" aria-label="决策三">
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+        <span class="d-num" aria-hidden="true">3</span>
+        <span class="d-text">确认联合品牌「超算互联网 SCNet × 知令」发布口径</span>
+        <span class="d-flag plan" aria-hidden="true">🧭</span>
+      </label>
+      <label class="decision">
+        <input type="checkbox" aria-label="决策四">
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+        <span class="d-num" aria-hidden="true">4</span>
+        <span class="d-text">确认大文件传输与平台能力接入的接口范围与试点场景</span>
+        <span class="d-flag" aria-hidden="true">⚠️</span>
+      </label>
+      <label class="decision">
+        <input type="checkbox" aria-label="决策五">
+        <span class="box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"></path></svg></span>
+        <span class="d-num" aria-hidden="true">5</span>
+        <span class="d-text">确认「先用户权益试点、后深度商务」的合作节奏</span>
+        <span class="d-flag plan" aria-hidden="true">🧭</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 8 页 下一步行动 ============ -->
+<section class="slide" id="s8" aria-labelledby="s8-h">
+  <header class="s-head">
+    <span class="s-tag">第 8 页 · 下一步行动 · 约 0.5 分钟</span>
+    <h2 id="s8-h">本周、两周内、三个月——三步启动</h2>
+    <p class="s-lead">会后即可启动，节奏清晰可跟踪。</p>
+  </header>
+  <div class="s-body">
+    <div class="steps">
+      <div class="step-card">
+        <div class="when">本周</div>
+        <p>SCNet 指定对接人；知令提交合作公告草案与接入测试用例。</p>
+      </div>
+      <div class="step-card">
+        <div class="when">两周内</div>
+        <p>P0 立项，待确认事项逐项形成书面结论。</p>
+      </div>
+      <div class="step-card">
+        <div class="when">第一个里程碑</div>
+        <p>1–3 个月内，「Token 一次授权、直接可用」面向试点用户。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第 9 页 收尾 ============ -->
+<section class="close" id="s9" aria-labelledby="s9-h">
+  <h2 id="s9-h" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">收尾</h2>
+  <p class="quote">给超算用户一个「自然、透明、一站式」的工作台，<br>就是给平台一个<span class="hl">持续增长的新入口</span>。</p>
+  <p class="cobrand">联合品牌：超算互联网 SCNet × 知令 ZHILING</p>
+  <p class="sign">知令团队（西安禾成讴沃信息科技有限公司）· 2026-08</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="legend">
+    <span><b style="color:var(--ok)">✅</b> 已具备</span>
+    <span><b style="color:var(--violet)">🧭</b> 规划建议</span>
+    <span><b style="color:var(--warn)">⚠️</b> 待 SCNet 确认</span>
+    <span>9 页 · 每页约 1 分钟</span>
+    <span>本页完全离线可用 · 深浅主题自动适配</span>
+  </div>
+  <p>超算互联网 SCNet × 知令｜管理层 10 分钟汇报 · 编制方：西安禾成讴沃信息科技有限公司（知令团队）· 2026-08-22</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+
+  /* 主题切换（无外部依赖，禁用 JS 时默认跟随系统主题） */
+  function applyTheme(t){
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('scnet-theme',t);}catch(e){}
+  }
+  var btn=document.getElementById('themeToggle');
+  if(btn){
+    btn.addEventListener('click',function(){
+      applyTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');
+    });
+  }
+
+  /* 对比视图切换：并排 / 只看今天 / 只看深度对接后 */
+  var seg=document.getElementById('compareSeg');
+  if(seg){
+    seg.addEventListener('click',function(e){
+      var b=e.target.closest('button');
+      if(!b)return;
+      document.body.classList.remove('mode-before','mode-after');
+      if(b.getAttribute('data-mode')==='before'){document.body.classList.add('mode-before');}
+      if(b.getAttribute('data-mode')==='after'){document.body.classList.add('mode-after');}
+      seg.querySelectorAll('button').forEach(function(x){
+        var on=(x===b);
+        x.setAttribute('aria-pressed',on?'true':'false');
+        x.classList.toggle('active',on);
+      });
+    });
+  }
+
+  /* 滚动高亮：当前章节对应导航项 */
+  var links=Array.prototype.slice.call(document.querySelectorAll('.main-nav a'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  function setActive(id){
+    links.forEach(function(a){
+      var on=(a.getAttribute('href')==='#'+id);
+      a.classList.toggle('active',on);
+      if(on){a.setAttribute('aria-current','true');}else{a.removeAttribute('aria-current');}
+    });
+  }
+  if('IntersectionObserver' in window){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){setActive(en.target.id);}
+      });
+    },{rootMargin:'-42% 0px -52% 0px',threshold:0});
+    document.querySelectorAll('main section[id]').forEach(function(s){spy.observe(s);});
+  }else{
+    links.forEach(function(a){
+      a.addEventListener('click',function(){setActive(a.getAttribute('href').slice(1));});
+    });
+  }
+
+  /* 决策清单：勾选计数与进度条 */
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.decision input'));
+  var bar=document.getElementById('decisionBar');
+  var cnt=document.getElementById('decisionCount');
+  var prog=document.querySelector('.dec-bar');
+  function updateDecisions(){
+    var n=0;
+    boxes.forEach(function(b){if(b.checked){n++;}});
+    if(bar){bar.style.width=(boxes.length?n/boxes.length*100:0)+'%';}
+    if(cnt){cnt.textContent='已确认 '+n+' / '+boxes.length;}
+    if(prog){prog.setAttribute('aria-valuenow',String(n));}
+  }
+  boxes.forEach(function(b){b.addEventListener('change',updateDecisions);});
+  updateDecisions();
+})();
+</script>
+
+
+</body></html>

@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>湖南交投集团 — 大模型本地部署与智能工作台 项目方案书</title>
+<style>
+/* ===== 全局重置与基础 ===== */
+@page {
+  size: A4;
+  margin: 2cm 2.2cm 2.5cm 2.2cm;
+  @top-center { content: "西安禾成讴沃信息科技有限公司"; font-size: 9pt; color: #888; font-family: "Microsoft YaHei", "SimHei", sans-serif; }
+  @bottom-center { content: "第 " counter(page) " 页"; font-size: 9pt; color: #888; font-family: "Microsoft YaHei", "SimHei", sans-serif; }
+}
+@page cover { margin: 0; @top-center { content: none; } @bottom-center { content: none; } }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Microsoft YaHei", "SimHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #333;
+  background: #f5f5f5;
+  counter-reset: h2-counter h3-counter h4-counter table-counter;
+}
+
+/* ===== 封面页 ===== */
+.cover-page {
+  page: cover;
+  width: 210mm; height: 297mm;
+  margin: 0 auto;
+  background: linear-gradient(160deg, #0d3b66 0%, #1596FF 40%, #0a6fc2 70%, #0d3b66 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  color: #fff; text-align: center;
+  break-after: page;
+}
+.cover-page::before {
+  content: "";
+  position: absolute; top: -80px; right: -120px;
+  width: 500px; height: 500px;
+  border: 2px solid rgba(255,255,255,0.08); border-radius: 50%;
+}
+.cover-page::after {
+  content: "";
+  position: absolute; bottom: -100px; left: -80px;
+  width: 400px; height: 400px;
+  border: 2px solid rgba(255,255,255,0.06); border-radius: 50%;
+}
+.cover-top-line {
+  position: absolute; top: 60px; left: 60px; right: 60px;
+  height: 2px; background: rgba(255,255,255,0.3);
+}
+.cover-bottom-line {
+  position: absolute; bottom: 60px; left: 60px; right: 60px;
+  height: 2px; background: rgba(255,255,255,0.3);
+}
+.cover-content { position: relative; z-index: 1; padding: 40px; }
+.cover-label {
+  font-size: 14pt; letter-spacing: 8px; margin-bottom: 30px;
+  opacity: 0.85; font-weight: 300;
+}
+.cover-title {
+  font-size: 28pt; font-weight: 700; line-height: 1.4;
+  margin-bottom: 16px; letter-spacing: 3px;
+}
+.cover-subtitle {
+  font-size: 16pt; font-weight: 400; margin-bottom: 50px;
+  opacity: 0.9; letter-spacing: 2px;
+}
+.cover-divider {
+  width: 80px; height: 3px; background: #fff;
+  margin: 0 auto 40px; opacity: 0.7;
+}
+.cover-info { font-size: 12pt; line-height: 2.2; opacity: 0.9; }
+.cover-info span { opacity: 0.7; }
+.cover-classification {
+  position: absolute; top: 100px; right: 60px;
+  font-size: 11pt; letter-spacing: 4px;
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 6px 20px; border-radius: 2px;
+}
+
+/* ===== 目录页 ===== */
+.toc-page { break-after: page; padding-top: 20px; }
+.toc-title {
+  font-size: 20pt; font-weight: 700; color: #1596FF;
+  text-align: center; margin-bottom: 30px;
+  padding-bottom: 12px; border-bottom: 2px solid #1596FF;
+}
+.toc-list { list-style: none; padding: 0; }
+.toc-list li { border-bottom: 1px dotted #ccc; padding: 8px 0; font-size: 11pt; }
+.toc-list li a { text-decoration: none; color: #333; }
+.toc-list li a:hover { color: #1596FF; }
+.toc-chapter { font-weight: 700; font-size: 12pt; color: #1596FF; }
+.toc-section { padding-left: 24px; font-size: 10.5pt; }
+.toc-subsection { padding-left: 48px; font-size: 10pt; color: #666; }
+
+/* ===== 通用章节样式 ===== */
+.content-wrapper {
+  max-width: 210mm; margin: 0 auto; background: #fff;
+  padding: 0 36px 40px 36px;
+}
+.chapter {
+  padding: 20px 0; break-before: page;
+}
+.chapter:first-of-type { break-before: avoid; }
+
+h2 {
+  font-size: 18pt; color: #1596FF; font-weight: 700;
+  margin-bottom: 6px; padding-bottom: 8px;
+  border-bottom: 2px solid #1596FF;
+}
+h2 .chapter-num {
+  display: inline-block; background: #1596FF; color: #fff;
+  padding: 4px 14px; margin-right: 10px; font-size: 14pt;
+  border-radius: 3px;
+}
+h3 {
+  font-size: 14pt; color: #0d3b66; font-weight: 700;
+  margin: 22px 0 10px 0; padding-left: 10px;
+  border-left: 4px solid #1596FF;
+}
+h4 {
+  font-size: 12pt; color: #333; font-weight: 700;
+  margin: 16px 0 8px 0;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+
+/* ===== 表格样式 ===== */
+table {
+  width: 100%; border-collapse: collapse; margin: 12px 0 16px 0;
+  font-size: 9.5pt; page-break-inside: avoid;
+}
+thead th {
+  background: #1596FF; color: #fff; font-weight: 700;
+  padding: 8px 6px; text-align: center; border: 1px solid #0d7fd6;
+  font-size: 9.5pt;
+}
+tbody td {
+  padding: 6px 6px; border: 1px solid #d0d0d0;
+  text-align: center; vertical-align: middle;
+}
+tbody tr:nth-child(even) { background: #f0f7ff; }
+tbody tr:nth-child(odd) { background: #fff; }
+tbody td:first-child, tbody td:nth-child(2) { text-align: left; }
+tfoot td { font-weight: 700; background: #e6f2ff; border: 1px solid #b0c8e0; }
+
+/* ===== 列表样式 ===== */
+ul, ol { margin: 8px 0 12px 20px; }
+li { margin-bottom: 4px; }
+
+/* ===== 特殊样式 ===== */
+.highlight-box {
+  background: #f0f7ff; border-left: 4px solid #1596FF;
+  padding: 12px 16px; margin: 16px 0; border-radius: 0 4px 4px 0;
+  font-size: 10pt;
+}
+.warn-box {
+  background: #fff8e6; border-left: 4px solid #f0a030;
+  padding: 12px 16px; margin: 16px 0; border-radius: 0 4px 4px 0;
+  font-size: 10pt;
+}
+.goal-list { list-style: none; padding: 0; }
+.goal-list li { padding: 6px 0 6px 30px; position: relative; }
+.goal-list li::before {
+  content: "◆"; color: #1596FF; position: absolute; left: 6px; font-size: 8pt; top: 8px;
+}
+
+.caption { font-size: 9pt; color: #888; text-align: center; margin-top: -8px; margin-bottom: 12px; }
+
+.arch-desc { background: #f8fbff; border: 1px solid #d0e0f0; padding: 16px 20px; margin: 16px 0; border-radius: 6px; }
+.arch-desc h4 { color: #1596FF; margin-top: 0; }
+
+.fee-total {
+  font-size: 13pt; font-weight: 700; color: #1596FF;
+  text-align: right; padding: 10px 20px;
+  border: 2px solid #1596FF; border-radius: 6px; margin: 12px 0;
+  background: #f0f7ff;
+}
+
+.phase-card {
+  border: 1px solid #e0e0e0; border-radius: 6px; padding: 16px;
+  margin: 12px 0; page-break-inside: avoid;
+}
+.phase-card h4 { color: #1596FF; border-bottom: 1px solid #e0e0e0; padding-bottom: 6px; margin-top: 0; }
+
+.risk-table td:first-child { font-weight: 700; white-space: nowrap; }
+.risk-high { color: #d32f2f; font-weight: 700; }
+.risk-mid { color: #f0a030; font-weight: 700; }
+.risk-low { color: #4caf50; font-weight: 700; }
+
+/* ===== 打印样式 ===== */
+@media print {
+  body { background: #fff; }
+  .content-wrapper { max-width: none; padding: 0 24px; }
+  .chapter { break-before: page; padding: 20px 0; }
+  .cover-page { break-after: page; }
+  .toc-page { break-after: page; }
+  table { font-size: 8.5pt; }
+  thead th, tbody td { padding: 4px 5px; }
+  h2 { font-size: 16pt; }
+  h3 { font-size: 13pt; }
+  h4 { font-size: 11pt; }
+  body { font-size: 10pt; }
+}
+
+/* ===== 屏幕优化 ===== */
+@media screen {
+  .content-wrapper {
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    margin: 20px auto; padding: 0 36px 60px 36px;
+  }
+}
+
+/* section header for chapter internal */
+.section-header {
+  font-size: 16pt; color: #0d3b66; font-weight: 700;
+  margin: 28px 0 14px; padding-bottom: 6px;
+  border-bottom: 1px solid #d0e0f0;
+}
+</style>
+</head>
+<body>
+
+<!-- ========== 封面页 ========== -->
+<div class="cover-page">
+  <div class="cover-top-line"></div>
+  <div class="cover-bottom-line"></div>
+  <div class="cover-classification">商业机密</div>
+  <div class="cover-content">
+    <div class="cover-label">项 目 方 案 书</div>
+    <div class="cover-title">湖南交投集团</div>
+    <div class="cover-subtitle">大模型本地部署与智能工作台</div>
+    <div class="cover-divider"></div>
+    <div class="cover-info">
+      <span>方案提供方：</span>西安禾成讴沃信息科技有限公司<br>
+      <span>日　　期：</span>2026 年 8 月<br>
+      <span>版　　本：</span>v1.0
+    </div>
+  </div>
+</div>
+
+<!-- ========== 目录页 ========== -->
+<div class="toc-page content-wrapper">
+  <div class="toc-title">目　录</div>
+  <ul class="toc-list">
+    <li class="toc-chapter"><a href="#ch1">第一章　公司及团队介绍</a></li>
+    <li class="toc-section"><a href="#s1-1">1.1 公司介绍</a></li>
+    <li class="toc-section"><a href="#s1-2">1.2 团队介绍</a></li>
+    <li class="toc-section"><a href="#s1-3">1.3 核心优势</a></li>
+
+    <li class="toc-chapter" style="margin-top:8px;"><a href="#ch2">第二章　技术方案</a></li>
+    <li class="toc-section"><a href="#s2-1">2.1 项目概述</a></li>
+    <li class="toc-section"><a href="#s2-2">2.2 总体架构</a></li>
+    <li class="toc-section"><a href="#s2-3">2.3 大模型算力平台方案</a></li>
+    <li class="toc-subsection"><a href="#s2-3-1">2.3.1 硬件配置清单</a></li>
+    <li class="toc-subsection"><a href="#s2-3-2">2.3.2 模型选型与部署</a></li>
+    <li class="toc-subsection"><a href="#s2-3-3">2.3.3 推理框架与部署架构</a></li>
+    <li class="toc-subsection"><a href="#s2-3-4">2.3.4 RAG 知识库方案</a></li>
+    <li class="toc-section"><a href="#s2-4">2.4 知令企业版智能工作台方案</a></li>
+    <li class="toc-subsection"><a href="#s2-4-1">2.4.1 现有产品能力</a></li>
+    <li class="toc-subsection"><a href="#s2-4-2">2.4.2 企业版增强特性</a></li>
+    <li class="toc-subsection"><a href="#s2-4-3">2.4.3 典型应用场景</a></li>
+
+    <li class="toc-chapter" style="margin-top:8px;"><a href="#ch3">第三章　实施计划</a></li>
+    <li class="toc-section"><a href="#s3-1">3.1 实施总体策略</a></li>
+    <li class="toc-section"><a href="#s3-2">3.2 项目阶段划分</a></li>
+    <li class="toc-section"><a href="#s3-3">3.3 项目组织架构</a></li>
+    <li class="toc-section"><a href="#s3-4">3.4 风险管理</a></li>
+    <li class="toc-section"><a href="#s3-5">3.5 里程碑与交付物</a></li>
+
+    <li class="toc-chapter" style="margin-top:8px;"><a href="#ch4">第四章　报价明细</a></li>
+    <li class="toc-section"><a href="#s4-1">4.1 方案概述</a></li>
+    <li class="toc-section"><a href="#s4-2">4.2 标准方案报价明细</a></li>
+    <li class="toc-section"><a href="#s4-3">4.3 精简方案报价明细</a></li>
+    <li class="toc-section"><a href="#s4-4">4.4 费用汇总对比</a></li>
+    <li class="toc-section"><a href="#s4-5">4.5 付款方式建议</a></li>
+
+    <li class="toc-chapter" style="margin-top:8px;"><a href="#appendix">附录</a></li>
+    <li class="toc-section"><a href="#app-a">附录A　关键技术指标汇总</a></li>
+    <li class="toc-section"><a href="#app-b">附录B　缩略语表</a></li>
+  </ul>
+</div>
+
+<!-- ========== 正文 ========== -->
+<div class="content-wrapper">
+
+<!-- ===== 第一章 ===== -->
+<div class="chapter" id="ch1">
+<h2><span class="chapter-num">01</span>公司及团队介绍</h2>
+
+<h3 id="s1-1">1.1 公司介绍</h3>
+
+<p>西安禾成讴沃信息科技有限公司（以下简称"公司"）成立于陕西省西安市，是一家专注于人工智能应用与智能工作平台研发的科技企业，系"<strong>知令（ZHILING）</strong>"品牌持有者。公司以"让智能触手可及"为核心理念，致力于打造桌面与移动全场景智能工作平台，让 AI 智能体真正服务于科研、工程与日常办公的每一个环节。</p>
+
+<p>公司自主研发的核心产品<strong>知令（ZHILING）</strong>是一款面向科研与工程场景的全流程智能工作台，支持 Windows、macOS、Linux 桌面端与 Android、iOS 移动端多端无缝协同。产品深度整合 DeepSeek、GLM、Kimi、MiMo 等国产大模型，通过 Prompt 工程、工具链编排与上下文管理等全链路优化，为用户提供多模型会话、复杂任务规划、自动化任务编排、文档协作、远程集群计算对接等核心能力，覆盖代码开发、文档精修、数据分析、科学计算、演示制作等全链路工作流。</p>
+
+<p>在技术方向上，公司深耕 <strong>AI 智能体、大模型应用、高性能计算与自动化任务编排</strong>四大领域，具备从大模型本地化部署与推理优化，到计算集群建设、多端应用开发的完整技术能力。公司自主研发了多端三层按需同步协议、自动化任务引擎（支持定时与条件触发、计划书驱动的全流程自动编排）、本地优先的安全架构等关键技术，敏感数据可完全保留在用户环境内部，充分满足企业对数据安全与合规管理的要求。</p>
+
+<p>目前，公司产品与服务已应用于高校实验室、企业研发中心与科研工作者群体。面向企业级市场，公司将持续深化大模型应用与智能工作平台的研发，助力大型企业客户实现办公与业务的智能化转型。</p>
+
+<h3 id="s1-2">1.2 团队介绍</h3>
+
+<p>公司团队是一支由人工智能应用、高性能计算、全栈软件开发等方向人员组成的复合型技术团队，核心能力覆盖四大领域：</p>
+
+<h4>（一）大模型应用与部署能力</h4>
+<p>团队长期从事国产开源大模型的本地化部署与应用开发，熟悉 DeepSeek、GLM、Qwen 等主流国产开源大模型的部署流程、推理优化与运维管理，在大模型推理加速、显存优化、服务化封装等方面积累了丰富的工程经验，能够根据企业硬件环境与业务场景完成模型选型、适配与调优。</p>
+
+<h4>（二）高性能计算集群建设经验</h4>
+<p>团队曾为多所高校与科研机构建设高性能计算集群，具备完整的设计、实施与交付能力，典型项目包括：</p>
+<ul>
+  <li>为西北地区某材料计算课题组建设 20+ 节点规模的 SLURM 集群，支撑 VASP、LAMMPS 等第一性原理与分子动力学计算任务；</li>
+  <li>为中部地区某高校物理学院建设 GPU 计算集群，服务于深度学习与分子动力学模拟等科研计算需求；</li>
+  <li>为西南地区某高校化工学院部署 CPU+GPU 混合架构计算平台，实现异构计算资源的统一调度与管理。</li>
+</ul>
+<p>团队积累了 InfiniBand 高速网络组网、Lustre/GPFS 并行文件系统部署、SLURM/PBS 集群调度系统配置等关键工程能力。</p>
+
+<h4>（三）全栈软件研发能力</h4>
+<p>团队具备桌面端、移动端与服务端的全栈研发能力：桌面端基于 Electron + React 架构，移动端基于 React Native 技术栈，服务端采用 Django 框架，并使用 Go 语言开发高性能工具与基础设施组件。</p>
+
+<h4>（四）AI 智能体研发能力</h4>
+<p>团队自主研发了多模型调度、工具链编排、Prompt 工程与上下文管理等核心技术，产品支持多模型会话、流式推理、工具调用、子会话自治与多智能体协同。</p>
+
+<h3 id="s1-3">1.3 核心优势</h3>
+
+<table>
+<thead><tr><th style="width:20%;">优势</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>"软件+模型+硬件"一体化交付</strong></td><td>同时具备大模型部署、计算集群建设与智能工作台软件开发能力，为客户提供整体解决方案，降低多供应商协作风险。</td></tr>
+<tr><td><strong>国产大模型深度适配</strong></td><td>核心产品深度适配 DeepSeek、GLM、Qwen 等国产大模型，与"开源大模型本地化部署"技术路线高度契合。</td></tr>
+<tr><td><strong>计算集群 + AI 应用双重积累</strong></td><td>兼具高校计算集群建设经验与 AI 应用产品研发经验，从业务需求出发设计算力方案。</td></tr>
+<tr><td><strong>全链路技术覆盖</strong></td><td>从并行文件系统、集群调度到底层基础设施，到大模型推理引擎、AI 智能体等中间层，再到桌面端/移动端应用——全链路技术覆盖。</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 第二章 ===== -->
+<div class="chapter" id="ch2">
+<h2><span class="chapter-num">02</span>技术方案</h2>
+
+<h3 id="s2-1">2.1 项目概述</h3>
+
+<h4>1）项目背景</h4>
+<p>湖南交投集团作为湖南省属大型国有企业，在高速公路投资建设、运营管理、交通基础设施建设等领域拥有庞大的业务体系和海量的工程文档、合同文件、规章制度、技术规范等信息资产。传统办公模式下文档检索效率低、信息分散、知识沉淀困难等问题日益凸显，亟需引入人工智能技术提升办公智能化水平。</p>
+<p>大语言模型（LLM）技术的快速发展为企业知识管理与智能办公带来了变革性机遇。通过将大模型本地化部署至集团内部数据中心，结合企业知识库构建智能工作平台，可在保障数据安全的前提下大幅提升工作效率与管理决策水平。</p>
+
+<h4>2）建设目标</h4>
+<ol class="goal-list">
+  <li><strong>构建安全可控的大模型算力平台：</strong>在集团数据中心部署 GPU 推理服务器集群，实现开源大模型的本地化私有部署，数据不出企业内网，满足《数据安全法》及等保三级合规要求。</li>
+  <li><strong>搭建企业级智能工作台：</strong>基于知令（ZHILING）产品定制企业版智能工作台，集成统一认证、权限管理、审计追踪、品牌定制等企业级特性。</li>
+  <li><strong>建设企业知识库与 RAG 问答体系：</strong>将集团非结构化数据转化为可检索、可问答的企业知识资产，实现"即问即答"的智能知识服务。</li>
+  <li><strong>赋能核心业务场景：</strong>围绕智能公文撰写与审核、工程文档智能检索、项目资料智能整理、内部制度问答、代码辅助开发与安全审查等典型场景，实现 AI 与业务深度融合。</li>
+</ol>
+
+<h4>3）方案总体思路</h4>
+<p>本方案遵循<strong>"算力平台 → 模型服务 → 智能工作台 → 业务应用"四层架构</strong>，以开源大模型为核心引擎，以知令企业版为应用载体，以企业知识库为数据基座。技术选型采用<strong>"主流 NVIDIA GPU 为主、信创华为昇腾为辅"</strong>的双轨策略；模型选型采用<strong>"通用对话 + 深度推理 + 代码辅助 + 嵌入检索"</strong>的多模型矩阵；部署运维遵循<strong>"分阶段实施、先试点后推广"</strong>的项目推进策略。</p>
+
+<h3 id="s2-2">2.2 总体架构</h3>
+
+<p>本方案采用四层分层架构，自底向上依次为基础设施层、模型服务层、平台能力层和业务应用层：</p>
+
+<div class="arch-desc">
+<h4>🏗 业务应用层</h4>
+<p>智能公文撰写与审核 &nbsp;|&nbsp; 工程文档智能检索 &nbsp;|&nbsp; 项目资料智能整理 &nbsp;|&nbsp; 内部规章制度问答 &nbsp;|&nbsp; 代码辅助开发与审查</p>
+</div>
+<div style="text-align:center; color:#1596FF; font-size:14pt; margin:4px 0;">↑　调用　↑</div>
+<div class="arch-desc">
+<h4>⚙ 平台能力层（知令企业版）</h4>
+<p>AI 智能体（多模型会话 / 流式推理 / 工具调用）&nbsp;|&nbsp; 文件管理（多格式编辑 / 预览 / 转换）&nbsp;|&nbsp; 任务编排（自动化任务 / 定时调度）&nbsp;|&nbsp; 权限管理（RBAC / SSO / 审计）&nbsp;|&nbsp; 知识库管理（部门隔离 / 权限控制）</p>
+</div>
+<div style="text-align:center; color:#1596FF; font-size:14pt; margin:4px 0;">↑　调用　↑</div>
+<div class="arch-desc">
+<h4>🔧 模型服务层</h4>
+<p>vLLM 推理引擎（PagedAttention / 连续批处理）&nbsp;|&nbsp; 模型管理（版本控制 / 热加载 / 监控）&nbsp;|&nbsp; 向量数据库（Milvus 分布式集群）&nbsp;|&nbsp; API 网关（统一认证 / 限流 / 负载均衡）</p>
+</div>
+<div style="text-align:center; color:#1596FF; font-size:14pt; margin:4px 0;">↑　承载　↑</div>
+<div class="arch-desc">
+<h4>🖥 基础设施层</h4>
+<p>GPU 计算服务器（NVIDIA H20 / L40S）&nbsp;|&nbsp; 信创服务器（华为昇腾 910B）&nbsp;|&nbsp; 存储服务器（NVMe SSD + HDD）&nbsp;|&nbsp; 高速网络（100 GbE 交换机）</p>
+</div>
+
+<table>
+<thead><tr><th style="width:14%;">层次</th><th style="width:38%;">核心组件</th><th>职责</th></tr></thead>
+<tbody>
+<tr><td><strong>基础设施层</strong></td><td>GPU 服务器、存储、网络、信创节点</td><td>提供算力、存储与网络基础资源</td></tr>
+<tr><td><strong>模型服务层</strong></td><td>vLLM 推理引擎、向量数据库、API 网关</td><td>提供高性能模型推理与向量检索服务</td></tr>
+<tr><td><strong>平台能力层</strong></td><td>知令企业版核心功能模块</td><td>提供 AI 智能体、文件管理、权限管控等平台级能力</td></tr>
+<tr><td><strong>业务应用层</strong></td><td>面向业务场景的应用功能</td><td>将 AI 能力转化为具体业务场景中的生产力工具</td></tr>
+</tbody>
+</table>
+
+<h3 id="s2-3">2.3 大模型算力平台方案</h3>
+
+<div class="highlight-box">
+本方案基于标准级方案设计，总硬件预算约 <strong>180—220 万元</strong>（含硬件采购、信创试点、存储与网络设备），定位为生产级部署，可支撑 <strong>100—300 并发用户</strong>的日常使用。
+</div>
+
+<h4 id="s2-3-1">2.3.1 硬件配置清单</h4>
+
+<p><strong>硬件总览：</strong></p>
+<table>
+<thead><tr><th>序号</th><th>设备类型</th><th>数量</th><th>核心配置</th><th>用途</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>GPU 推理服务器（主）</td><td>1 台</td><td>4×NVIDIA H20（96 GB HBM3）</td><td>Qwen2.5-72B 通用对话、DeepSeek-R1 蒸馏版深度推理</td></tr>
+<tr><td>2</td><td>GPU 推理/管理节点（辅）</td><td>1 台</td><td>2×NVIDIA L40S（48 GB GDDR6）</td><td>Qwen2.5-Coder-32B 代码辅助、BGE-M3 嵌入服务</td></tr>
+<tr><td>3</td><td>信创试点服务器（可选）</td><td>1 台</td><td>2×华为昇腾 910B（40 GB HBM2e）</td><td>信创路线试点，为后续全面切换积累经验</td></tr>
+<tr><td>4</td><td>存储服务器</td><td>1 台</td><td>8×7.68 TB NVMe SSD + 96 TB HDD</td><td>模型权重、向量数据、文档存储、日志归档</td></tr>
+<tr><td>5</td><td>网络交换机</td><td>1 台</td><td>100 GbE / 25 GbE 混合</td><td>高速推理数据、管理网络、存储网络隔离</td></tr>
+<tr><td>6</td><td>机柜/配电/散热</td><td>1 套</td><td>双机柜，液冷 + 强风冷，PUE ≤ 1.2</td><td>保障高密度 GPU 服务器供电与散热</td></tr>
+</tbody>
+</table>
+
+<p><strong>GPU 推理服务器（主）详细配置：</strong></p>
+<table>
+<thead><tr><th style="width:14%;">配置项</th><th style="width:56%;">规格</th><th style="width:14%;">数量</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>GPU</td><td>NVIDIA H20，96 GB HBM3，FP16 算力约 148 TFLOPS</td><td>4 卡</td><td>中国合规版</td></tr>
+<tr><td>CPU</td><td>2×Intel Xeon Platinum 8468（48 核，2.1 GHz）</td><td>2 颗</td><td>高核心数支撑并发</td></tr>
+<tr><td>内存</td><td>1 TB DDR5 ECC（4800 MT/s）</td><td>16×64 GB</td><td>支撑 KV Cache</td></tr>
+<tr><td>系统盘</td><td>2×960 GB NVMe SSD（RAID 1）</td><td>—</td><td>OS 与基础软件</td></tr>
+<tr><td>数据盘</td><td>4×7.68 TB NVMe SSD（RAID 10）</td><td>—</td><td>模型权重、高速缓存</td></tr>
+<tr><td>网络</td><td>100 GbE 双口 + 25 GbE 管理口</td><td>—</td><td>高速推理通信</td></tr>
+<tr><td>电源</td><td>4000W 冗余电源（2+2）</td><td>—</td><td>GPU TDP 约 300W/卡</td></tr>
+<tr><td>散热</td><td>液冷或强风冷方案</td><td>—</td><td>4 卡总功耗约 1.2 kW</td></tr>
+</tbody>
+</table>
+
+<p><strong>GPU 推理/管理节点（辅）详细配置：</strong></p>
+<table>
+<thead><tr><th style="width:14%;">配置项</th><th style="width:56%;">规格</th><th style="width:14%;">数量</th><th>备注</th></tr></thead>
+<tbody>
+<tr><td>GPU</td><td>NVIDIA L40S，48 GB GDDR6，FP16 算力约 91 TFLOPS</td><td>2 卡</td><td>推理、嵌入、微调</td></tr>
+<tr><td>CPU</td><td>2×Intel Xeon Gold 5418Y（24 核，2.0 GHz）</td><td>2 颗</td><td>—</td></tr>
+<tr><td>内存</td><td>512 GB DDR5 ECC（4800 MT/s）</td><td>8×64 GB</td><td>—</td></tr>
+<tr><td>系统盘</td><td>2×960 GB NVMe SSD（RAID 1）</td><td>—</td><td>—</td></tr>
+<tr><td>数据盘</td><td>2×3.84 TB NVMe SSD（RAID 1）</td><td>—</td><td>嵌入/代码模型权重</td></tr>
+<tr><td>网络</td><td>25 GbE 双口</td><td>—</td><td>—</td></tr>
+<tr><td>电源</td><td>2000W 冗余电源（1+1）</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h4 id="s2-3-2">2.3.2 模型选型与部署</h4>
+
+<p>采用<strong>"通用对话 + 深度推理 + 代码辅助 + 嵌入检索"</strong>的多模型矩阵：</p>
+<table>
+<thead><tr><th>服务场景</th><th>模型</th><th>参数量</th><th>推理精度</th><th>显存需求</th><th>GPU 分配</th></tr></thead>
+<tbody>
+<tr><td><strong>通用对话</strong></td><td>Qwen2.5-72B-Instruct</td><td>72B（Dense）</td><td>INT8（~72 GB）</td><td>~72 GB</td><td>4×H20（张量并行）</td></tr>
+<tr><td><strong>深度推理</strong></td><td>DeepSeek-R1-Distill-Qwen-32B/70B</td><td>32B/70B（Dense）</td><td>INT8</td><td>~32/70 GB</td><td>2—4×H20</td></tr>
+<tr><td><strong>代码辅助</strong></td><td>Qwen2.5-Coder-32B-Instruct</td><td>32B（Dense）</td><td>BF16（~64 GB）</td><td>~64 GB</td><td>2×L40S</td></tr>
+<tr><td><strong>文档 OCR</strong></td><td>Qwen2-VL-7B-Instruct</td><td>7B（多模态）</td><td>FP16</td><td>~14 GB</td><td>1×L40S</td></tr>
+<tr><td><strong>文档嵌入</strong></td><td>BGE-M3</td><td>~568M</td><td>FP16</td><td>~1.2 GB</td><td>1×L40S（共享）</td></tr>
+<tr><td><strong>重排序</strong></td><td>BGE-Reranker-v2-m3</td><td>~568M</td><td>FP16</td><td>~1.2 GB</td><td>1×L40S（共享）</td></tr>
+</tbody>
+</table>
+
+<div class="highlight-box">
+<strong>模型选型说明：</strong>Qwen2.5-72B 在中文理解与生成方面表现优异，128K 上下文窗口可处理超长文档；DeepSeek-R1 蒸馏版在数学推理、逻辑分析、代码审查方面优势突出；BGE-M3 支持中英双语且检索质量高。所有模型均为开源模型（Apache 2.0 / MIT 许可），不产生额外许可费用。
+</div>
+
+<h4 id="s2-3-3">2.3.3 推理框架与部署架构</h4>
+
+<p><strong>推理引擎选型：vLLM</strong></p>
+<p>生产环境选用 <strong>vLLM</strong> 作为推理引擎，核心优势包括：</p>
+<ul>
+  <li><strong>PagedAttention 显存管理：</strong>将 KV Cache 分页管理，显存利用率提升 2—4 倍，相同硬件可承载更大吞吐；</li>
+  <li><strong>连续批处理（Continuous Batching）：</strong>动态合并请求，吞吐量达传统静态批处理的 10 倍以上；</li>
+  <li><strong>张量并行（Tensor Parallelism）：</strong>将大模型切分到多张 GPU 并行推理（如 Qwen2.5-72B 分 4 卡），支持 NVLink 高速互联；</li>
+  <li><strong>量化支持：</strong>原生支持 AWQ、GPTQ、INT8 等多种量化格式，在保持推理质量的前提下大幅降低显存占用；</li>
+  <li><strong>OpenAI 兼容 API：</strong>提供与 OpenAI Chat Completions 完全兼容的 REST API，无缝对接知令客户端。</li>
+</ul>
+
+<p><strong>部署架构：</strong></p>
+<ul>
+  <li>H20 服务器部署 vLLM 主实例（Qwen2.5-72B + DeepSeek-R1 蒸馏版），采用张量并行跨 4 卡推理；</li>
+  <li>L40S 服务器部署 vLLM 辅助实例（Qwen2.5-Coder-32B + Qwen2-VL-7B + BGE-M3），独立 GPU 分配；</li>
+  <li>昇腾服务器（可选）部署 vLLM-Ascend 适配版（Qwen3-32B 昇腾版），CANN 异构计算架构；</li>
+  <li>所有推理实例通过 <strong>API 网关（Nginx/Kong/APISIX）</strong>统一对外暴露，实现鉴权、限流、路由与负载均衡。</li>
+</ul>
+
+<h4 id="s2-3-4">2.3.4 RAG 知识库方案</h4>
+
+<p>RAG（检索增强生成）管线是实现企业知识库智能问答的核心技术链路：</p>
+
+<table>
+<thead><tr><th>阶段</th><th>技术组件</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>文档解析</strong></td><td>Unstructured / LlamaParse + Qwen2-VL OCR</td><td>支持 PDF/DOCX/XLSX/PPTX/TXT/Markdown 等多格式解析；含扫描件 OCR 识别与表格提取</td></tr>
+<tr><td><strong>智能分块</strong></td><td>语义分块（Semantic Chunking）</td><td>基于文档结构与语义边界自动切分，每块约 512 token，上下文窗口 ±2 块，保留段落完整性</td></tr>
+<tr><td><strong>向量嵌入</strong></td><td>BGE-M3 嵌入模型</td><td>1024 维向量，支持中英双语，稠密+稀疏混合检索；日处理千万级文档块</td></tr>
+<tr><td><strong>向量存储</strong></td><td>Milvus 分布式集群</td><td>存算分离架构（etcd + MinIO），支持 IVF_FLAT / HNSW 索引，10 亿级向量规模，检索延迟 &lt; 100 ms</td></tr>
+<tr><td><strong>重排序</strong></td><td>BGE-Reranker-v2-m3</td><td>对初步检索结果（Top 20—50）进行精排，显著提升召回精度</td></tr>
+<tr><td><strong>上下文组装</strong></td><td>Prompt 模板引擎</td><td>将检索结果 + 用户问题 + 系统指令组装为完整 Prompt，注入 LLM 生成</td></tr>
+<tr><td><strong>流式输出</strong></td><td>SSE（Server-Sent Events）</td><td>支持流式输出含引用来源的答案，用户可追溯每条回答的知识来源</td></tr>
+</tbody>
+</table>
+
+<div class="highlight-box">
+<strong>知识库容量规划：</strong>支持 2000 万—5000 万文档块（每块约 512 token），总向量数据约 100—250 GB。支持按部门/角色设置知识库访问权限，实现数据隔离。
+</div>
+
+<h3 id="s2-4">2.4 知令企业版智能工作台方案</h3>
+
+<h4 id="s2-4-1">2.4.1 现有产品能力</h4>
+
+<p>知令（ZHILING）是一款面向科研与工程场景的全流程智能工作台，现有核心能力包括：</p>
+
+<table>
+<thead><tr><th style="width:20%;">能力模块</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>多模型会话</strong></td><td>支持同时接入多个大模型（DeepSeek/Qwen/GLM/Kimi 等），用户可在同一界面自由切换模型，对比不同模型的回答质量</td></tr>
+<tr><td><strong>流式推理</strong></td><td>支持 SSE 流式输出，用户可实时看到 Token 逐字生成，交互体验流畅</td></tr>
+<tr><td><strong>工具调用</strong></td><td>AI 智能体可按需调用本地工具（代码执行、文件操作、网络搜索等），实现"模型 + 工具"的智能协同</td></tr>
+<tr><td><strong>文件管理</strong></td><td>支持 Markdown/DOCX/PPTX/XLSX/PDF 等多格式文件的编辑、预览、转换与批注</td></tr>
+<tr><td><strong>任务编排</strong></td><td>支持自动化任务引擎（定时 + 条件触发）、计划书驱动的全流程自动编排</td></tr>
+<tr><td><strong>多端协同</strong></td><td>Windows / macOS / Linux 桌面端 + Android / iOS 移动端，数据实时同步</td></tr>
+<tr><td><strong>本地安全</strong></td><td>敏感数据默认保留在用户本地环境，支持离线使用，不上传云端</td></tr>
+</tbody>
+</table>
+
+<h4 id="s2-4-2">2.4.2 企业版增强特性</h4>
+
+<p>在现有产品能力基础上，企业版增加以下面向集团级部署的增强特性：</p>
+
+<table>
+<thead><tr><th style="width:22%;">特性</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>统一认证与 SSO</strong></td><td>对接客户 AD/LDAP 目录服务，实现组织架构同步与单点登录；支持多因素认证（密码 + 短信/OTP）</td></tr>
+<tr><td><strong>RBAC 权限管理</strong></td><td>基于角色的访问控制：管理员、部门负责人、普通用户多级角色；模型/知识库/功能按角色授权</td></tr>
+<tr><td><strong>会话数据隔离</strong></td><td>不同用户/部门之间对话完全隔离，数据不可见、不可跨部门访问</td></tr>
+<tr><td><strong>全量审计日志</strong></td><td>用户登录/登出、模型调用（含输入/输出摘要）、文件上传/下载、知识库操作全量记录；支持检索导出</td></tr>
+<tr><td><strong>Token 配额管理</strong></td><td>按用户/部门分配 Token 使用额度，支持超额预警与自动限流</td></tr>
+<tr><td><strong>运维监控面板</strong></td><td>GPU 利用率/显存/温度实时监控、模型推理 QPS/延迟趋势图、用户活跃度（DAU/MAU）、系统告警</td></tr>
+<tr><td><strong>品牌定制</strong></td><td>客户端 LOGO/主题色/登录页/启动画面定制为交投集团 VI 标识；企业预设配置（开箱即用）</td></tr>
+<tr><td><strong>客户端集中分发</strong></td><td>Windows 安装包（支持静默安装 + 组策略分发），macOS DMG，麒麟 V10 AppImage</td></tr>
+</tbody>
+</table>
+
+<h4 id="s2-4-3">2.4.3 典型应用场景</h4>
+
+<div class="phase-card">
+<h4>📝 智能公文撰写与审核辅助</h4>
+<p>集团办公室每日需撰写大量通知、报告、会议纪要等公文。用户输入简要指令（如"拟一则关于安全生产检查的通知"），大模型自动生成符合《党政机关公文格式》GB/T 9704 规范的完整初稿；支持公文智能润色（去口语化、规范用词）、多版本对比、法规引用校验。</p>
+</div>
+
+<div class="phase-card">
+<h4>🔍 工程文档智能检索与问答</h4>
+<p>用自然语言提问（如"某高速 K12+300 段桥梁桩基设计参数"），系统从数千份工程文档中精准检索相关内容并生成摘要回答。支持跨文档关联分析（设计方案 ↔ 施工记录 ↔ 监理报告），AI 经过交通行业语料适配，能准确理解"压实度""弯沉值""CBR"等工程专业术语。</p>
+</div>
+
+<div class="phase-card">
+<h4>📊 项目资料智能整理与分析</h4>
+<p>上传项目散落的文档（会议记录、工作日志、影像资料等），AI 自动识别文档类型并按项目/时间/类别归档；输入多份项目文件，AI 自动提炼关键信息生成结构化的项目周报/月报摘要；从合同、报表中提取关键数据，自动生成统计表格与趋势图表。</p>
+</div>
+
+<div class="phase-card">
+<h4>📋 内部规章制度问答</h4>
+<p>将所有内部规章制度导入 RAG 知识库，员工用自然语言提问（如"带薪年假怎么申请？""差旅费报销标准是多少？"），AI 即时给出准确回答并标注制度来源；支持制度冲突检测与新员工指引。</p>
+</div>
+
+<div class="phase-card">
+<h4>💻 代码辅助开发与安全审查</h4>
+<p>集团信息中心开发人员在知令中描述需求，Qwen2.5-Coder-32B 自动生成符合规范的代码片段；提交代码至 AI 进行安全审查，检测 SQL 注入、XSS、硬编码密码等安全漏洞；支持根据代码自动生成 API 文档与技术文档、Bug 定位辅助。</p>
+</div>
+</div>
+
+<!-- ===== 第三章 ===== -->
+<div class="chapter" id="ch3">
+<h2><span class="chapter-num">03</span>实施计划</h2>
+
+<h3 id="s3-1">3.1 实施总体策略</h3>
+
+<table>
+<thead><tr><th style="width:16%;">策略</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>分阶段交付</strong></td><td>将项目拆分为硬件采购、模型部署、软件开发、集成测试、培训上线五个阶段，每阶段设明确里程碑与交付物，实现"完成一阶段、验收一阶段、推进一阶段"。</td></tr>
+<tr><td><strong>硬件先行，软件跟进</strong></td><td>第 1 个月即启动硬件采购，锁定货源与交付排期；硬件到货前，开发团队在云端并行启动知令企业版功能开发；硬件上架后即刻进入模型部署阶段。</td></tr>
+<tr><td><strong>先试点后推广</strong></td><td>正式上线前选择 1—2 个业务部门（建议办公室、法务部或信息中心）试点运行 2—3 周，基于反馈迭代优化后再向全集团推广。</td></tr>
+</tbody>
+</table>
+
+<h3 id="s3-2">3.2 项目阶段划分</h3>
+
+<p>项目总工期约 <strong>6 个月（26 周）</strong>，划分为五个阶段，各阶段存在重叠窗口以充分利用并行施工空间。</p>
+
+<div class="phase-card">
+<h4>阶段一：硬件采购与基础环境搭建（第 1—2 月）</h4>
+<table>
+<thead><tr><th style="width:28%;">工作项</th><th style="width:18%;">时间</th><th>内容说明</th></tr></thead>
+<tbody>
+<tr><td>硬件选型确认与采购</td><td>第 1—4 周</td><td>与供应商确认报价、交付周期与 SLA，签署采购合同</td></tr>
+<tr><td>机房环境准备</td><td>第 2—4 周</td><td>确认机柜空间、供电（三相 32A/63A）、制冷（建议 PUE ≤ 1.25）</td></tr>
+<tr><td>硬件到货验收与上架</td><td>第 5—6 周</td><td>逐台验收（GPU 型号、显存、SSD 健康状态），完成上架布线通电</td></tr>
+<tr><td>OS 与基础软件安装</td><td>第 6—7 周</td><td>Ubuntu Server 22.04 LTS / openEuler；NVIDIA 驱动 + CUDA；Docker + NVIDIA Container Toolkit</td></tr>
+<tr><td>网络规划与安全策略</td><td>第 6—7 周</td><td>管理网/业务网/存储网三网隔离；防火墙策略；日志审计与堡垒机</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="phase-card">
+<h4>阶段二：大模型部署与调优（第 2—4 月）</h4>
+<table>
+<thead><tr><th style="width:28%;">工作项</th><th style="width:18%;">时间</th><th>内容说明</th></tr></thead>
+<tbody>
+<tr><td>推理框架部署</td><td>第 5—6 周</td><td>vLLM 集群部署，张量并行配置，基于 Ray 分布式调度</td></tr>
+<tr><td>模型下载与部署</td><td>第 7—9 周</td><td>下载 Qwen2.5-72B / DeepSeek-R1-Distill / Qwen2.5-Coder-32B / BGE-M3；量化转换；逐模型验证</td></tr>
+<tr><td>向量数据库部署</td><td>第 5—7 周</td><td>Milvus 分布式集群（etcd + MinIO），多 Collection 策略，索引参数配置</td></tr>
+<tr><td>推理性能调优</td><td>第 9—12 周</td><td>实测 TTFT/TPS/并发吞吐；调整 KV Cache/Batch Size 参数；输出性能基准报告</td></tr>
+<tr><td>RAG 管线搭建</td><td>第 8—11 周</td><td>文档解析 → 智能分块 → 向量嵌入 → 检索 → 重排序 → 上下文组装 → LLM 生成</td></tr>
+<tr><td>API 网关部署</td><td>第 7—10 周</td><td>统一 RESTful API（兼容 OpenAI 格式）；鉴权/限流/路由；OpenAPI 3.0 文档</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="phase-card">
+<h4>阶段三：知令企业版定制开发与部署（第 3—5 月）</h4>
+<table>
+<thead><tr><th style="width:28%;">工作项</th><th style="width:18%;">时间</th><th>内容说明</th></tr></thead>
+<tbody>
+<tr><td>统一认证与多用户管理</td><td>第 1—8 周</td><td>多用户注册/登录；AD/LDAP 对接 + SSO；RBAC 权限模型</td></tr>
+<tr><td>权限控制与数据隔离</td><td>第 3—10 周</td><td>会话级隔离；知识库按部门授权；Token 配额管理</td></tr>
+<tr><td>审计日志</td><td>第 5—10 周</td><td>全量操作审计；持久化存储；按时间/用户/类型检索与导出</td></tr>
+<tr><td>企业知识库管理</td><td>第 6—12 周</td><td>文档批量上传、分类管理、索引监控、检索命中率统计</td></tr>
+<tr><td>运维监控面板</td><td>第 8—12 周</td><td>GPU 监控、推理 QPS/延迟趋势、用户活跃度、系统告警</td></tr>
+<tr><td>前端品牌定制</td><td>第 8—14 周</td><td>LOGO/主题色/登录页定制；企业预设配置；客户端打包</td></tr>
+<tr><td>知令企业版部署与联调</td><td>第 14—17 周</td><td>服务端部署、对接本地大模型 API、AD/LDAP 配置、全链路联调</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="phase-card">
+<h4>阶段四：集成测试与试运行（第 5—6 月）</h4>
+<table>
+<thead><tr><th style="width:28%;">工作项</th><th style="width:18%;">时间</th><th>内容说明</th></tr></thead>
+<tbody>
+<tr><td>系统联调与集成测试</td><td>第 17—18 周</td><td>端到端全流程测试；多用户并发；异常场景（宕机恢复、网络中断）</td></tr>
+<tr><td>性能压测</td><td>第 18—19 周</td><td>模拟 50/100/200 并发压力测试；测量延迟与吞吐；输出压测报告</td></tr>
+<tr><td>安全测试</td><td>第 18—19 周</td><td>渗透测试；敏感数据泄露检测；等保三级自查；国密算法合规检查</td></tr>
+<tr><td>试点运行</td><td>第 19—22 周</td><td>选择 1—2 个部门试点 2—3 周，全程技术支持与使用指导</td></tr>
+<tr><td>反馈收集与优化</td><td>第 21—23 周</td><td>收集试点反馈；系统优化与 Bug 修复；输出试点总结报告</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="phase-card">
+<h4>阶段五：培训与正式上线（第 6 月）</h4>
+<table>
+<thead><tr><th style="width:28%;">工作项</th><th style="width:18%;">时间</th><th>内容说明</th></tr></thead>
+<tbody>
+<tr><td>管理员培训</td><td>第 22—23 周</td><td>系统架构、日常运维、故障排查、备份恢复（1.5 天集中培训）</td></tr>
+<tr><td>最终用户培训</td><td>第 22—23 周</td><td>分批次培训，含操作演示与现场答疑；提供操作手册与快速指南</td></tr>
+<tr><td>正式切换上线</td><td>第 24 周</td><td>系统正式切换，全集团开放使用；上线确认单双方签字</td></tr>
+<tr><td>上线陪跑支持</td><td>第 24—28 周</td><td>4 周陪跑期：现场驻场 + 远程支持；每周输出运行周报</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 id="s3-3">3.3 项目组织架构</h3>
+
+<table>
+<thead><tr><th style="width:16%;">角色</th><th style="width:16%;">归属方</th><th style="width:16%;">人数</th><th>职责</th></tr></thead>
+<tbody>
+<tr><td><strong>项目指导委员会</strong></td><td>双方高层</td><td>4—6 人</td><td>项目重大决策审批、资源协调</td></tr>
+<tr><td><strong>项目经理（甲方）</strong></td><td>湖南交投</td><td>1 人</td><td>甲方资源协调、需求确认、验收组织</td></tr>
+<tr><td><strong>项目经理（乙方）</strong></td><td>禾成讴沃</td><td>1 人</td><td>乙方交付总负责，项目计划、进度、质量管理</td></tr>
+<tr><td><strong>基础设施工程师</strong></td><td>禾成讴沃</td><td>1—2 人</td><td>机房勘查、硬件上架、网络配置、系统环境部署</td></tr>
+<tr><td><strong>AI 算法工程师</strong></td><td>禾成讴沃</td><td>2—3 人</td><td>模型部署、推理优化、RAG 管线搭建</td></tr>
+<tr><td><strong>全栈开发工程师</strong></td><td>禾成讴沃</td><td>2—3 人</td><td>知令企业版后端开发、前端品牌定制</td></tr>
+<tr><td><strong>测试工程师</strong></td><td>禾成讴沃</td><td>1—2 人</td><td>集成测试、性能压测、安全测试</td></tr>
+<tr><td><strong>甲方 IT 对接人</strong></td><td>湖南交投</td><td>1—2 人</td><td>机房协调、网络开通、AD/LDAP 对接配合</td></tr>
+</tbody>
+</table>
+
+<h3 id="s3-4">3.4 风险管理</h3>
+
+<table class="risk-table">
+<thead><tr><th style="width:8%;">编号</th><th style="width:18%;">风险项</th><th style="width:8%;">等级</th><th style="width:30%;">影响</th><th>缓解措施</th></tr></thead>
+<tbody>
+<tr><td>R1</td><td><strong>GPU 供货延迟</strong></td><td class="risk-high">🔴 高</td><td>NVIDIA H20 等合规渠道 GPU 供货紧张，可能导致硬件无法按期到货</td><td>① 提前锁定货源并签署含违约条款的采购合同；② 准备 L40S 备用方案；③ 软件并行开发不阻塞</td></tr>
+<tr><td>R2</td><td><strong>模型推理质量不达预期</strong></td><td class="risk-high">🔴 高</td><td>INT8 量化可能导致中文理解/生成质量下降</td><td>① 部署前 POC 验证目标模型推理质量（困惑度 / 中文基准）；② 保留 BF16 部署方案；③ 设置质量监控与用户反馈机制</td></tr>
+<tr><td>R3</td><td><strong>企业系统对接困难</strong></td><td class="risk-mid">🟡 中</td><td>AD/LDAP 版本老旧或定制化程度高，SSO 对接复杂</td><td>① 提前获取 AD/LDAP 环境信息；② 预留多种认证协议适配（LDAP/SAML/OAuth2.0）；③ 安排资深认证工程师负责</td></tr>
+<tr><td>R4</td><td><strong>用户接受度低</strong></td><td class="risk-mid">🟡 中</td><td>员工对 AI 工具有抵触或使用不熟练</td><td>① 试点阶段邀请积极参与者作为"种子用户"；② 制作通俗易懂的操作指南与视频教程；③ 设立内部"AI 使用交流群"促进分享</td></tr>
+<tr><td>R5</td><td><strong>安全合规不达标</strong></td><td class="risk-high">🔴 高</td><td>等保测评延期或需返工整改</td><td>① 阶段一就将等保三级纳入安全策略设计；② 阶段四安全测试前邀请测评机构预评估；③ 预留 2—3 周整改缓冲期</td></tr>
+<tr><td>R6</td><td><strong>机房基础设施不足</strong></td><td class="risk-mid">🟡 中</td><td>GPU 服务器功耗大，现有机房供电/制冷/承重不足</td><td>① 阶段一初期现场勘查；② 根据勘查结果制定改造方案；③ 必要时短期租赁 IDC 托管过渡</td></tr>
+<tr><td>R7</td><td><strong>开源模型许可证变更</strong></td><td class="risk-low">🟢 低</td><td>模型未来可能更改开源许可协议</td><td>① 优先 Apache 2.0 / MIT 许可版本；② 关注官方公告；③ 归档当前已授权版本权重文件</td></tr>
+</tbody>
+</table>
+
+<h3 id="s3-5">3.5 里程碑与交付物</h3>
+
+<table>
+<thead><tr><th style="width:10%;">阶段</th><th style="width:22%;">里程碑</th><th style="width:14%;">时间节点</th><th style="width:30%;">交付物</th><th>验收标准</th></tr></thead>
+<tbody>
+<tr><td>阶段一</td><td>硬件采购合同签署</td><td>第 4 周末</td><td>采购合同、供应商 SLA 承诺书</td><td>合同签订，交货期明确</td></tr>
+<tr><td>阶段一</td><td>硬件到货验收通过</td><td>第 6 周末</td><td>硬件验收报告</td><td>所有硬件与合同清单一致</td></tr>
+<tr><td>阶段一</td><td>基础环境就绪</td><td>第 8 周末</td><td>环境配置手册、网络拓扑图</td><td>OS 安装完成，GPU 驱动正常</td></tr>
+<tr><td>阶段二</td><td>推理框架部署完成</td><td>第 7 周末</td><td>vLLM 集群部署文档</td><td>vLLM 启动成功，推理请求正常</td></tr>
+<tr><td>阶段二</td><td>模型全部部署上线</td><td>第 10 周末</td><td>模型部署清单</td><td>所有目标模型推理服务可用</td></tr>
+<tr><td>阶段二</td><td>RAG 管线打通</td><td>第 12 周末</td><td>RAG 管线技术文档</td><td>检索增强生成全链路可用</td></tr>
+<tr><td>阶段二</td><td>性能调优完成</td><td>第 14 周末</td><td>推理性能基准报告</td><td>TTFT/TPS/并发吞吐达标</td></tr>
+<tr><td>阶段三</td><td>企业版核心功能完成</td><td>第 12 周末</td><td>功能清单、测试用例</td><td>认证/权限/审计/知识库四模块可用</td></tr>
+<tr><td>阶段三</td><td>前端品牌定制完成</td><td>第 16 周末</td><td>品牌定制客户端安装包</td><td>LOGO/主题色/登录页符合交投 VI</td></tr>
+<tr><td>阶段三</td><td>知令企业版部署完成</td><td>第 18 周末</td><td>部署包、管理员配置手册</td><td>服务端对接本地大模型 API</td></tr>
+<tr><td>阶段四</td><td>集成测试通过</td><td>第 19 周末</td><td>集成测试报告</td><td>测试用例通过率 ≥ 95%</td></tr>
+<tr><td>阶段四</td><td>性能压测通过</td><td>第 20 周末</td><td>性能压测报告</td><td>目标并发下延迟吞吐达标</td></tr>
+<tr><td>阶段四</td><td>安全测试通过</td><td>第 20 周末</td><td>安全测试报告</td><td>无高危漏洞，等保三级自查通过</td></tr>
+<tr><td>阶段四</td><td>试点运行完成</td><td>第 23 周末</td><td>试点运行总结报告</td><td>反馈收集完毕，关键问题已修复</td></tr>
+<tr><td>阶段五</td><td>培训完成</td><td>第 24 周末</td><td>培训签到表、操作手册</td><td>管理员与用户培训覆盖率 100%</td></tr>
+<tr><td>阶段五</td><td>正式上线</td><td>第 24 周末</td><td>上线确认单（双方签字）</td><td>系统切换完成，全集团可使用</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ===== 第四章 ===== -->
+<div class="chapter" id="ch4">
+<h2><span class="chapter-num">04</span>报价明细</h2>
+
+<h3 id="s4-1">4.1 方案概述</h3>
+
+<p>本项目为湖南交投集团提供大模型本地化部署与知令智能工作台的整体交付方案，涵盖 <strong>GPU 算力平台建设、开源大模型部署、知令企业版软件许可与定制开发、培训及运维服务</strong>的全链路交付。</p>
+
+<table>
+<thead><tr><th>方案</th><th>定位</th><th style="width:16%;">总额（万元）</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>标准方案（推荐）</strong></td><td>生产级部署，满足全集团使用</td><td><strong>~243</strong></td><td>含 H20 推理主力 + L40S 辅助 + 信创试点；100 用户许可</td></tr>
+<tr><td><strong>精简方案</strong></td><td>经济型部署，满足核心部门使用</td><td><strong>~158</strong></td><td>纯 L40S 方案，50 用户许可，减少定制范围</td></tr>
+</tbody>
+</table>
+
+<div class="warn-box">
+<strong>价格说明：</strong>硬件价格参考 2026 年 Q3 市场行情；软件及服务基于公司历史项目经验；所有价格均为含税报价，报价有效期 90 天。大模型本身（DeepSeek-R1、Qwen2.5、BGE-M3 等）均为开源模型，不产生许可费用。
+</div>
+
+<h3 id="s4-2">4.2 标准方案报价明细</h3>
+
+<h4>一、硬件采购费用（约 140 万）</h4>
+
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>设备</th><th style="width:38%;">核心配置</th><th style="width:8%;">数量</th><th style="width:12%;">单价（万元）</th><th style="width:12%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td colspan="6"><strong>1. GPU 推理服务器（主）— 4×NVIDIA H20</strong></td></tr>
+<tr><td>1</td><td>GPU</td><td>NVIDIA H20，96 GB HBM3，4.0 TB/s</td><td>4 卡</td><td>15.5</td><td>62.0</td></tr>
+<tr><td>2</td><td>CPU</td><td>2×Intel Xeon Gold 6454S（32核，2.2 GHz）</td><td>1 套</td><td>4.5</td><td>4.5</td></tr>
+<tr><td>3</td><td>内存</td><td>16×64 GB DDR5-4800 ECC（合计 1 TB）</td><td>1 套</td><td>5.5</td><td>5.5</td></tr>
+<tr><td>4</td><td>系统盘</td><td>2×480 GB SATA SSD（RAID1）</td><td>1 套</td><td>0.4</td><td>0.4</td></tr>
+<tr><td>5</td><td>数据盘</td><td>2×3.84 TB NVMe U.2 SSD</td><td>1 套</td><td>2.8</td><td>2.8</td></tr>
+<tr><td>6</td><td>网络</td><td>Mellanox ConnectX-6 Dx 100GbE 双口</td><td>1 套</td><td>2.5</td><td>2.5</td></tr>
+<tr><td>7</td><td>机箱/电源</td><td>4U，3000W 1+1 冗余，强风冷</td><td>1 套</td><td>2.8</td><td>2.8</td></tr>
+<tr><td colspan="4"><strong>GPU 推理服务器（主）整机小计</strong></td><td></td><td><strong>80.5</strong></td></tr>
+<tr><td colspan="6"><strong>2. GPU 推理服务器（辅）— 4×NVIDIA L40S</strong></td></tr>
+<tr><td>1</td><td>GPU</td><td>NVIDIA L40S，48 GB GDDR6</td><td>4 卡</td><td>5.5</td><td>22.0</td></tr>
+<tr><td>2</td><td>CPU</td><td>2×Intel Xeon Gold 5418Y（24核）</td><td>1 套</td><td>3.5</td><td>3.5</td></tr>
+<tr><td>3</td><td>内存</td><td>8×64 GB DDR5-4800 ECC（合计 512 GB）</td><td>1 套</td><td>2.8</td><td>2.8</td></tr>
+<tr><td>4</td><td>系统盘</td><td>2×480 GB SATA SSD（RAID1）</td><td>1 套</td><td>0.4</td><td>0.4</td></tr>
+<tr><td>5</td><td>数据盘</td><td>2×3.84 TB NVMe U.2 SSD</td><td>1 套</td><td>2.8</td><td>2.8</td></tr>
+<tr><td>6</td><td>网络</td><td>25GbE 双口（SFP28）</td><td>1 套</td><td>1.2</td><td>1.2</td></tr>
+<tr><td>7</td><td>机箱/电源</td><td>4U，2000W 1+1 冗余</td><td>1 套</td><td>2.0</td><td>2.0</td></tr>
+<tr><td colspan="4"><strong>GPU 推理服务器（辅）整机小计</strong></td><td></td><td><strong>34.7</strong></td></tr>
+<tr><td colspan="6"><strong>3. 管理/推理节点服务器 — 1×NVIDIA RTX 6000 Ada</strong></td></tr>
+<tr><td>1</td><td>GPU</td><td>NVIDIA RTX 6000 Ada，48 GB GDDR6</td><td>1 卡</td><td>4.5</td><td>4.5</td></tr>
+<tr><td>2</td><td>CPU</td><td>2×Intel Xeon Silver 4416+（20核）</td><td>1 套</td><td>2.5</td><td>2.5</td></tr>
+<tr><td>3</td><td>内存</td><td>4×64 GB DDR5-4800 ECC（合计 256 GB）</td><td>1 套</td><td>1.5</td><td>1.5</td></tr>
+<tr><td>4</td><td>系统盘</td><td>2×480 GB SATA SSD（RAID1）</td><td>1 套</td><td>0.4</td><td>0.4</td></tr>
+<tr><td>5</td><td>数据盘</td><td>2×1.92 TB NVMe U.2 SSD</td><td>1 套</td><td>1.5</td><td>1.5</td></tr>
+<tr><td>6</td><td>网络</td><td>25GbE 双口（SFP28）</td><td>1 套</td><td>1.2</td><td>1.2</td></tr>
+<tr><td>7</td><td>机箱/电源</td><td>2U，1200W 1+1 冗余</td><td>1 套</td><td>1.2</td><td>1.2</td></tr>
+<tr><td colspan="4"><strong>管理/推理节点整机小计</strong></td><td></td><td><strong>12.8</strong></td></tr>
+</tbody>
+</table>
+
+<p><strong>存储服务器与网络设备：</strong></p>
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>设备</th><th style="width:38%;">核心配置</th><th style="width:8%;">数量</th><th style="width:12%;">单价（万元）</th><th style="width:12%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td colspan="6"><strong>4. 存储服务器</strong></td></tr>
+<tr><td>1</td><td>CPU</td><td>1×Intel Xeon Silver 4416+（20核）</td><td>1 套</td><td>1.2</td><td>1.2</td></tr>
+<tr><td>2</td><td>内存</td><td>4×32 GB DDR5-4800 ECC（合计 128 GB）</td><td>1 套</td><td>0.8</td><td>0.8</td></tr>
+<tr><td>3</td><td>NVMe SSD</td><td>4×3.84 TB NVMe U.2 SSD（RAID10）</td><td>1 套</td><td>4.6</td><td>4.6</td></tr>
+<tr><td>4</td><td>HDD</td><td>4×12 TB SATA 7.2K RPM（RAID5）</td><td>1 套</td><td>2.8</td><td>2.8</td></tr>
+<tr><td>5</td><td>RAID 卡</td><td>Broadcom 9560-8i</td><td>1 套</td><td>0.5</td><td>0.5</td></tr>
+<tr><td>6</td><td>网络</td><td>25GbE 双口（SFP28）</td><td>1 套</td><td>1.2</td><td>1.2</td></tr>
+<tr><td>7</td><td>机箱/电源</td><td>2U 12 盘位，800W 1+1 冗余</td><td>1 套</td><td>1.0</td><td>1.0</td></tr>
+<tr><td colspan="4"><strong>存储服务器整机小计</strong></td><td></td><td><strong>12.1</strong></td></tr>
+<tr><td colspan="6"><strong>5. 网络交换机</strong></td></tr>
+<tr><td>—</td><td>交换机</td><td>32 口 100GbE（兼容 25GbE 分支）</td><td>1 台</td><td>3.5</td><td>3.5</td></tr>
+<tr><td colspan="6"><strong>6. 机柜及配件</strong></td></tr>
+<tr><td>—</td><td>机柜/PDU/线缆</td><td>42U 标准机柜 + 智能 PDU + 配件</td><td>1 套</td><td>—</td><td>2.0</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="4"><strong>硬件采购费用合计</strong></td><td></td><td><strong>145.6 → 取整 140</strong></td></tr>
+</tfoot>
+</table>
+
+<div class="highlight-box">
+<strong>信创备选：</strong>华为昇腾 910B 服务器（2 卡，鲲鹏 920 + 512 GB 内存 + NVMe SSD），整机约 <strong>36.5 万元</strong>，为可选配置，用于信创合规试点（Qwen3-32B 昇腾版推理），为后续国产化全面切换积累经验。
+</div>
+
+<h4>二、软件许可费用（约 28 万）</h4>
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>项目</th><th>说明</th><th style="width:14%;">数量</th><th style="width:14%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>知令企业版基础平台许可</td><td>100 用户/永久许可</td><td>100 用户</td><td>15.0</td></tr>
+<tr><td>2</td><td>统一认证模块</td><td>AD/LDAP 对接 + RBAC 权限管理</td><td>1 套</td><td>5.0</td></tr>
+<tr><td>3</td><td>审计与用量统计模块</td><td>全量日志归档 + 用量报表</td><td>1 套</td><td>4.0</td></tr>
+<tr><td>4</td><td>运维监控面板</td><td>GPU 监控 + 服务告警 + 用户分析</td><td>1 套</td><td>4.0</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="3"><strong>软件许可费用合计</strong></td><td></td><td><strong>28</strong></td></tr>
+</tfoot>
+</table>
+
+<h4>三、部署实施服务费（约 35 万）</h4>
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>服务模块</th><th style="width:14%;">预估人天</th><th style="width:20%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>硬件上架与基础环境部署</td><td>8</td><td>3.2</td></tr>
+<tr><td>2</td><td>大模型部署与推理优化</td><td>25</td><td>10.0</td></tr>
+<tr><td>3</td><td>向量数据库与 RAG 管线部署</td><td>20</td><td>8.0</td></tr>
+<tr><td>4</td><td>系统集成与联调</td><td>18</td><td>7.2</td></tr>
+<tr><td>5</td><td>项目管理与文档</td><td>12</td><td>4.6</td></tr>
+<tr><td>6</td><td>现场差旅及杂项</td><td>—</td><td>2.0</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"><strong>部署实施合计（83 人天）</strong></td><td></td><td><strong>35</strong></td></tr>
+</tfoot>
+</table>
+
+<h4>四、知令企业版定制开发费（约 32 万）</h4>
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>开发模块</th><th style="width:14%;">预估人天</th><th style="width:20%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>企业 AD/LDAP 对接</td><td>12</td><td>4.8</td></tr>
+<tr><td>2</td><td>多用户管理与权限系统</td><td>18</td><td>7.2</td></tr>
+<tr><td>3</td><td>审计日志与用量统计</td><td>15</td><td>6.0</td></tr>
+<tr><td>4</td><td>运维监控面板</td><td>15</td><td>6.0</td></tr>
+<tr><td>5</td><td>品牌定制</td><td>10</td><td>3.5</td></tr>
+<tr><td>6</td><td>项目管理与测试</td><td>15</td><td>4.5</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"><strong>定制开发合计（85 人天）</strong></td><td></td><td><strong>32</strong></td></tr>
+</tfoot>
+</table>
+
+<h4>五、培训与技术支持费（约 8 万）</h4>
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>服务项目</th><th style="width:20%;">小计（万元）</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>管理员培训（1.5 天集中培训）</td><td>1.2</td></tr>
+<tr><td>2</td><td>最终用户培训（2 批次）</td><td>1.2</td></tr>
+<tr><td>3</td><td>上线陪跑支持（4 周）</td><td>3.6</td></tr>
+<tr><td>4</td><td>操作手册编写</td><td>2.0</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"><strong>培训与技术支持合计</strong></td><td><strong>8</strong></td></tr>
+</tfoot>
+</table>
+
+<h4>六、年度运维服务费（首年可选）</h4>
+<table>
+<thead><tr><th style="width:8%;">级别</th><th>服务内容</th><th style="width:16%;">费用（万元/年）</th></tr></thead>
+<tbody>
+<tr><td><strong>基础运维</strong></td><td>7×12 小时远程支持、季度巡检、安全补丁更新</td><td><strong>13</strong></td></tr>
+<tr><td><strong>高级运维</strong></td><td>基础 + 7×24 小时响应、含 2 次/年现场巡检 + 模型版本升级</td><td><strong>19</strong></td></tr>
+</tbody>
+</table>
+
+<div class="fee-total">标准方案一次性费用合计：~243 万元</div>
+
+<h3 id="s4-3">4.3 精简方案报价明细</h3>
+
+<p>精简方案面向核心部门试点场景，硬件配置下调、用户许可减少、定制范围收窄：</p>
+
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>费用分项</th><th style="width:20%;">金额（万元）</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>一</td><td>硬件采购费用</td><td><strong>82</strong></td><td>4×L40S + 2×L40S（辅）+ RTX 6000 Ada + 存储/网络/机柜</td></tr>
+<tr><td>二</td><td>软件许可费用</td><td><strong>20</strong></td><td>50 用户永久许可</td></tr>
+<tr><td>三</td><td>部署实施服务费</td><td><strong>25</strong></td><td>58 人天</td></tr>
+<tr><td>四</td><td>定制开发费</td><td><strong>16</strong></td><td>44 人天</td></tr>
+<tr><td>五</td><td>培训与技术支持费</td><td><strong>5</strong></td><td>含 2 周陪跑</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"><strong>精简方案总额</strong></td><td><strong>~158</strong></td><td>不含年度运维</td></tr>
+</tfoot>
+</table>
+
+<h3 id="s4-4">4.4 费用汇总对比</h3>
+
+<table>
+<thead><tr><th style="width:8%;">序号</th><th>费用分项</th><th style="width:16%;">标准方案（万元）</th><th style="width:16%;">精简方案（万元）</th><th>费用性质</th></tr></thead>
+<tbody>
+<tr><td>一</td><td>硬件采购费用</td><td>140</td><td>82</td><td>一次性</td></tr>
+<tr><td>二</td><td>软件许可费用</td><td>28</td><td>20</td><td>一次性</td></tr>
+<tr><td>三</td><td>部署实施服务费</td><td>35</td><td>25</td><td>一次性</td></tr>
+<tr><td>四</td><td>定制开发费</td><td>32</td><td>16</td><td>一次性</td></tr>
+<tr><td>五</td><td>培训与技术支持费</td><td>8</td><td>5</td><td>一次性</td></tr>
+<tr><td>六</td><td>年度运维服务费</td><td>13—19</td><td>—</td><td>年度（可选）</td></tr>
+</tbody>
+<tfoot>
+<tr><td colspan="2"><strong>一次性费用合计</strong></td><td><strong>~243</strong></td><td><strong>~158</strong></td><td></td></tr>
+</tfoot>
+</table>
+
+<p><strong>两档方案对比：</strong></p>
+<table>
+<thead><tr><th style="width:18%;">对比维度</th><th>标准方案</th><th>精简方案</th></tr></thead>
+<tbody>
+<tr><td><strong>总额</strong></td><td>~243 万元</td><td>~158 万元</td></tr>
+<tr><td><strong>GPU 配置</strong></td><td>4×H20 + 4×L40S + RTX 6000 Ada</td><td>4×L40S + 2×L40S + RTX 6000 Ada</td></tr>
+<tr><td><strong>信创支持</strong></td><td>可选昇腾 910B（+36.5 万）</td><td>不含</td></tr>
+<tr><td><strong>用户许可</strong></td><td>100 用户</td><td>50 用户</td></tr>
+<tr><td><strong>主力模型</strong></td><td>Qwen2.5-72B + DeepSeek-70B 蒸馏</td><td>Qwen2.5-32B + DeepSeek-32B 蒸馏</td></tr>
+<tr><td><strong>并发能力</strong></td><td>100—200 并发</td><td>50—80 并发</td></tr>
+<tr><td><strong>适用场景</strong></td><td>全集团推广，高并发生产环境</td><td>核心部门试点，中等并发</td></tr>
+<tr><td><strong>扩展性</strong></td><td>可扩展至多机集群</td><td>单机柜，未来可追加 GPU 升级</td></tr>
+</tbody>
+</table>
+
+<h3 id="s4-5">4.5 付款方式建议</h3>
+
+<p>建议分 <strong>4 期</strong>付款，按项目里程碑节点执行：</p>
+
+<table>
+<thead><tr><th style="width:8%;">期次</th><th>付款节点</th><th style="width:10%;">比例</th><th style="width:16%;">标准方案（万元）</th><th style="width:16%;">精简方案（万元）</th><th>触发条件</th></tr></thead>
+<tbody>
+<tr><td>第 1 期</td><td>合同签订</td><td><strong>30%</strong></td><td>72.9</td><td>47.4</td><td>双方签署合同后 10 个工作日内支付</td></tr>
+<tr><td>第 2 期</td><td>硬件到货</td><td><strong>30%</strong></td><td>72.9</td><td>47.4</td><td>全部硬件设备运抵客户指定机房，开箱验收合格</td></tr>
+<tr><td>第 3 期</td><td>系统上线</td><td><strong>30%</strong></td><td>72.9</td><td>47.4</td><td>系统完成部署联调并通过 UAT 验收，正式上线</td></tr>
+<tr><td>第 4 期</td><td>终验合格</td><td><strong>10%</strong></td><td>24.3</td><td>15.8</td><td>上线稳定运行 30 天后，签署终验报告</td></tr>
+</tbody>
+</table>
+
+<div class="highlight-box">
+<strong>付款说明：</strong>以上金额以标准方案 243 万、精简方案 158 万为基准；各期付款前乙方向甲方开具等额增值税专用发票；若含年度运维服务，运维费用可并入第 4 期或另行按年支付。
+</div>
+</div>
+
+<!-- ===== 附录 ===== -->
+<div class="chapter" id="appendix">
+<h2>附录</h2>
+
+<h3 id="app-a">附录A　关键技术指标汇总</h3>
+
+<h4>A.1 性能指标</h4>
+<table>
+<thead><tr><th>指标</th><th>目标值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td><strong>并发用户数</strong></td><td>100—300 人</td><td>100 人同时在线稳定使用，300 人峰值可降级运行</td></tr>
+<tr><td><strong>首 Token 延迟（TTFT）</strong></td><td>P95 &lt; 3 秒（通用对话）</td><td>简单问答 &lt; 1 秒</td></tr>
+<tr><td><strong>Token 生成速度</strong></td><td>≥ 100 tok/s（Qwen2.5-72B INT8，单请求）</td><td>保障流式输出体验流畅</td></tr>
+<tr><td><strong>批处理吞吐</strong></td><td>≥ 250 tok/s（10 并发）</td><td>vLLM 连续批处理模式</td></tr>
+<tr><td><strong>RAG 检索延迟</strong></td><td>&lt; 500 ms（向量检索 + 重排序）</td><td>端到端延迟</td></tr>
+<tr><td><strong>系统可用性</strong></td><td>≥ 99.5%（月维度）</td><td>不含计划内维护窗口（每月 ≤ 4 小时）</td></tr>
+</tbody>
+</table>
+
+<h4>A.2 容量指标</h4>
+<table>
+<thead><tr><th>指标</th><th>目标值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>日处理问答量</td><td>~50 万次</td><td>基于人均 100—200 次/天 × 300 用户</td></tr>
+<tr><td>知识库文档容量</td><td>2000 万—5000 万文档块</td><td>每块约 512 token，约 100—250 GB 向量数据</td></tr>
+<tr><td>单次对话上下文</td><td>128K token</td><td>可处理约 10 万字的长文档</td></tr>
+<tr><td>日志保留期</td><td>≥ 6 个月（在线）+ ≥ 3 年（归档）</td><td>审计日志存储策略</td></tr>
+</tbody>
+</table>
+
+<h4>A.3 安全合规指标</h4>
+<table>
+<thead><tr><th>指标</th><th>目标值</th></tr></thead>
+<tbody>
+<tr><td>等保合规等级</td><td>等保三级</td></tr>
+<tr><td>国密算法支持</td><td>SM2 / SM3 / SM4</td></tr>
+<tr><td>数据传输加密</td><td>TLS 1.3</td></tr>
+<tr><td>数据存储加密</td><td>AES-256</td></tr>
+<tr><td>数据本地化</td><td>100% 本地处理，数据不出企业内网</td></tr>
+<tr><td>认证方式</td><td>双因子认证（密码 + 短信/OTP）</td></tr>
+</tbody>
+</table>
+
+<h3 id="app-b">附录B　缩略语表</h3>
+
+<table>
+<thead><tr><th style="width:14%;">缩略语</th><th style="width:46%;">全称</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>LLM</td><td>Large Language Model</td><td>大语言模型</td></tr>
+<tr><td>RAG</td><td>Retrieval-Augmented Generation</td><td>检索增强生成</td></tr>
+<tr><td>vLLM</td><td>—</td><td>高性能大模型推理引擎</td></tr>
+<tr><td>RBAC</td><td>Role-Based Access Control</td><td>基于角色的访问控制</td></tr>
+<tr><td>SSO</td><td>Single Sign-On</td><td>单点登录</td></tr>
+<tr><td>AD / LDAP</td><td>Active Directory / Lightweight Directory Access Protocol</td><td>微软目录服务 / 轻量目录访问协议</td></tr>
+<tr><td>TTFT</td><td>Time To First Token</td><td>首 Token 延迟</td></tr>
+<tr><td>TPS / QPS</td><td>Tokens/Queries Per Second</td><td>每秒生成 Token/查询数</td></tr>
+<tr><td>MoE</td><td>Mixture of Experts</td><td>混合专家模型架构</td></tr>
+<tr><td>HBM</td><td>High Bandwidth Memory</td><td>高带宽显存</td></tr>
+<tr><td>NVLink / HCCS</td><td>NVIDIA GPU 高速互联 / 华为高速缓存一致性互联</td><td>GPU 间高速通信技术</td></tr>
+<tr><td>PUE</td><td>Power Usage Effectiveness</td><td>电能使用效率</td></tr>
+<tr><td>DCGM</td><td>Data Center GPU Manager</td><td>NVIDIA 数据中心 GPU 管理工具</td></tr>
+<tr><td>SIEM</td><td>Security Information and Event Management</td><td>安全信息与事件管理</td></tr>
+<tr><td>SLA</td><td>Service Level Agreement</td><td>服务等级协议</td></tr>
+<tr><td>POC / UAT</td><td>Proof of Concept / User Acceptance Testing</td><td>概念验证 / 用户验收测试</td></tr>
+</tbody>
+</table>
+
+<br>
+<div style="text-align:center; color:#999; font-size:9pt; padding:20px 0; border-top:1px solid #e0e0e0; margin-top:30px;">
+本文档为项目方案书 v1.0，所引用数据与方案基于 2026 年 8 月市场调研结果。<br>
+硬件价格与模型版本可能随市场变化而调整，实际实施前应获取供应商正式报价并确认最新技术兼容性。<br><br>
+方案提供：西安禾成讴沃信息科技有限公司 &nbsp;|&nbsp; 编制日期：2026-08-07
+</div>
+</div>
+
+</div><!-- /.content-wrapper -->
+
+</body>
+</html>
