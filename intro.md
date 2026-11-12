@@ -192,7 +192,7 @@
 ## 九、可视化与其它
 
 - **图表**：任务日志或部分视图支持 **Plotly**；Markdown 中可使用 **Mermaid**、**D3** 等（以实际渲染组件为准）。
-- **子服务**：Electron 主进程可管理如 Xming、Jupyter 等子服务（见 `back_frame` 文档，最终用户以产品内说明为准）。
+- **子服务**：Electron 主进程管理嵌入式 Python 环境（文档工具链依赖 python-docx / openpyxl / python-pptx 等；见 `back_frame` 文档，最终用户以产品内说明为准）。
 
 ---
 

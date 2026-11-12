@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1086" viewBox="0 0 1240 1086" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="gArg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6B84FF"/>
+      <stop offset="1" stop-color="#3D5AFE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1240" height="1086" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="36" y="56" font-size="30" font-weight="700" fill="#1F2430">输出 100 万 token，各花多少钱？</text>
+  <rect x="36" y="70" width="60" height="4" rx="2" fill="#4D6BFE"/>
+  <text x="36" y="100" font-size="15.5" fill="#6B7280">单位：元 / 百万 token　·　知令站内调用价（与各厂商官方定价对齐）　·　蓝色为 Gemini 4 Argon</text>
+  <text x="36" y="124" font-size="13.5" fill="#96A0AE">上栏为旗舰档、下栏为性价比档；两栏横轴刻度不同，仅作组内比较。</text>
+
+  <!-- ================= 上栏：旗舰档 ================= -->
+  <rect x="36" y="146" width="4" height="17" rx="2" fill="#4D6BFE"/>
+  <text x="48" y="160" font-size="17" font-weight="700" fill="#1F2430">旗舰档：输出价 ¥80–400</text>
+
+  <text x="330" y="186" font-size="12.5" fill="#9AA0AC">输出价（元 / 百万 token）</text>
+  <text x="1150" y="186" font-size="12.5" fill="#9AA0AC" text-anchor="middle">相当于 Argon</text>
+  <text x="330" y="206" font-size="11.5" fill="#B3B9C4">¥0</text>
+  <text x="490" y="206" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥100</text>
+  <text x="650" y="206" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥200</text>
+  <text x="810" y="206" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥300</text>
+  <text x="970" y="206" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥400</text>
+
+  <g stroke="#E9EDF4" stroke-width="1" stroke-dasharray="4 3">
+    <line x1="490" y1="216" x2="490" y2="614"/>
+    <line x1="650" y1="216" x2="650" y2="614"/>
+    <line x1="810" y1="216" x2="810" y2="614"/>
+    <line x1="970" y1="216" x2="970" y2="614"/>
+  </g>
+  <line x1="330" y1="216" x2="330" y2="614" stroke="#DDE3EC" stroke-width="1.5"/>
+
+  <!-- 1. GPT-6.1-Sol-Pro -->
+  <text x="36" y="236" font-size="15.5" fill="#2B303B">GPT-6.1-Sol-Pro</text>
+  <text x="36" y="255" font-size="12.5" fill="#AAB0BC">OpenAI 前沿档　输入 16 · 缓存命中 0.8</text>
+  <rect x="330" y="224" width="128" height="22" rx="5" fill="#9EE6D0"/>
+  <text x="470" y="240" font-size="15" font-weight="700" fill="#1F8A6D">¥80</text>
+  <rect x="1076" y="223" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="239" font-size="12.5" fill="#8A92A3" text-anchor="middle">同价 1 倍</text>
+  <line x1="36" y1="274" x2="1204" y2="274" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 2. Gemini 4 Argon -->
+  <text x="36" y="304" font-size="16.5" font-weight="700" fill="#3D5AFE">Gemini 4 Argon</text>
+  <text x="36" y="323" font-size="12.5" fill="#8FA6C8">本文主角　输入 16 · 缓存命中 0.8</text>
+  <rect x="330" y="292" width="128" height="22" rx="5" fill="url(#gArg)"/>
+  <text x="470" y="308" font-size="16" font-weight="700" fill="#3D5AFE">¥80</text>
+  <rect x="1076" y="291" width="128" height="24" rx="12" fill="#EDF1FF"/>
+  <text x="1140" y="307" font-size="12.5" font-weight="700" fill="#3D5AFE" text-anchor="middle">基准 1 倍</text>
+  <line x1="36" y1="342" x2="1204" y2="342" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 3. Kimi-K3 -->
+  <text x="36" y="372" font-size="15.5" fill="#2B303B">Kimi-K3</text>
+  <text x="36" y="391" font-size="12.5" fill="#AAB0BC">国产旗舰　输入 20 · 缓存命中 2.0</text>
+  <rect x="330" y="360" width="160" height="22" rx="5" fill="#FFD59E"/>
+  <text x="502" y="376" font-size="15" font-weight="700" fill="#B7791F">¥100</text>
+  <rect x="1076" y="359" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="375" font-size="12.5" fill="#8A92A3" text-anchor="middle">1.25 倍</text>
+  <line x1="36" y1="410" x2="1204" y2="410" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 4. Claude Opus 5.5 -->
+  <text x="36" y="440" font-size="15.5" fill="#2B303B">Claude Opus 5.5</text>
+  <text x="36" y="459" font-size="12.5" fill="#AAB0BC">Anthropic 旗舰　输入 32 · 缓存命中 1.6</text>
+  <rect x="330" y="428" width="256" height="22" rx="5" fill="#C4CBD8"/>
+  <text x="598" y="444" font-size="15" font-weight="700" fill="#5B6472">¥160</text>
+  <rect x="1076" y="427" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="443" font-size="12.5" fill="#8A92A3" text-anchor="middle">2 倍</text>
+  <line x1="36" y1="478" x2="1204" y2="478" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 5. GPT-6 Astra -->
+  <text x="36" y="508" font-size="15.5" fill="#2B303B">GPT-6 Astra</text>
+  <text x="36" y="527" font-size="12.5" fill="#AAB0BC">OpenAI 旗舰　输入 40 · 缓存命中 4.0</text>
+  <rect x="330" y="496" width="320" height="22" rx="5" fill="#8FA6FF"/>
+  <text x="662" y="512" font-size="15" font-weight="700" fill="#3D5AFE">¥200</text>
+  <rect x="1076" y="495" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="511" font-size="12.5" fill="#8A92A3" text-anchor="middle">2.5 倍</text>
+  <line x1="36" y1="546" x2="1204" y2="546" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 6. Claude Fable 5 -->
+  <text x="36" y="576" font-size="15.5" fill="#2B303B">Claude Fable 5</text>
+  <text x="36" y="595" font-size="12.5" fill="#AAB0BC">Anthropic 高价档（站内版本）　输入 80 · 缓存命中 8.0</text>
+  <rect x="330" y="564" width="640" height="22" rx="5" fill="#C9B6FF"/>
+  <text x="982" y="580" font-size="15" font-weight="700" fill="#6B4FD8">¥400</text>
+  <rect x="1076" y="563" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="579" font-size="12.5" fill="#8A92A3" text-anchor="middle">5 倍</text>
+
+  <!-- ================= 下栏：性价比档 ================= -->
+  <rect x="36" y="654" width="4" height="17" rx="2" fill="#93A2BB"/>
+  <text x="48" y="668" font-size="17" font-weight="700" fill="#1F2430">性价比档：输出价 ¥3–13.5</text>
+  <text x="404" y="668" font-size="13" fill="#96A0AE">（轻量、高吞吐定位，能力档位与上栏不同）</text>
+
+  <text x="330" y="696" font-size="12.5" fill="#9AA0AC">输出价（元 / 百万 token）</text>
+  <text x="1150" y="696" font-size="12.5" fill="#9AA0AC" text-anchor="middle">比 Argon 便宜</text>
+  <text x="330" y="716" font-size="11.5" fill="#B3B9C4">¥0</text>
+  <text x="497" y="716" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥5</text>
+  <text x="663" y="716" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥10</text>
+  <text x="830" y="716" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥15</text>
+
+  <g stroke="#E9EDF4" stroke-width="1" stroke-dasharray="4 3">
+    <line x1="497" y1="726" x2="497" y2="988"/>
+    <line x1="663" y1="726" x2="663" y2="988"/>
+    <line x1="830" y1="726" x2="830" y2="988"/>
+  </g>
+  <line x1="330" y1="726" x2="330" y2="988" stroke="#DDE3EC" stroke-width="1.5"/>
+
+  <!-- 1. MiMo-V2.6-Pro -->
+  <text x="36" y="746" font-size="15.5" fill="#2B303B">MiMo-V2.6-Pro</text>
+  <text x="36" y="765" font-size="12.5" fill="#AAB0BC">小米开源全模态（1.02T MoE）　输入 1.5 · 缓存命中 0.0125</text>
+  <rect x="330" y="734" width="100" height="22" rx="5" fill="#B6C2D6"/>
+  <text x="442" y="750" font-size="15" font-weight="700" fill="#5C6675">¥3</text>
+  <rect x="1076" y="733" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="749" font-size="12.5" fill="#8A92A3" text-anchor="middle">省 96%</text>
+  <line x1="36" y1="784" x2="1204" y2="784" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 2. GPT-6-Luna -->
+  <text x="36" y="814" font-size="15.5" fill="#2B303B">GPT-6-Luna</text>
+  <text x="36" y="833" font-size="12.5" fill="#AAB0BC">OpenAI 轻量高吞吐档　输入 0.8 · 缓存命中 0.08</text>
+  <rect x="330" y="802" width="133.3" height="22" rx="5" fill="#B6C2D6"/>
+  <text x="475" y="818" font-size="15" font-weight="700" fill="#5C6675">¥4</text>
+  <rect x="1076" y="801" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="817" font-size="12.5" fill="#8A92A3" text-anchor="middle">省 95%</text>
+  <line x1="36" y1="852" x2="1204" y2="852" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 3. DeepSeek-V4.1-Flash -->
+  <text x="36" y="882" font-size="15.5" fill="#2B303B">DeepSeek-V4.1-Flash</text>
+  <text x="36" y="901" font-size="12.5" fill="#AAB0BC">国产开源小尺寸旗舰　输入 1 · 缓存命中 0.02（闲时价）</text>
+  <rect x="330" y="870" width="133.3" height="22" rx="5" fill="#B6C2D6"/>
+  <text x="475" y="886" font-size="15" font-weight="700" fill="#5C6675">¥4</text>
+  <rect x="1076" y="869" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="885" font-size="12.5" fill="#8A92A3" text-anchor="middle">省 95%</text>
+  <line x1="36" y1="920" x2="1204" y2="920" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 4. DeepSeek-V4-Pro -->
+  <text x="36" y="950" font-size="15.5" fill="#2B303B">DeepSeek-V4-Pro</text>
+  <text x="36" y="969" font-size="12.5" fill="#AAB0BC">参考·上一代国产旗舰　输入 4.5 · 缓存命中 0.15（闲时价）</text>
+  <rect x="330" y="938" width="450" height="22" rx="5" fill="#B6C2D6"/>
+  <text x="792" y="954" font-size="15" font-weight="700" fill="#5C6675">¥13.5</text>
+  <rect x="1076" y="937" width="128" height="24" rx="12" fill="#F4F6FA"/>
+  <text x="1140" y="953" font-size="12.5" fill="#8A92A3" text-anchor="middle">省 83%</text>
+
+  <!-- 脚注 -->
+  <text x="36" y="1016" font-size="12" fill="#96A0AE">注：价格为知令站内调用价（与各厂商官方定价对齐，单位 元/百万 token，≤32K 输入档），按输出价升序排列；两栏横轴刻度不同，仅组内比较。</text>
+  <text x="36" y="1038" font-size="12" fill="#96A0AE">Gemini 4 Argon 为限时促销价（至 2026-11-30），12 月 1 日起官方公布价翻倍；GPT-6-Luna 与 Luna-Pro 同价、另有 Flex 半价档（0.4 / 2 / 0.04）；</text>
+  <text x="36" y="1060" font-size="12" fill="#96A0AE">DeepSeek 两款为闲时价、高峰时段翻倍。模型价格与可用范围以知令站内实时显示为准。</text>
+</svg>

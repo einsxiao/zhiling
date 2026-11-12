@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1590" viewBox="0 0 1200 1590" font-family="'Noto Sans CJK SC','Microsoft YaHei','PingFang SC','Segoe UI',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#070C18"/>
+      <stop offset="55%" stop-color="#0C1426"/>
+      <stop offset="100%" stop-color="#111B33"/>
+    </linearGradient>
+    <linearGradient id="titleAccent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4CC9F0"/>
+      <stop offset="100%" stop-color="#8B7BFF"/>
+    </linearGradient>
+    <linearGradient id="cardA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#16233D"/>
+      <stop offset="100%" stop-color="#111A2E"/>
+    </linearGradient>
+    <linearGradient id="topLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4CC9F0" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#4CC9F0" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.2" fill="#FFFFFF" fill-opacity="0.055"/>
+    </pattern>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="26" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="1590" fill="url(#bg)"/>
+  <rect width="1200" height="1590" fill="url(#dots)"/>
+  <circle cx="1120" cy="120" r="230" fill="#4CC9F0" fill-opacity="0.055"/>
+  <circle cx="1120" cy="120" r="150" fill="none" stroke="#4CC9F0" stroke-opacity="0.13" stroke-width="1.5"/>
+  <circle cx="1120" cy="120" r="190" fill="none" stroke="#4CC9F0" stroke-opacity="0.07" stroke-width="1.5"/>
+  <circle cx="70" cy="1450" r="260" fill="#7B61FF" fill-opacity="0.028"/>
+
+  <!-- 顶部 -->
+  <rect x="64" y="66" width="34" height="4" rx="2" fill="url(#titleAccent)"/>
+  <text x="112" y="76" font-size="24" fill="#7E8CA8" letter-spacing="5">知令 · 学术搜索</text>
+
+  <text x="64" y="164" font-size="58" font-weight="700" fill="#F3F6FB">覆盖 25 个学术域名</text>
+  <text x="64" y="214" font-size="25" fill="#8FA0BD">检索恒在白名单内进行 · 本机无需额外网络环境 · 三档检索深度</text>
+
+  <!-- 右上角数字 -->
+  <text x="1136" y="168" font-size="72" font-weight="700" fill="#4CC9F0" fill-opacity="0.16" text-anchor="end">25</text>
+
+  <!-- ============ 卡片 A：预印本与开放获取（6） ============ -->
+  <g>
+    <rect x="60" y="262" width="520" height="596" rx="18" fill="url(#cardA)" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <rect x="60" y="262" width="520" height="4" rx="2" fill="#4CC9F0" fill-opacity="0.85"/>
+    <circle cx="96" cy="308" r="6" fill="#4CC9F0"/>
+    <text x="116" y="317" font-size="26" font-weight="600" fill="#EAF0FA">预印本与开放获取</text>
+    <rect x="486" y="290" width="58" height="34" rx="17" fill="#4CC9F0" fill-opacity="0.14"/>
+    <text x="515" y="313" font-size="19" font-weight="600" fill="#4CC9F0" text-anchor="middle">6</text>
+
+    <g font-size="23" fill="#E6EDF8">
+      <text x="96" y="382">arXiv</text><text x="96" y="406" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">arxiv.org</text>
+      <text x="96" y="436">bioRxiv</text><text x="96" y="460" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">biorxiv.org</text>
+      <text x="96" y="490">medRxiv</text><text x="96" y="514" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">medrxiv.org</text>
+      <text x="96" y="544">OpenReview</text><text x="96" y="568" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">openreview.net</text>
+      <text x="96" y="598">ACL Anthology</text><text x="96" y="622" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">aclanthology.org</text>
+      <text x="96" y="652">PLOS</text><text x="96" y="676" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">plos.org</text>
+    </g>
+
+    <line x1="96" y1="712" x2="544" y2="712" stroke="#FFFFFF" stroke-opacity="0.07"/>
+    <text x="96" y="752" font-size="20" fill="#8FA0BD">以开放获取为主</text>
+    <text x="96" y="786" font-size="20" fill="#B9C6DC">多数条目可直接读全文</text>
+    <text x="96" y="820" font-size="17" fill="#6E7D99">实测命中：arXiv · ACL Anthology</text>
+  </g>
+
+  <!-- ============ 卡片 B：生物医学与综合顶刊（6） ============ -->
+  <g>
+    <rect x="620" y="262" width="520" height="596" rx="18" fill="url(#cardA)" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <rect x="620" y="262" width="520" height="4" rx="2" fill="#35D0BA" fill-opacity="0.85"/>
+    <circle cx="656" cy="308" r="6" fill="#35D0BA"/>
+    <text x="676" y="317" font-size="26" font-weight="600" fill="#EAF0FA">生物医学与综合顶刊</text>
+    <rect x="1046" y="290" width="58" height="34" rx="17" fill="#35D0BA" fill-opacity="0.14"/>
+    <text x="1075" y="313" font-size="19" font-weight="600" fill="#35D0BA" text-anchor="middle">6</text>
+
+    <g font-size="23" fill="#E6EDF8">
+      <text x="656" y="382">PubMed</text><text x="656" y="406" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">pubmed.ncbi.nlm.nih.gov</text>
+      <text x="656" y="436">PMC（NCBI）</text><text x="656" y="460" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">ncbi.nlm.nih.gov</text>
+      <text x="656" y="490">Cell</text><text x="656" y="514" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">cell.com</text>
+      <text x="656" y="544">Nature</text><text x="656" y="568" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">nature.com</text>
+      <text x="656" y="598">Science</text><text x="656" y="622" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">science.org</text>
+      <text x="656" y="652">PNAS</text><text x="656" y="676" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">pnas.org</text>
+    </g>
+
+    <line x1="656" y1="712" x2="1104" y2="712" stroke="#FFFFFF" stroke-opacity="0.07"/>
+    <text x="656" y="752" font-size="20" fill="#8FA0BD">题录与摘要为主</text>
+    <text x="656" y="786" font-size="20" fill="#B9C6DC">部分期刊需机构订阅才能读全文</text>
+    <text x="656" y="820" font-size="17" fill="#6E7D99">实测命中：PubMed · PMC · Nature</text>
+  </g>
+
+  <!-- ============ 卡片 C：工程与计算机（4） ============ -->
+  <g>
+    <rect x="60" y="894" width="520" height="596" rx="18" fill="url(#cardA)" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <rect x="60" y="894" width="520" height="4" rx="2" fill="#7B61FF" fill-opacity="0.85"/>
+    <circle cx="96" cy="940" r="6" fill="#7B61FF"/>
+    <text x="116" y="949" font-size="26" font-weight="600" fill="#EAF0FA">工程与学术索引</text>
+    <rect x="486" y="922" width="58" height="34" rx="17" fill="#7B61FF" fill-opacity="0.16"/>
+    <text x="515" y="945" font-size="19" font-weight="600" fill="#9C8BFF" text-anchor="middle">4</text>
+
+    <g font-size="23" fill="#E6EDF8">
+      <text x="96" y="1014">IEEE Xplore</text><text x="96" y="1038" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">ieeexplore.ieee.org</text>
+      <text x="96" y="1068">ACM Digital Library</text><text x="96" y="1092" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">acm.org</text>
+      <text x="96" y="1122">Semantic Scholar</text><text x="96" y="1146" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">semanticscholar.org</text>
+      <text x="96" y="1176">Google Scholar</text><text x="96" y="1200" font-size="16" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">scholar.google.com</text>
+    </g>
+
+    <line x1="96" y1="1240" x2="544" y2="1240" stroke="#FFFFFF" stroke-opacity="0.07"/>
+    <text x="96" y="1286" font-size="20" fill="#8FA0BD">实测命中（理工科）：</text>
+    <text x="96" y="1322" font-size="20" fill="#B9C6DC">ScienceDirect · Nature</text>
+    <text x="96" y="1356" font-size="20" fill="#B9C6DC">arXiv · ACM DL · PMC</text>
+    <text x="96" y="1418" font-size="17" fill="#6E7D99">单次返回默认 5 条，最多 10 条</text>
+  </g>
+
+  <!-- ============ 卡片 D：出版社与学术社交（9） ============ -->
+  <g>
+    <rect x="620" y="894" width="520" height="596" rx="18" fill="url(#cardA)" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <rect x="620" y="894" width="520" height="4" rx="2" fill="#FFC53D" fill-opacity="0.85"/>
+    <circle cx="656" cy="940" r="6" fill="#FFC53D"/>
+    <text x="676" y="949" font-size="26" font-weight="600" fill="#EAF0FA">出版社与学术社交</text>
+    <rect x="1046" y="922" width="58" height="34" rx="17" fill="#FFC53D" fill-opacity="0.14"/>
+    <text x="1075" y="945" font-size="19" font-weight="600" fill="#FFC53D" text-anchor="middle">9</text>
+
+    <g font-size="22" fill="#E6EDF8">
+      <text x="656" y="1002">ScienceDirect</text><text x="656" y="1025" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">sciencedirect.com</text>
+      <text x="656" y="1053">Springer</text><text x="656" y="1076" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">springer.com</text>
+      <text x="656" y="1104">Springer Link</text><text x="656" y="1127" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">link.springer.com</text>
+      <text x="656" y="1155">Wiley</text><text x="656" y="1178" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">wiley.com</text>
+      <text x="656" y="1206">Taylor &amp; Francis</text><text x="656" y="1229" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">tandfonline.com</text>
+      <text x="656" y="1257">MDPI</text><text x="656" y="1280" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">mdpi.com</text>
+      <text x="656" y="1308">Frontiers</text><text x="656" y="1331" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">frontiersin.org</text>
+      <text x="656" y="1359">ResearchGate</text><text x="656" y="1382" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">researchgate.net</text>
+      <text x="656" y="1410">SSRN</text><text x="656" y="1433" font-size="15.5" fill="#7C8CA9" font-family="Consolas,'Courier New',monospace">papers.ssrn.com</text>
+    </g>
+  </g>
+
+  <!-- 底部 -->
+  <line x1="60" y1="1522" x2="1140" y2="1522" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  <text x="60" y="1566" font-size="19" fill="#61708C">知令 · 全场景智能工作台</text>
+  <text x="1140" y="1566" font-size="19" fill="#61708C" text-anchor="end">zhiling.plus　｜　一次提问，跨库检索</text>
+</svg>

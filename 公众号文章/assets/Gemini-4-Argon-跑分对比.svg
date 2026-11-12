@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1600" viewBox="0 0 1240 1600" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="gArg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6B84FF"/>
+      <stop offset="1" stop-color="#3D5AFE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1240" height="1600" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="36" y="56" font-size="30" font-weight="700" fill="#1F2430">Gemini 4 Argon 官方跑分：18 项基准，12 项第一</text>
+  <rect x="36" y="70" width="60" height="4" rx="2" fill="#4D6BFE"/>
+  <text x="36" y="100" font-size="15.5" fill="#6B7280">与 GPT-6 Astra、Claude Fable 5.1、Claude Opus 5.5 同台对比　·　数值为官方公布的 pass@1 成绩（最高思考档）</text>
+
+  <!-- 图例 -->
+  <rect x="312" y="132" width="14" height="14" rx="3" fill="#3D5AFE"/>
+  <text x="334" y="144" font-size="14.5" font-weight="700" fill="#3D5AFE">Gemini 4 Argon</text>
+  <rect x="474" y="132" width="14" height="14" rx="3" fill="#8FA6FF"/>
+  <text x="496" y="144" font-size="14.5" fill="#6B7280">GPT-6 Astra</text>
+  <rect x="614" y="132" width="14" height="14" rx="3" fill="#C9B6FF"/>
+  <text x="636" y="144" font-size="14.5" fill="#6B7280">Claude Fable 5.1</text>
+  <rect x="792" y="132" width="14" height="14" rx="3" fill="#C4CBD8"/>
+  <text x="814" y="144" font-size="14.5" fill="#6B7280">Claude Opus 5.5</text>
+
+  <!-- 表头 -->
+  <text x="36" y="182" font-size="12.5" fill="#9AA0AC">能力类别</text>
+  <text x="134" y="182" font-size="12.5" fill="#9AA0AC">基准测试</text>
+  <text x="420" y="182" font-size="12.5" fill="#9AA0AC">得分（%）</text>
+  <text x="1167" y="182" font-size="12.5" fill="#9AA0AC" text-anchor="middle">名次</text>
+
+  <!-- 网格线 -->
+  <g stroke="#E9EDF4" stroke-width="1" stroke-dasharray="4 3">
+    <line x1="585" y1="200" x2="585" y2="1486"/>
+    <line x1="750" y1="200" x2="750" y2="1486"/>
+    <line x1="915" y1="200" x2="915" y2="1486"/>
+  </g>
+  <line x1="420" y1="200" x2="420" y2="1486" stroke="#DDE3EC" stroke-width="1.5"/>
+  <line x1="1080" y1="200" x2="1080" y2="1486" stroke="#E9EDF4" stroke-width="1"/>
+
+  <!-- ===== 知识工作 ===== -->
+  <text x="36" y="237" font-size="11.5" fill="#6B7280">知识工作</text>
+  <text x="134" y="237" font-size="15" fill="#2B303B">Vals Index</text>
+  <rect x="420" y="205.5" width="454.7" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="219.5" width="416.5" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="233.5" width="434.3" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="247.5" width="442.2" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="882.7" y="215" font-size="11.5" font-weight="700" fill="#3D5AFE">68.9</text>
+  <rect x="1130" y="222" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="236" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="301" font-size="15" fill="#2B303B">AutomationBench</text>
+  <rect x="420" y="269.5" width="338.6" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="283.5" width="273.2" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="297.5" width="207.2" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="311.5" width="280.5" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="766.6" y="279" font-size="11.5" font-weight="700" fill="#3D5AFE">51.3</text>
+  <rect x="1130" y="286" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="300" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="365" font-size="15" fill="#2B303B">Vals Finance Agent v2</text>
+  <rect x="420" y="333.5" width="431.6" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="347.5" width="353.1" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="361.5" width="388.7" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="375.5" width="386.8" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="859.6" y="343" font-size="11.5" font-weight="700" fill="#3D5AFE">65.4</text>
+  <rect x="1130" y="350" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="364" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="429" font-size="15" fill="#2B303B">Harvey's Legal Agent Benchmark</text>
+  <rect x="420" y="397.5" width="129.4" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="411.5" width="35.6" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="425.5" width="44.2" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="439.5" width="25.1" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="557.4" y="407" font-size="11.5" font-weight="700" fill="#3D5AFE">19.6</text>
+  <rect x="1130" y="414" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="428" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <!-- ===== 智能体编码 ===== -->
+  <text x="36" y="503" font-size="11.5" fill="#6B7280">智能体编码</text>
+  <text x="134" y="503" font-size="15" fill="#2B303B">DeepSWE v1.1</text>
+  <rect x="420" y="471.5" width="514.1" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="485.5" width="489.1" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="499.5" width="444.8" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="513.5" width="489.7" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="942.1" y="481" font-size="11.5" font-weight="700" fill="#3D5AFE">77.9</text>
+  <rect x="1130" y="488" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="502" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="567" font-size="15" fill="#2B303B">FrontierSWE v2</text>
+  <rect x="420" y="535.5" width="363.0" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="549.5" width="432.3" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="563.5" width="371.6" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="577.5" width="411.2" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="791.0" y="545" font-size="11.5" font-weight="700" fill="#3D5AFE">55.0</text>
+  <rect x="1130" y="552" width="74" height="20" rx="10" fill="#F1F3F7"/>
+  <text x="1167" y="566" font-size="12" fill="#8A92A3" text-anchor="middle">Astra</text>
+
+  <text x="134" y="631" font-size="15" fill="#2B303B">Vibe Code Bench v1.1</text>
+  <rect x="420" y="599.5" width="606.5" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="613.5" width="591.4" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="627.5" width="596.0" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="641.5" width="596.0" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="1034.5" y="609" font-size="11.5" font-weight="700" fill="#3D5AFE">91.9</text>
+  <rect x="1130" y="616" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="630" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="695" font-size="15" fill="#2B303B">Terminal-bench 4.0</text>
+  <rect x="420" y="663.5" width="378.8" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="677.5" width="384.1" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="691.5" width="382.1" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="705.5" width="438.2" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="806.8" y="673" font-size="11.5" font-weight="700" fill="#3D5AFE">57.4</text>
+  <rect x="1130" y="680" width="74" height="20" rx="10" fill="#F1F3F7"/>
+  <text x="1167" y="694" font-size="12" fill="#8A92A3" text-anchor="middle">Opus</text>
+
+  <!-- ===== 机器学习工程 ===== -->
+  <text x="36" y="769" font-size="11.5" fill="#6B7280">机器学习工程</text>
+  <text x="134" y="769" font-size="15" fill="#2B303B">PostTrainBench v1.1</text>
+  <rect x="420" y="737.5" width="299.0" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="751.5" width="292.4" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="765.5" width="265.3" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="779.5" width="325.4" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="727.0" y="747" font-size="11.5" font-weight="700" fill="#3D5AFE">45.3</text>
+  <rect x="1130" y="754" width="74" height="20" rx="10" fill="#F1F3F7"/>
+  <text x="1167" y="768" font-size="12" fill="#8A92A3" text-anchor="middle">Opus</text>
+
+  <!-- ===== 科学与数学 ===== -->
+  <text x="36" y="843" font-size="11.5" fill="#6B7280">科学与数学</text>
+  <text x="134" y="843" font-size="15" fill="#2B303B">Terminal-Bench Science 0.1</text>
+  <rect x="420" y="811.5" width="380.2" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="825.5" width="449.5" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="839.5" width="347.2" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="853.5" width="417.8" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="808.2" y="821" font-size="11.5" font-weight="700" fill="#3D5AFE">57.6</text>
+  <rect x="1130" y="828" width="74" height="20" rx="10" fill="#F1F3F7"/>
+  <text x="1167" y="842" font-size="12" fill="#8A92A3" text-anchor="middle">Astra</text>
+
+  <text x="134" y="907" font-size="15" fill="#2B303B">LABBench 2</text>
+  <rect x="420" y="875.5" width="586.1" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="889.5" width="563.6" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="903.5" width="452.8" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="917.5" width="482.5" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="1014.1" y="885" font-size="11.5" font-weight="700" fill="#3D5AFE">88.8</text>
+  <rect x="1130" y="892" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="906" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="971" font-size="15" fill="#2B303B">RiemannBench</text>
+  <rect x="420" y="939.5" width="501.6" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="953.5" width="475.2" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="967.5" width="433.0" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="981.5" width="459.4" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="929.6" y="949" font-size="11.5" font-weight="700" fill="#3D5AFE">76.0</text>
+  <rect x="1130" y="956" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="970" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <!-- ===== 长上下文 ===== -->
+  <text x="36" y="1045" font-size="11.5" fill="#6B7280">长上下文</text>
+  <text x="134" y="1045" font-size="15" fill="#2B303B">GraphWalks　≤128K tokens</text>
+  <rect x="420" y="1013.5" width="658.0" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1027.5" width="651.4" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="1041.5" width="603.2" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="1055.5" width="598.0" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="1086.0" y="1023" font-size="11.5" font-weight="700" fill="#3D5AFE">99.7</text>
+  <rect x="1130" y="1030" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1044" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="1109" font-size="15" fill="#2B303B">GraphWalks　256K–1M tokens</text>
+  <rect x="420" y="1077.5" width="555.7" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1091.5" width="473.9" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="1105.5" width="429.0" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="1119.5" width="440.9" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="983.7" y="1087" font-size="11.5" font-weight="700" fill="#3D5AFE">84.2</text>
+  <rect x="1130" y="1094" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1108" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <!-- ===== 电脑操作 ===== -->
+  <text x="36" y="1183" font-size="11.5" fill="#6B7280">电脑操作</text>
+  <text x="134" y="1183" font-size="15" fill="#2B303B">Agent's Last Exam</text>
+  <rect x="420" y="1151.5" width="260.7" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1165.5" width="225.7" height="11" rx="5.5" fill="#8FA6FF"/>
+  <text x="426" y="1189" font-size="12" fill="#C4CBD8">—</text>
+  <rect x="420" y="1193.5" width="252.1" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="688.7" y="1161" font-size="11.5" font-weight="700" fill="#3D5AFE">39.5</text>
+  <rect x="1130" y="1168" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1182" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="1247" font-size="15" fill="#2B303B">OSWorld-2.0</text>
+  <rect x="420" y="1215.5" width="456.7" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1229.5" width="479.2" height="11" rx="5.5" fill="#8FA6FF"/>
+  <text x="426" y="1253" font-size="12" fill="#C4CBD8">—</text>
+  <text x="426" y="1267" font-size="12" fill="#C4CBD8">—</text>
+  <text x="884.7" y="1225" font-size="11.5" font-weight="700" fill="#3D5AFE">69.2</text>
+  <rect x="1130" y="1232" width="74" height="20" rx="10" fill="#F1F3F7"/>
+  <text x="1167" y="1246" font-size="12" fill="#8A92A3" text-anchor="middle">Astra</text>
+
+  <!-- ===== 多模态理解 ===== -->
+  <text x="36" y="1321" font-size="11.5" fill="#6B7280">多模态理解</text>
+  <text x="134" y="1321" font-size="15" fill="#2B303B">Chartography</text>
+  <rect x="420" y="1289.5" width="472.6" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1303.5" width="468.6" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="1317.5" width="304.9" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="1331.5" width="437.6" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="900.6" y="1299" font-size="11.5" font-weight="700" fill="#3D5AFE">71.6</text>
+  <rect x="1130" y="1306" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1320" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <text x="134" y="1385" font-size="15" fill="#2B303B">LVBench</text>
+  <rect x="420" y="1353.5" width="605.2" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1367.5" width="577.5" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="1381.5" width="526.0" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="1395.5" width="552.4" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="1033.2" y="1363" font-size="11.5" font-weight="700" fill="#3D5AFE">91.7</text>
+  <rect x="1130" y="1370" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1384" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">No.1</text>
+
+  <!-- ===== 网络安全 ===== -->
+  <text x="36" y="1459" font-size="11.5" fill="#6B7280">网络安全</text>
+  <text x="134" y="1459" font-size="15" fill="#2B303B">CWE-bench v1</text>
+  <rect x="420" y="1427.5" width="448.8" height="11" rx="5.5" fill="url(#gArg)"/>
+  <rect x="420" y="1441.5" width="448.8" height="11" rx="5.5" fill="#8FA6FF"/>
+  <rect x="420" y="1455.5" width="382.8" height="11" rx="5.5" fill="#C9B6FF"/>
+  <rect x="420" y="1469.5" width="442.2" height="11" rx="5.5" fill="#C4CBD8"/>
+  <text x="876.8" y="1437" font-size="11.5" font-weight="700" fill="#3D5AFE">68.0</text>
+  <rect x="1130" y="1444" width="74" height="20" rx="10" fill="#EDF1FF"/>
+  <text x="1167" y="1458" font-size="12" font-weight="700" fill="#3D5AFE" text-anchor="middle">并列第一</text>
+
+  <!-- 坐标轴刻度 -->
+  <line x1="420" y1="1486" x2="1080" y2="1486" stroke="#DDE3EC" stroke-width="1.5"/>
+  <text x="420" y="1508" font-size="12.5" fill="#9AA0AC" text-anchor="middle">0</text>
+  <text x="585" y="1508" font-size="12.5" fill="#9AA0AC" text-anchor="middle">25</text>
+  <text x="750" y="1508" font-size="12.5" fill="#9AA0AC" text-anchor="middle">50</text>
+  <text x="915" y="1508" font-size="12.5" fill="#9AA0AC" text-anchor="middle">75</text>
+  <text x="1080" y="1508" font-size="12.5" fill="#9AA0AC" text-anchor="middle">100</text>
+
+  <!-- 脚注 -->
+  <text x="36" y="1546" font-size="13.5" fill="#8A92A3">数据来源：Google DeepMind《Gemini 4 Argon · Model evaluation》（2026 年 10 月）。18 项基准中 Argon 单独第一 12 项、并列第一 1 项（GraphWalks 两个上下文档合并计 1 项）。</text>
+  <text x="36" y="1570" font-size="13.5" fill="#B0B6C2">成绩取自官方最高思考档 pass@1；不同基准的绝对分值不可横向比较；价格与可用范围以知令站内实时显示为准。「—」表示官方未公布该模型该档成绩。</text>
+</svg>
