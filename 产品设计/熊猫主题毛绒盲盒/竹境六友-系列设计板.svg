@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#355044" flood-opacity=".13"/></filter>
+    <style>
+      .title{font:700 44px 'Microsoft YaHei',sans-serif;fill:#263c32}.sub{font:18px 'Microsoft YaHei',sans-serif;fill:#667a70;letter-spacing:2px}.name{font:700 25px 'Microsoft YaHei',sans-serif;fill:#25382f}.en{font:13px Arial,sans-serif;fill:#708078;letter-spacing:1px}.line{stroke:#25382f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.thin{stroke:#25382f;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+    <g id="panda">
+      <ellipse cx="0" cy="77" rx="55" ry="48" fill="#faf7ef" class="line"/>
+      <ellipse cx="-43" cy="74" rx="19" ry="28" fill="#26322d" transform="rotate(25 -43 74)"/>
+      <ellipse cx="43" cy="74" rx="19" ry="28" fill="#26322d" transform="rotate(-25 43 74)"/>
+      <circle cx="-49" cy="-38" r="25" fill="#26322d"/>
+      <circle cx="49" cy="-38" r="25" fill="#26322d"/>
+      <ellipse cx="0" cy="0" rx="70" ry="61" fill="#fffdf8" class="line"/>
+      <ellipse cx="-29" cy="-5" rx="17" ry="23" fill="#26322d" transform="rotate(24 -29 -5)"/>
+      <ellipse cx="29" cy="-5" rx="17" ry="23" fill="#26322d" transform="rotate(-24 29 -5)"/>
+      <circle cx="-27" cy="-7" r="6" fill="#fff"/><circle cx="29" cy="-7" r="6" fill="#fff"/>
+      <circle cx="-25" cy="-5" r="3.5" fill="#392f2a"/><circle cx="27" cy="-5" r="3.5" fill="#392f2a"/>
+      <path d="M-7 17 Q0 11 7 17 Q5 25 0 25 Q-5 25-7 17" fill="#26322d"/>
+      <path d="M0 25 Q-8 35-17 29 M0 25 Q8 35 17 29" fill="none" class="thin"/>
+      <ellipse cx="-50" cy="25" rx="11" ry="5" fill="#f5b8b7" opacity=".65"/><ellipse cx="50" cy="25" rx="11" ry="5" fill="#f5b8b7" opacity=".65"/>
+      <ellipse cx="-31" cy="111" rx="26" ry="18" fill="#26322d"/><ellipse cx="31" cy="111" rx="26" ry="18" fill="#26322d"/>
+    </g>
+  </defs>
+  <rect width="1200" height="800" fill="#f3f0e6"/>
+  <circle cx="1090" cy="90" r="115" fill="#dbe6d6"/><circle cx="90" cy="740" r="145" fill="#eadfcf"/>
+  <path d="M1030 0 Q1010 130 1090 240 M1075 10 Q1060 90 1135 165 M1025 75 l-48-32 M1054 135 l-55 22 M1098 85 l55-28" fill="none" stroke="#8da680" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+  <text x="600" y="67" text-anchor="middle" class="title">竹境六友</text><text x="600" y="99" text-anchor="middle" class="sub">PANDA BAMBOO FRIENDS · 毛绒盲盒系列</text>
+
+  <g transform="translate(85 135)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#e5efdf"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><path d="M-18-65 Q15-100 40-68 Q10-57-18-65" fill="#78a96b" class="thin"/><rect x="-21" y="65" width="42" height="55" rx="15" fill="#78a96b" class="thin"/><path d="M0 66v52 M-20 82h40" class="thin" fill="none"/></g><text x="155" y="247" text-anchor="middle" class="name">01 竹竹</text><text x="155" y="269" text-anchor="middle" class="en">BAMBOO EXPLORER</text></g>
+
+  <g transform="translate(445 135)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#f7e3e4"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><g transform="translate(-51 -62)" fill="#f2a6b3" class="thin"><circle cx="0" cy="-11" r="13"/><circle cx="11" cy="-2" r="13"/><circle cx="7" cy="12" r="13"/><circle cx="-8" cy="12" r="13"/><circle cx="-13" cy="-2" r="13"/><circle r="6" fill="#f3ce68"/></g><path d="M0 68 C-35 45-47 93 0 119 C47 93 35 45 0 68" fill="#f2a6b3" class="thin"/></g><text x="155" y="247" text-anchor="middle" class="name">02 桃桃</text><text x="155" y="269" text-anchor="middle" class="en">SPRING COLLECTOR</text></g>
+
+  <g transform="translate(805 135)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#e1eef3"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><path d="M-58-57 Q-69-79-45-85 Q-34-105-14-91 Q4-111 22-91 Q50-98 52-72 Q70-58 49-46 H-50Q-69-46-58-57" fill="#fff" class="thin"/><path d="M-42 83 Q-42 62-21 66 Q-9 46 8 63 Q31 55 36 78 Q53 92 35 108 H-34Q-55 99-42 83" fill="#9fc8dc" class="thin"/></g><text x="155" y="247" text-anchor="middle" class="name">03 云团</text><text x="155" y="269" text-anchor="middle" class="en">DAYDREAM TRAVELER</text></g>
+
+  <g transform="translate(85 455)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#eee5d8"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><path d="M-67-42 Q0-105 67-42 Q0-18-67-42" fill="#b68a62" class="thin"/><path d="M0-83V-45 M-42-48 Q0-25 42-48" fill="none" class="thin"/><path d="M-27 71h54l-6 40h-42z" fill="#87b7ad" class="thin"/><path d="M27 79q23 2 14 19q-5 8-17 5" fill="none" class="thin"/></g><text x="155" y="247" text-anchor="middle" class="name">04 茶茶</text><text x="155" y="269" text-anchor="middle" class="en">TEA MAKER</text></g>
+
+  <g transform="translate(445 455)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#e5e5f0"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><path d="M-52-49 Q-32-116 45-90 Q21-75 30-38 Q-5-52-52-49" fill="#48577b" class="thin"/><path d="M44-91l5-11 5 11 12 2-9 8 2 12-10-6-11 6 3-12-9-8z" fill="#f3ce68"/><path d="M17 56 Q-22 69-20 98 Q-16 126 18 119 Q0 107 1 86 Q2 67 17 56" fill="#f3ce68" class="thin"/></g><text x="155" y="247" text-anchor="middle" class="name">05 月芽</text><text x="155" y="269" text-anchor="middle" class="en">DREAM KEEPER</text></g>
+
+  <g transform="translate(805 455)" filter="url(#shadow)"><rect width="310" height="280" rx="28" fill="#fffdf8"/><circle cx="155" cy="130" r="104" fill="#f2dfdc"/><g transform="translate(155 115) scale(.78)"><use href="#panda"/><path d="M-53 48 Q0 65 53 48 L43 72 Q0 89-43 72z" fill="#d95b57" class="thin"/><path d="M-35 78 Q0 50 35 78 L27 119 H-27z" fill="#e66b54" class="thin"/><path d="M-35 78 Q0 99 35 78 M0 68v49" fill="none" class="thin"/><circle cx="0" cy="94" r="10" fill="#f3ce68"/></g><text x="155" y="247" text-anchor="middle" class="name">06 福滚滚</text><text x="155" y="269" text-anchor="middle" class="en">LUCKY MESSENGER</text></g>
+
+  <text x="600" y="775" text-anchor="middle" class="sub">统一基础版型 · 六种主题配件 · 坐姿约 12 CM</text>
+</svg>
