@@ -28,7 +28,7 @@
 
 跑分上，官方放出的 18 项基准里，Argon 在 **12 项上拿了第一**。挑几个有代表性的：覆盖金融、编码、法律、税务的 Vals Index v2.1 排第一；Finance Agent v2 第一；IOI（Vals v2）拿到满分 100；Vibe Code Bench v1.1 达 91.90；长视频理解 LVBench 91.7%。
 
-> ![Gemini 4 Argon 与 GPT-6 Astra、Claude Fable 5.1、Claude Opus 5.5 在官方 18 项基准上的跑分对比：12 项单独第一、1 项并列第一](../assets/Gemini-4-Argon-跑分对比.png)
+> ![Gemini 4 Argon 与 GPT-6 Astra、Claude Fable 5.1、Claude Opus 5.5 在官方 18 项基准上的跑分对比：12 项单独第一、1 项并列第一](images/Gemini-4-Argon-跑分对比.png)
 
 说句公道话：**综合指数领先，不等于每个任务都第一**；而且官方的高分多在较高思考档下取得，默认 medium 档会略低一些。选模型，归根到底还是要看你的具体任务。
 
@@ -78,7 +78,7 @@
 | MiMo-V2.6-Pro | 1.5 | 3 | 0.0125 | 小米开源全模态，1.02T MoE |
 | DeepSeek-V4-Pro（闲时） | 4.5 | 13.5 | 0.15 | 上一代国产旗舰；高峰翻倍 |
 
-> ![同一份输出各花多少钱——旗舰档：Gemini 4 Argon 80 元、GPT-6.1-Sol-Pro 80 元、Kimi-K3 100 元、Claude Opus 5.5 160 元、GPT-6 Astra 200 元、Claude Fable 5 400 元；性价比档：MiMo-V2.6-Pro 3 元、GPT-6-Luna 4 元、DeepSeek-V4.1-Flash 4 元、DeepSeek-V4-Pro 13.5 元（元 / 百万 token，两档横轴刻度不同）](../assets/Gemini-4-Argon-价格对比.png)
+> ![同一份输出各花多少钱——旗舰档：Gemini 4 Argon 80 元、GPT-6.1-Sol-Pro 80 元、Kimi-K3 100 元、Claude Opus 5.5 160 元、GPT-6 Astra 200 元、Claude Fable 5 400 元；性价比档：MiMo-V2.6-Pro 3 元、GPT-6-Luna 4 元、DeepSeek-V4.1-Flash 4 元、DeepSeek-V4-Pro 13.5 元（元 / 百万 token，两档横轴刻度不同）](images/Gemini-4-Argon-价格对比.png)
 
 这两张表读成人话，是四句话：
 

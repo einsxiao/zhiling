@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="700" viewBox="0 0 1240 700" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="gNe2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="gAr2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6B84FF"/>
+      <stop offset="1" stop-color="#3D5AFE"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1240" height="700" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="36" y="58" font-size="30" font-weight="700" fill="#1F2430">输出 100 万 token，各花多少钱？</text>
+  <rect x="36" y="72" width="60" height="4" rx="2" fill="#8B5CF6"/>
+  <text x="36" y="102" font-size="15.5" fill="#6B7280">单位：元 / 百万 token　·　知令站内调用价（与谷歌官方定价对齐，汇率 8）　·　紫色为今天的 Gemini 4 Neon</text>
+  <text x="36" y="126" font-size="13.5" fill="#96A0AE">同一家族横向对比：Neon 比 Carbon / Hydrogen 贵，但换来更高智能档位；旗舰 Argon 与 Neon 官方档价格接近。</text>
+
+  <!-- 轴 -->
+  <text x="350" y="170" font-size="12.5" fill="#9AA0AC">输出价（元 / 百万 token）</text>
+  <text x="350" y="192" font-size="11.5" fill="#B3B9C4">¥0</text>
+  <text x="485" y="192" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥25</text>
+  <text x="620" y="192" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥50</text>
+  <text x="755" y="192" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥75</text>
+  <text x="890" y="192" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥100</text>
+  <text x="1025" y="192" font-size="11.5" fill="#B3B9C4" text-anchor="middle">¥125</text>
+
+  <g stroke="#E9EDF4" stroke-width="1" stroke-dasharray="4 3">
+    <line x1="485" y1="202" x2="485" y2="556"/>
+    <line x1="620" y1="202" x2="620" y2="556"/>
+    <line x1="755" y1="202" x2="755" y2="556"/>
+    <line x1="890" y1="202" x2="890" y2="556"/>
+    <line x1="1025" y1="202" x2="1025" y2="556"/>
+  </g>
+  <line x1="350" y1="202" x2="350" y2="556" stroke="#DDE3EC" stroke-width="1.5"/>
+
+  <!-- 1. Neon vertex 120 -->
+  <text x="36" y="224" font-size="16" font-weight="700" fill="#9333EA">Gemini 4 Neon</text>
+  <text x="36" y="244" font-size="12.5" fill="#AAB0BC">官方直连 · 输入 24 · 缓存 1.2</text>
+  <rect x="350" y="214" width="650" height="24" rx="5" fill="url(#gNe2)"/>
+  <text x="1012" y="232" font-size="16" font-weight="700" fill="#9333EA">¥120</text>
+  <rect x="1060" y="213" width="144" height="26" rx="13" fill="#F3E8FF"/>
+  <text x="1132" y="231" font-size="12.5" font-weight="700" fill="#9333EA" text-anchor="middle">官方直连档</text>
+  <line x1="36" y1="266" x2="1204" y2="266" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 2. Argon 80 -->
+  <text x="36" y="294" font-size="16" font-weight="700" fill="#2B303B">Gemini 4 Argon</text>
+  <text x="36" y="314" font-size="12.5" fill="#AAB0BC">旗舰推理 · 输入 16 · 缓存 0.8</text>
+  <rect x="350" y="284" width="433" height="24" rx="5" fill="url(#gAr2)"/>
+  <text x="795" y="302" font-size="15" font-weight="700" fill="#3D5AFE">¥80</text>
+  <rect x="1060" y="283" width="144" height="26" rx="13" fill="#FDF3E7"/>
+  <text x="1132" y="301" font-size="12.5" font-weight="700" fill="#B7791F" text-anchor="middle">限时促销价</text>
+  <line x1="36" y1="336" x2="1204" y2="336" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 3. Neon flex 60 -->
+  <text x="36" y="364" font-size="16" font-weight="700" fill="#DB2777">Gemini 4 Neon</text>
+  <text x="36" y="384" font-size="12.5" fill="#AAB0BC">弹性档 · 输入 12 · 缓存 0.6</text>
+  <rect x="350" y="354" width="325" height="24" rx="5" fill="#F0ABFC"/>
+  <text x="687" y="372" font-size="15" font-weight="700" fill="#DB2777">¥60</text>
+  <rect x="1060" y="353" width="144" height="26" rx="13" fill="#FDF2F8"/>
+  <text x="1132" y="371" font-size="12.5" font-weight="700" fill="#DB2777" text-anchor="middle">便宜一半</text>
+  <line x1="36" y1="406" x2="1204" y2="406" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 4. Carbon flex 40 -->
+  <text x="36" y="434" font-size="16" font-weight="700" fill="#2B303B">Gemini 4 Carbon</text>
+  <text x="36" y="454" font-size="12.5" fill="#AAB0BC">长流程 · 输入 8 · 缓存 0.4</text>
+  <rect x="350" y="424" width="217" height="24" rx="5" fill="#9AA7BD"/>
+  <text x="579" y="442" font-size="15" font-weight="700" fill="#5B6472">¥40</text>
+  <rect x="1060" y="423" width="144" height="26" rx="13" fill="#EEF1F6"/>
+  <text x="1132" y="441" font-size="12.5" fill="#5B6472" text-anchor="middle">50% 折扣价</text>
+  <line x1="36" y1="476" x2="1204" y2="476" stroke="#EEF1F6" stroke-width="1"/>
+
+  <!-- 5. Hydrogen flex 30 -->
+  <text x="36" y="504" font-size="16" font-weight="700" fill="#2B303B">Gemini 4 Hydrogen</text>
+  <text x="36" y="524" font-size="12.5" fill="#AAB0BC">快速执行 · 输入 6 · 缓存 0.3</text>
+  <rect x="350" y="494" width="163" height="24" rx="5" fill="#7DD3C8"/>
+  <text x="525" y="512" font-size="15" font-weight="700" fill="#0E8C8B">¥30</text>
+  <rect x="1060" y="493" width="144" height="26" rx="13" fill="#E8F8F7"/>
+  <text x="1132" y="511" font-size="12.5" font-weight="700" fill="#0E8C8B" text-anchor="middle">家族最便宜</text>
+
+  <!-- 说明条 -->
+  <rect x="36" y="576" width="1166" height="60" rx="14" fill="#FAF8FF"/>
+  <text x="62" y="602" font-size="14" font-weight="700" fill="#9333EA">一句话选型</text>
+  <text x="62" y="624" font-size="13.5" fill="#4B5263">不急的活儿、批量任务选 Flex（省一半）；赶时间、跑长任务、要更稳选 Vertex 官方档——同一模型，两条通道能力一致。</text>
+
+  <!-- 脚注 -->
+  <text x="36" y="662" font-size="12" fill="#96A0AE">注：价格为知令站内调用价（元 / 百万 token，汇率 8，与谷歌官方定价对齐）；Argon 为限时促销（至 2026-11-30，12/1 起官方价翻倍）；</text>
+  <text x="36" y="682" font-size="12" fill="#96A0AE">Carbon 为 50% 限时折扣价；Neon 无折扣、现价即实际计费价。实际价格与可用范围以知令站内实时显示为准。</text>
+</svg>

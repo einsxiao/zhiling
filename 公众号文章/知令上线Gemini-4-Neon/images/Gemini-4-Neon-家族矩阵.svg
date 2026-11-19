@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="800" viewBox="0 0 1240 800" font-family="'Microsoft YaHei','PingFang SC','Noto Sans SC',sans-serif">
+  <defs>
+    <linearGradient id="gNe" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="gNeTop" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="gHero" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F5F0FF"/>
+      <stop offset="1" stop-color="#FDF2F8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1240" height="800" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="36" y="58" font-size="31" font-weight="700" fill="#1F2430">Gemini 4 家族：一个月，四款模型</text>
+  <rect x="36" y="72" width="60" height="4" rx="2" fill="#4D6BFE"/>
+  <text x="36" y="104" font-size="15.5" fill="#6B7280">同一个底座拆成四种档位——谷歌把模型做成了「元素周期表」　·　按发布时间从左到右</text>
+  <text x="36" y="130" font-size="13.5" fill="#96A0AE">信息截至 2026-11-19，四款均已上架知令，桌面端 / 移动端可直接选用</text>
+
+  <!-- ============ 卡片 1：Argon ============ -->
+  <g>
+    <rect x="36" y="164" width="275" height="384" rx="16" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1.5"/>
+    <path d="M52 164 h243 a16 16 0 0 1 16 16 v6 h-275 v-6 a16 16 0 0 1 16-16 z" fill="#3D5AFE"/>
+    <rect x="128" y="200" width="92" height="92" rx="22" fill="#3D5AFE"/>
+    <text x="174" y="263" font-size="46" font-weight="700" fill="#FFFFFF" text-anchor="middle">Ar</text>
+    <text x="174" y="326" font-size="21" font-weight="700" fill="#1F2430" text-anchor="middle">Gemini 4 Argon</text>
+    <text x="174" y="351" font-size="13.5" fill="#8A92A3" text-anchor="middle">氩 · 10 月开放</text>
+    <text x="174" y="384" font-size="15" font-weight="700" fill="#3D5AFE" text-anchor="middle">旗舰 · 深度推理</text>
+    <text x="174" y="413" font-size="13" fill="#6B7280" text-anchor="middle">啃硬骨头：软件工程、</text>
+    <text x="174" y="433" font-size="13" fill="#6B7280" text-anchor="middle">法律金融税务分析</text>
+    <rect x="60" y="458" width="227" height="30" rx="15" fill="#EDF1FF"/>
+    <text x="174" y="478" font-size="12.5" fill="#3D5AFE" text-anchor="middle">官方 18 项基准 12 项第一</text>
+    <rect x="60" y="498" width="227" height="30" rx="15" fill="#F6F8FC"/>
+    <text x="174" y="518" font-size="12.5" fill="#7C8598" text-anchor="middle">100 万 token 上下文</text>
+  </g>
+
+  <!-- ============ 卡片 2：Carbon ============ -->
+  <g>
+    <rect x="333" y="164" width="275" height="384" rx="16" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1.5"/>
+    <path d="M349 164 h243 a16 16 0 0 1 16 16 v6 h-275 v-6 a16 16 0 0 1 16-16 z" fill="#4A5568"/>
+    <rect x="425" y="200" width="92" height="92" rx="22" fill="#4A5568"/>
+    <text x="471" y="263" font-size="46" font-weight="700" fill="#FFFFFF" text-anchor="middle">C</text>
+    <text x="471" y="326" font-size="21" font-weight="700" fill="#1F2430" text-anchor="middle">Gemini 4 Carbon</text>
+    <text x="471" y="351" font-size="13.5" fill="#8A92A3" text-anchor="middle">碳 · 11 月中</text>
+    <text x="471" y="384" font-size="15" font-weight="700" fill="#4A5568" text-anchor="middle">长流程任务</text>
+    <text x="471" y="413" font-size="13" fill="#6B7280" text-anchor="middle">复杂多步任务、</text>
+    <text x="471" y="433" font-size="13" fill="#6B7280" text-anchor="middle">智能体长跑作业</text>
+    <rect x="357" y="458" width="227" height="30" rx="15" fill="#F4F6FA"/>
+    <text x="471" y="478" font-size="12.5" fill="#5B6472" text-anchor="middle">一度登顶智能指数榜</text>
+    <rect x="357" y="498" width="227" height="30" rx="15" fill="#F6F8FC"/>
+    <text x="471" y="518" font-size="12.5" fill="#7C8598" text-anchor="middle">单任务成本不到竞品一半</text>
+  </g>
+
+  <!-- ============ 卡片 3：Hydrogen ============ -->
+  <g>
+    <rect x="630" y="164" width="275" height="384" rx="16" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1.5"/>
+    <path d="M646 164 h243 a16 16 0 0 1 16 16 v6 h-275 v-6 a16 16 0 0 1 16-16 z" fill="#0EA5A4"/>
+    <rect x="722" y="200" width="92" height="92" rx="22" fill="#0EA5A4"/>
+    <text x="768" y="263" font-size="46" font-weight="700" fill="#FFFFFF" text-anchor="middle">H</text>
+    <text x="768" y="326" font-size="21" font-weight="700" fill="#1F2430" text-anchor="middle">Gemini 4 Hydrogen</text>
+    <text x="768" y="351" font-size="13.5" fill="#8A92A3" text-anchor="middle">氢 · 上周</text>
+    <text x="768" y="384" font-size="15" font-weight="700" fill="#0E8C8B" text-anchor="middle">快速执行引擎</text>
+    <text x="768" y="413" font-size="13" fill="#6B7280" text-anchor="middle">日常搬砖、</text>
+    <text x="768" y="433" font-size="13" fill="#6B7280" text-anchor="middle">高频小任务批量跑</text>
+    <rect x="654" y="458" width="227" height="30" rx="15" fill="#E8F8F7"/>
+    <text x="768" y="478" font-size="12.5" fill="#0E8C8B" text-anchor="middle">比 3.8 Flash 快 2.5 倍</text>
+    <rect x="654" y="498" width="227" height="30" rx="15" fill="#F6F8FC"/>
+    <text x="768" y="518" font-size="12.5" fill="#7C8598" text-anchor="middle">发布当天进谷歌搜索</text>
+  </g>
+
+  <!-- ============ 卡片 4：Neon ============ -->
+  <g>
+    <rect x="927" y="164" width="275" height="384" rx="16" fill="url(#gHero)" stroke="#C4B5FD" stroke-width="2"/>
+    <path d="M943 164 h243 a16 16 0 0 1 16 16 v6 h-275 v-6 a16 16 0 0 1 16-16 z" fill="url(#gNeTop)"/>
+    <rect x="1019" y="200" width="92" height="92" rx="22" fill="url(#gNe)"/>
+    <text x="1065" y="263" font-size="42" font-weight="700" fill="#FFFFFF" text-anchor="middle">Ne</text>
+    <text x="1065" y="326" font-size="21" font-weight="700" fill="#1F2430" text-anchor="middle">Gemini 4 Neon</text>
+    <text x="1065" y="351" font-size="13.5" fill="#A855F7" text-anchor="middle">氖 · 今天发布</text>
+    <text x="1065" y="384" font-size="15" font-weight="700" fill="#A855F7" text-anchor="middle">前沿智能 + 性价比</text>
+    <text x="1065" y="413" font-size="13" fill="#6B7280" text-anchor="middle">写代码、出报告、</text>
+    <text x="1065" y="433" font-size="13" fill="#6B7280" text-anchor="middle">多模态深度分析</text>
+    <rect x="951" y="458" width="227" height="30" rx="15" fill="#F3E8FF"/>
+    <text x="1065" y="478" font-size="12.5" fill="#9333EA" text-anchor="middle">智能指数 61 · 总榜第三</text>
+    <rect x="951" y="498" width="227" height="30" rx="15" fill="#FDF2F8"/>
+    <text x="1065" y="518" font-size="12.5" fill="#DB2777" text-anchor="middle">幻觉率历史新低</text>
+  </g>
+
+  <!-- 选型口诀 -->
+  <rect x="36" y="588" width="1166" height="86" rx="16" fill="#F7F9FD"/>
+  <rect x="36" y="588" width="5" height="86" rx="2.5" fill="#4D6BFE"/>
+  <text x="64" y="622" font-size="15" font-weight="700" fill="#1F2430">选型口诀</text>
+  <text x="64" y="652" font-size="15.5" fill="#3A4150">深度推理找 <tspan font-weight="700" fill="#3D5AFE">Argon</tspan>　·　啃硬骨头找 <tspan font-weight="700" fill="#4A5568">Carbon</tspan>　·　日常搬砖找 <tspan font-weight="700" fill="#0E8C8B">Hydrogen</tspan>　·　性价比找 <tspan font-weight="700" fill="#A855F7">Neon</tspan></text>
+  <text x="1130" y="652" font-size="13" fill="#96A0AE" text-anchor="end">都在知令</text>
+
+  <!-- 脚注 -->
+  <text x="36" y="712" font-size="12" fill="#96A0AE">注：定位与能力描述整理自谷歌官方发布信息及公开评测；模型名称与可用渠道以知令站内模型列表实时显示为准。</text>
+  <text x="36" y="734" font-size="12" fill="#96A0AE">「智能指数」指 Artificial Analysis Intelligence Index，「曾经登顶」指 Carbon 发布时一度位列该榜第一。</text>
+</svg>
